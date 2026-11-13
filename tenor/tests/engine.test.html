@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenor engine tests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3EC; --surface: #FFFFFF; --ink: #13261C; --muted: #56685D; --line: #DAD8CE; --mint: #1E6B47; --bad: #A2382B;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #121715; --surface: #19201D; --ink: #EEF0EA; --muted: #A3B3A9; --line: #2B3430; --mint: #8FD0AB; --bad: #F0A194; color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --bg: #121715; --surface: #19201D; --ink: #EEF0EA; --muted: #A3B3A9; --line: #2B3430; --mint: #8FD0AB; --bad: #F0A194; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 Geist, system-ui, sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 40px 16px 64px; }
+  h1 { font: 500 clamp(2rem, 5vw, 2.8rem)/1.1 Newsreader, Georgia, serif; margin: 0 0 6px; }
+  h2 { font: 500 1.5rem/1.2 Newsreader, Georgia, serif; margin: 40px 0 12px; }
+  .lede { color: var(--muted); margin: 0 0 24px; max-width: 64ch; }
+  .summary { font-size: 1.1rem; margin-bottom: 20px; }
+  .summary strong { color: var(--mint); }
+  .summary.failed strong { color: var(--bad); }
+  ol.tests { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  ol.tests li { display: grid; grid-template-columns: 4.5rem 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .status { font-weight: 600; color: var(--mint); }
+  .status.fail { color: var(--bad); }
+  .detail { display: block; color: var(--muted); font-size: 0.875rem; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 0.875rem; }
+  th, td { padding: 8px 12px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; white-space: normal; min-width: 14rem; }
+  th { color: var(--muted); font-weight: 500; }
+  tr:last-child td { border-bottom: 0; }
+  .note { color: var(--muted); font-size: 0.875rem; max-width: 70ch; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Engine tests</h1>
+  <p class="lede">Runs Tenor's calculation checks in your browser, then models every case in the library. Illustrative results only, not financial advice.</p>
+  <p class="summary" id="summary" role="status">Running tests…</p>
+  <ol class="tests" id="tests"></ol>
+
+  <h2>Every case in the library</h2>
+  <p class="note">Ratios use the case's sourced figures where they exist and labelled assumptions everywhere else. DSCR is measured from the first operating year. "n/a" means the measure does not apply, for example IRR for a business with no upfront outflow.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Case</th><th scope="col">Years</th><th scope="col">EBITDA margin</th><th scope="col">Lowest DSCR</th><th scope="col">LLCR</th><th scope="col">Project IRR</th><th scope="col">Payback</th><th scope="col">Readiness</th><th scope="col">Checks</th></tr></thead>
+      <tbody id="cases"><tr><td colspan="9">Loading…</td></tr></tbody>
+    </table>
+  </div>
+</main>
+<script src="../js/engine.js"></script>
+<script src="../js/adapter.js"></script>
+<script src="engine.tests.js"></script>
+<script>
+(async function () {
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const load = (f) => fetch('../data/' + f).then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
+  let data = null;
+  try { data = { cases: await load('cases.json'), sectors: await load('sectors.json'), defaults: await load('defaults.json') }; }
+  catch (e) { document.getElementById('cases').innerHTML = '<tr><td colspan="9">Could not load the case library (' + esc(e.message) + '). Open this page through a web server, not as a file.</td></tr>'; }
+  const results = runTenorTests(TenorEngine, TenorAdapter, data);
+  const passed = results.filter((r) => r.pass).length;
+  const sum = document.getElementById('summary');
+  sum.innerHTML = '<strong>' + passed + ' of ' + results.length + '</strong> tests passed.';
+  if (passed !== results.length) sum.classList.add('failed');
+  document.getElementById('tests').innerHTML = results.map((r) =>
+    '<li><span class="status' + (r.pass ? '' : ' fail') + '">' + (r.pass ? 'Pass' : 'Fail') + '</span><span>' + esc(r.name) +
+    (r.detail ? '<span class="detail">' + esc(r.detail) + '</span>' : '') + '</span></li>').join('');
+  if (!results.caseResults) return;
+  const pct = (x) => (x === null || x === undefined ? 'n/a' : (x * 100).toFixed(1) + '%');
+  const f2 = (x) => (x === null || x === undefined ? 'n/a' : x.toFixed(2));
+  document.getElementById('cases').innerHTML = results.caseResults.map((c) => {
+    if (!c.model) return '<tr><td>' + esc(c.name) + '</td><td colspan="8">' + esc(c.problems.join('; ')) + '</td></tr>';
+    const k = c.model.kpis;
+    return '<tr><td>' + esc(c.name) + '</td><td>' + c.model.N + '</td><td>' + pct(k.ebitdaMargin) + '</td><td>' + f2(k.dscrMin) + '</td><td>' + f2(k.llcr) +
+      '</td><td>' + pct(k.projectIRR) + '</td><td>' + (k.paybackYears === null ? 'n/a' : k.paybackYears.toFixed(1) + ' yrs') + '</td><td>' + c.readiness.score +
+      '</td><td>' + (c.ok ? 'All true' : esc(c.problems.join(', '))) + '</td></tr>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
