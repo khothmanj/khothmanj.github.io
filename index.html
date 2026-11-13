@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khadijat Othman · Product Manager</title>
+<meta name="description" content="Khadijat Othman, Product Manager for AI-enabled products, B2B SaaS and fintech. Working, clickable product prototypes with the thinking behind them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+  header.intro { padding-top: clamp(48px, 9vw, 112px); padding-bottom: clamp(36px, 6vw, 64px); }
+  .intro .role { color: var(--muted); font-size: 1.05rem; margin: 0 0 18px; }
+  .intro h1 { font-size: clamp(3rem, 8vw, 5.6rem); }
+  .intro p.position { font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 54ch; margin: 22px 0 0; }
+  section.work { padding-bottom: 72px; }
+  section.work > h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 20px; }
+  .project { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; }
+  .project:hover .go { text-decoration: underline; }
+  .project .shot { background: #121715; color: #EEF0EA; padding: clamp(20px, 3vw, 32px); display: grid; align-content: space-between; gap: 20px; min-height: 280px; }
+  .shot .tenor { font-family: "Instrument Serif", Georgia, serif; font-size: 1.6rem; }
+  .shot .figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border-top: 1px solid #2B3430; padding-top: 14px; }
+  .shot .figs span { display: block; color: #A3B3A9; font-size: 0.78rem; }
+  .shot .figs strong { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2.4vw, 1.8rem); }
+  .shot .line { color: #8FD0AB; width: 100%; height: 70px; }
+  .project .text { padding: clamp(22px, 3vw, 36px); display: grid; align-content: start; gap: 14px; }
+  .project h3 { font-size: clamp(2rem, 3.6vw, 2.6rem); }
+  .project .problem { margin: 0; font-size: 1.05rem; }
+  .project .result { margin: 0; color: var(--muted); }
+  .project .result strong { color: var(--ink); font-weight: 500; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .tags li { font-size: 0.82rem; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px; }
+  .go { color: var(--violet); font-weight: 500; }
+  .note { color: var(--muted); font-size: 0.9rem; margin-top: 18px; }
+  footer { border-top: 1px solid var(--line); padding: 22px 0 40px; color: var(--muted); font-size: 0.9rem; }
+  @media (max-width: 780px) { .project { grid-template-columns: minmax(0, 1fr); } .project .shot { min-height: 220px; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to projects</a>
+<main>
+  <header class="intro wrap">
+    <p class="role">Product Manager, AI-enabled products, B2B SaaS, fintech</p>
+    <h1>Khadijat Othman</h1>
+    <p class="position">I turn messy workflows into products people trust. Over 5 years I have shipped fintech integrations, B2B platforms and AI tools, including an AI-assisted financial modelling tool that cut manual modelling time by about 70%.</p>
+  </header>
+
+  <section class="work wrap" id="work" aria-labelledby="work-h">
+    <h2 id="work-h">Projects</h2>
+    <a class="project" href="tenor/">
+      <div class="shot" aria-hidden="true">
+        <span class="tenor">Tenor</span>
+        <svg class="line" viewBox="0 0 300 70" fill="none" stroke="currentColor" stroke-width="2" preserveAspectRatio="none"><path d="M0 62 L30 40 L60 30 L90 34 L120 26 L150 24 L180 20 L210 17 L240 14 L270 11 L300 8"/><path d="M0 62 L30 40 L60 30 L90 34 L120 26 L150 24 L180 20 L210 17 L240 14 L270 11 L300 8 L300 70 L0 70 Z" fill="currentColor" opacity="0.12" stroke="none"/></svg>
+        <div class="figs"><div><span>Yearly sales</span><strong>$2.16m</strong></div><div><span>Largest loan payment</span><strong>$328k</strong></div><div><span>Paid off by</span><strong>Year 10</strong></div></div>
+      </div>
+      <div class="text">
+        <h3>Tenor</h3>
+        <p class="problem">Investor-ready financial models took days per project, and many founders could not read the models they were given. Tenor turns a project's story and a few numbers into a linked Excel model, a report and a deck.</p>
+        <ul class="tags" aria-label="Topics"><li>Fintech</li><li>Project finance</li><li>AI-assisted</li><li>Data and Excel</li></ul>
+        <p class="result">Based on the tool I built at Cape Mano Group, which cut manual modelling time by <strong>~70%</strong>.</p>
+        <span class="go">Open Tenor and its case study</span>
+      </div>
+    </a>
+    <p class="note">More projects are being added. Every project is a working prototype with a fictional brand or public data, and a case study as its last tab.</p>
+  </section>
+</main>
+<footer class="wrap">Khadijat Othman · Product Manager · UK</footer>
+</body>
+</html>
