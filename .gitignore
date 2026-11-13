@@ -1,0 +1,17 @@
+# Private: CV source, personal notes. Never publish.
+private/
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Local preview server and Claude Code settings
+.claude/
