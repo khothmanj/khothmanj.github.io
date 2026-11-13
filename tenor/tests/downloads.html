@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenor download tests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #F5F3EC; --surface: #FFFFFF; --ink: #13261C; --muted: #56685D; --line: #DAD8CE; --mint: #1E6B47; --bad: #A2382B; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #121715; --surface: #19201D; --ink: #EEF0EA; --muted: #A3B3A9; --line: #2B3430; --mint: #8FD0AB; --bad: #F0A194; color-scheme: dark; } }
+  :root[data-theme="dark"] { --bg: #121715; --surface: #19201D; --ink: #EEF0EA; --muted: #A3B3A9; --line: #2B3430; --mint: #8FD0AB; --bad: #F0A194; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 Geist, system-ui, sans-serif; }
+  main { max-width: 880px; margin: 0 auto; padding: 40px 16px 64px; }
+  h1 { font: 500 clamp(2rem, 5vw, 2.6rem)/1.1 Newsreader, Georgia, serif; margin: 0 0 6px; }
+  p { color: var(--muted); max-width: 64ch; }
+  .controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; margin: 24px 0; }
+  label { display: grid; gap: 4px; font-size: 0.875rem; color: var(--muted); }
+  select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; max-width: 100%; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+  button { font: inherit; font-weight: 500; color: var(--bg); background: var(--mint); border: 0; border-radius: 6px; padding: 10px 16px; cursor: pointer; }
+  button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+  button[disabled] { opacity: 0.6; cursor: progress; }
+  ol { padding-left: 1.2rem; }
+  #log li { margin: 4px 0; font-variant-numeric: tabular-nums; }
+  .bad { color: var(--bad); }
+  pre { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px; overflow-x: auto; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Download tests</h1>
+  <p>Builds each Tenor download in your browser from a library case. Libraries load from jsDelivr the first time you use them. Nothing is sent to a server.</p>
+  <div class="controls">
+    <label>Case <select id="case"></select></label>
+    <label>Audience <select id="aud"><option value="simple">Simple view</option><option value="investor">Investor view</option></select></label>
+  </div>
+  <div class="buttons">
+    <button data-kind="excel">Download Excel model</button>
+    <button data-kind="word">Download Word report</button>
+    <button data-kind="deck">Download presentation</button>
+    <button data-kind="csv">Download data as CSV (values only)</button>
+    <button data-kind="template">Download input template</button>
+  </div>
+  <p><label>Read a filled-in template <input type="file" id="tpl" accept=".xlsx"></label></p>
+  <ol id="log" aria-live="polite"></ol>
+  <pre id="parsed" hidden></pre>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.6.1/dist/chart.umd.min.js"></script>
+<script src="../js/engine.js"></script>
+<script src="../js/adapter.js"></script>
+<script src="../js/narrative.js"></script>
+<script src="../js/export/xlsx.js"></script>
+<script src="../js/export/docx.js"></script>
+<script src="../js/export/pptx.js"></script>
+<script src="../js/export/csv.js"></script>
+<script src="../js/export/chart-images.js"></script>
+<script src="../js/export/index.js"></script>
+<script>
+(async function () {
+  const load = (f) => fetch('../data/' + f).then((r) => r.json());
+  const [cases, sectors, defaults] = await Promise.all([load('cases.json'), load('sectors.json'), load('defaults.json')]);
+  const sel = document.getElementById('case');
+  sel.innerHTML = cases.cases.map((c) => '<option value="' + c.id + '">' + c.name.replace(/</g, '&lt;') + '</option>').join('');
+  const log = (t, bad) => { const li = document.createElement('li'); li.textContent = t; if (bad) li.className = 'bad'; document.getElementById('log').appendChild(li); };
+  const ctx = async () => {
+    const c = cases.cases.find((x) => x.id === sel.value);
+    const input = TenorAdapter.caseToInput(c, sectors, defaults);
+    const model = TenorEngine.run(input);
+    const sens = TenorEngine.sensitivities(input, model);
+    const ready = TenorEngine.readiness(input, model, sectors);
+    return { input, model, sens, ready, caseRecord: c, sectors, engine: TenorEngine, audience: document.getElementById('aud').value, sector: c.sector, similar: [] };
+  };
+  document.querySelectorAll('button[data-kind]').forEach((b) => b.addEventListener('click', async () => {
+    b.disabled = true; const t0 = performance.now();
+    try {
+      const c = await ctx();
+      if (b.dataset.kind === 'word') c.charts = await TenorChartImages.renderReportCharts(Chart, c.model);
+      const f = await TenorExport.download(b.dataset.kind, c);
+      log(f.name + ': ' + Math.round(f.data.size / 1024) + ' KB in ' + Math.round(performance.now() - t0) + ' ms');
+      window.__lastFile = { name: f.name, size: f.data.size };
+    } catch (e) { log(b.dataset.kind + ' failed: ' + e.message, true); console.error(e); }
+    b.disabled = false;
+  }));
+  document.getElementById('tpl').addEventListener('change', async (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    try { const r = await TenorExport.readTemplate(f); const p = document.getElementById('parsed'); p.hidden = false; p.textContent = JSON.stringify(r, null, 2); log('Read template: ' + Object.keys(r.rev).length + ' sales fields'); }
+    catch (err) { log('Template failed: ' + err.message, true); }
+  });
+  window.__ready = true;
+})();
+</script>
+</body>
+</html>
