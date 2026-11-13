@@ -1,0 +1,1367 @@
+{
+  "version": 1,
+  "notes": "Sector templates for Tenor's intake. Each template defines the questions asked in step 2, their units, the revenue formula behind the live estimate, typical cost lines and the benchmark fields matched against the case library. Default values are illustrative starting points, not benchmarks. Benchmarks come only from cases.json.",
+  "asset_classes": {
+    "land_improvement": {
+      "label": "Land and earthworks",
+      "life_years": 25
+    },
+    "civil_works": {
+      "label": "Buildings and civil works",
+      "life_years": 25
+    },
+    "irrigation": {
+      "label": "Irrigation and water infrastructure",
+      "life_years": 20
+    },
+    "plant": {
+      "label": "Plant and machinery",
+      "life_years": 15
+    },
+    "equipment": {
+      "label": "Equipment and vehicles",
+      "life_years": 7
+    },
+    "solar": {
+      "label": "Solar, batteries and power systems",
+      "life_years": 15
+    },
+    "it": {
+      "label": "Software and IT",
+      "life_years": 3
+    },
+    "livestock_infra": {
+      "label": "Livestock housing and processing",
+      "life_years": 20
+    },
+    "other": {
+      "label": "Other set-up costs",
+      "life_years": 5
+    }
+  },
+  "sectors": [
+    {
+      "id": "crops",
+      "label": "Crops",
+      "simple_label": "Growing crops",
+      "examples": [
+        "Rice",
+        "Maize",
+        "Soybean",
+        "Cassava",
+        "Cocoa",
+        "Sugarcane",
+        "Vegetables"
+      ],
+      "illustration": "fields",
+      "step2_title": "What could your farm produce?",
+      "inputs": [
+        {
+          "key": "hectares",
+          "label": "Area planted",
+          "simple_label": "Land you'll plant",
+          "unit": "hectares",
+          "default": 100,
+          "benchmark": false
+        },
+        {
+          "key": "crop",
+          "label": "Crop",
+          "simple_label": "What will you grow?",
+          "type": "select",
+          "options_from": "examples",
+          "default": "Rice"
+        },
+        {
+          "key": "harvests_per_year",
+          "label": "Crop cycles per year",
+          "simple_label": "Harvests each year",
+          "unit": "per year",
+          "default": 1,
+          "benchmark": true
+        },
+        {
+          "key": "yield_per_ha",
+          "label": "Yield per hectare per cycle",
+          "simple_label": "Crop from each hectare",
+          "unit": "tonnes per harvest",
+          "default": 3,
+          "benchmark": true
+        },
+        {
+          "key": "price_per_tonne",
+          "label": "Farm-gate price",
+          "simple_label": "Expected selling price",
+          "unit": "per tonne",
+          "default": 300,
+          "benchmark": true
+        },
+        {
+          "key": "losses_pct",
+          "label": "Post-harvest losses",
+          "simple_label": "Crop lost before sale",
+          "unit": "%",
+          "default": 10,
+          "hint": "For spoilage, pests or other losses",
+          "benchmark": true
+        },
+        {
+          "key": "export_pct",
+          "label": "Export share of sales",
+          "simple_label": "Share you'll sell abroad",
+          "unit": "%",
+          "default": 0
+        }
+      ],
+      "revenue_formula": "hectares * harvests_per_year * yield_per_ha * (1 - losses_pct / 100) * price_per_tonne",
+      "revenue_explained": "Land planted, times harvests a year, times crop per hectare, less what's lost, times the price per tonne.",
+      "cost_lines": [
+        {
+          "key": "input_cost_per_ha",
+          "label": "Growing costs per hectare per harvest",
+          "simple_label": "Seeds, fertiliser and field labour",
+          "type": "variable_per_ha_cycle",
+          "default": 450
+        },
+        {
+          "key": "overheads",
+          "label": "Fixed overheads",
+          "simple_label": "People, power, transport and admin",
+          "type": "fixed",
+          "default": 60000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Land clearing and preparation",
+          "class": "land_improvement"
+        },
+        {
+          "label": "Tractors and implements",
+          "class": "equipment"
+        },
+        {
+          "label": "Storage and drying",
+          "class": "civil_works"
+        }
+      ],
+      "ramp_up_default": [
+        0.6,
+        0.85,
+        1
+      ]
+    },
+    {
+      "id": "irrigation",
+      "label": "Irrigation and water infrastructure",
+      "simple_label": "Irrigation",
+      "examples": [
+        "Scheme rehabilitation",
+        "New irrigation scheme",
+        "Dam and canal works"
+      ],
+      "illustration": "irrigation",
+      "step2_title": "What will the water make possible?",
+      "inputs": [
+        {
+          "key": "hectares",
+          "label": "Irrigated area",
+          "simple_label": "Land that will get water",
+          "unit": "hectares",
+          "default": 1000,
+          "benchmark": false
+        },
+        {
+          "key": "crop",
+          "label": "Main crop",
+          "simple_label": "What will farmers grow?",
+          "type": "text",
+          "default": "Rice"
+        },
+        {
+          "key": "harvests_per_year",
+          "label": "Crop cycles per year with irrigation",
+          "simple_label": "Harvests each year",
+          "unit": "per year",
+          "default": 2,
+          "benchmark": true
+        },
+        {
+          "key": "yield_without",
+          "label": "Yield without the project",
+          "simple_label": "Crop per hectare today",
+          "unit": "tonnes per harvest",
+          "default": 2,
+          "benchmark": true
+        },
+        {
+          "key": "yield_per_ha",
+          "label": "Yield with the project",
+          "simple_label": "Crop per hectare with water",
+          "unit": "tonnes per harvest",
+          "default": 4,
+          "benchmark": true
+        },
+        {
+          "key": "price_per_tonne",
+          "label": "Farm-gate price",
+          "simple_label": "Expected selling price",
+          "unit": "per tonne",
+          "default": 300,
+          "benchmark": true
+        },
+        {
+          "key": "losses_pct",
+          "label": "Post-harvest losses",
+          "simple_label": "Crop lost before sale",
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "key": "water_fee_per_ha",
+          "label": "Irrigation service fee",
+          "simple_label": "Water fee farmers pay per hectare a year",
+          "unit": "per hectare per year",
+          "default": 0
+        }
+      ],
+      "revenue_formula": "hectares * harvests_per_year * (yield_per_ha - yield_without) * (1 - losses_pct / 100) * price_per_tonne + hectares * water_fee_per_ha",
+      "revenue_explained": "The extra crop the water makes possible, valued at the selling price, plus any water fees collected. For a public scheme this is the economic benefit, not cash the scheme owner receives.",
+      "cost_lines": [
+        {
+          "key": "om_pct_capex",
+          "label": "Operation and maintenance",
+          "simple_label": "Keeping canals and pumps working",
+          "type": "pct_of_capex",
+          "default": 2
+        },
+        {
+          "key": "input_cost_per_ha",
+          "label": "Extra growing costs per hectare per harvest",
+          "simple_label": "Extra seeds, fertiliser and labour",
+          "type": "variable_per_ha_cycle",
+          "default": 250
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Canals, pumps and drainage",
+          "class": "irrigation"
+        },
+        {
+          "label": "Dam and headworks",
+          "class": "civil_works"
+        },
+        {
+          "label": "Farmer training and support",
+          "class": "other"
+        }
+      ],
+      "ramp_up_default": [
+        0.5,
+        0.8,
+        1
+      ]
+    },
+    {
+      "id": "livestock",
+      "label": "Livestock and poultry",
+      "simple_label": "Animals",
+      "examples": [
+        "Poultry",
+        "Beef",
+        "Dairy",
+        "Pigs",
+        "Fish"
+      ],
+      "illustration": "livestock",
+      "step2_title": "How many animals, and what will they produce?",
+      "inputs": [
+        {
+          "key": "herd_size",
+          "label": "Herd or flock size",
+          "simple_label": "Animals at full size",
+          "unit": "animals",
+          "default": 5000,
+          "benchmark": false
+        },
+        {
+          "key": "cycles_per_year",
+          "label": "Production cycles per year",
+          "simple_label": "Batches sold each year",
+          "unit": "per year",
+          "default": 6
+        },
+        {
+          "key": "output_per_animal",
+          "label": "Saleable output per animal per cycle",
+          "simple_label": "What each animal produces per batch",
+          "unit": "kg",
+          "default": 2,
+          "benchmark": true
+        },
+        {
+          "key": "mortality_pct",
+          "label": "Mortality",
+          "simple_label": "Animals lost before sale",
+          "unit": "%",
+          "default": 5,
+          "benchmark": true
+        },
+        {
+          "key": "price_per_unit",
+          "label": "Price per kg",
+          "simple_label": "Selling price",
+          "unit": "per kg",
+          "default": 3,
+          "benchmark": true
+        }
+      ],
+      "revenue_formula": "herd_size * cycles_per_year * output_per_animal * (1 - mortality_pct / 100) * price_per_unit",
+      "revenue_explained": "Animals, times batches a year, times what each produces, less losses, times the price.",
+      "cost_lines": [
+        {
+          "key": "feed_cost_per_animal",
+          "label": "Feed cost per animal per cycle",
+          "simple_label": "Feed for each animal per batch",
+          "type": "variable_per_animal_cycle",
+          "default": 2.5
+        },
+        {
+          "key": "vet_and_other",
+          "label": "Veterinary and other variable costs",
+          "simple_label": "Vet care and medicines",
+          "type": "pct_of_revenue",
+          "default": 5
+        },
+        {
+          "key": "overheads",
+          "label": "Fixed overheads",
+          "simple_label": "Staff, power and admin",
+          "type": "fixed",
+          "default": 80000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Housing and pens",
+          "class": "livestock_infra"
+        },
+        {
+          "label": "Processing and cold storage",
+          "class": "plant"
+        },
+        {
+          "label": "Vehicles",
+          "class": "equipment"
+        }
+      ],
+      "ramp_up_default": [
+        0.5,
+        0.8,
+        1
+      ]
+    },
+    {
+      "id": "agro_processing",
+      "label": "Agro-processing",
+      "simple_label": "Processing crops",
+      "examples": [
+        "Rice mill",
+        "Soybean crush",
+        "Cassava flour",
+        "Cocoa processing",
+        "Feed mill"
+      ],
+      "illustration": "factory",
+      "step2_title": "How much will you process?",
+      "inputs": [
+        {
+          "key": "capacity_tpy",
+          "label": "Installed capacity",
+          "simple_label": "Most you could process in a year",
+          "unit": "tonnes of input per year",
+          "default": 20000,
+          "benchmark": false
+        },
+        {
+          "key": "utilisation_pct",
+          "label": "Capacity utilisation",
+          "simple_label": "How busy the plant will be",
+          "unit": "%",
+          "default": 60,
+          "benchmark": true
+        },
+        {
+          "key": "conversion_pct",
+          "label": "Conversion rate",
+          "simple_label": "Finished product from each tonne of input",
+          "unit": "%",
+          "default": 62,
+          "hint": "For example, about 60 to 65% for paddy to milled rice",
+          "benchmark": true
+        },
+        {
+          "key": "product_price",
+          "label": "Product price",
+          "simple_label": "Selling price of the finished product",
+          "unit": "per tonne",
+          "default": 700,
+          "benchmark": true
+        },
+        {
+          "key": "input_price",
+          "label": "Input cost",
+          "simple_label": "What you pay for each tonne of raw crop",
+          "unit": "per tonne",
+          "default": 330
+        },
+        {
+          "key": "byproduct_revenue_pct",
+          "label": "By-product revenue",
+          "simple_label": "Extra sales from husks, bran or meal",
+          "unit": "% of main sales",
+          "default": 3
+        },
+        {
+          "key": "export_pct",
+          "label": "Export share of sales",
+          "simple_label": "Share you'll sell abroad",
+          "unit": "%",
+          "default": 0
+        }
+      ],
+      "revenue_formula": "capacity_tpy * utilisation_pct / 100 * conversion_pct / 100 * product_price * (1 + byproduct_revenue_pct / 100)",
+      "revenue_explained": "Tonnes processed, times how much finished product each tonne makes, times its price, plus by-product sales.",
+      "cost_lines": [
+        {
+          "key": "input_price",
+          "label": "Raw material",
+          "simple_label": "Buying the raw crop",
+          "type": "variable_per_input_tonne",
+          "default": 330
+        },
+        {
+          "key": "energy_per_tonne",
+          "label": "Energy and consumables per input tonne",
+          "simple_label": "Power, fuel and packaging",
+          "type": "variable_per_input_tonne",
+          "default": 25
+        },
+        {
+          "key": "overheads",
+          "label": "Fixed overheads",
+          "simple_label": "Staff, maintenance and admin",
+          "type": "fixed",
+          "default": 250000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Processing lines",
+          "class": "plant"
+        },
+        {
+          "label": "Buildings and warehouses",
+          "class": "civil_works"
+        },
+        {
+          "label": "Power and water",
+          "class": "solar"
+        }
+      ],
+      "ramp_up_default": [
+        0.5,
+        0.8,
+        1
+      ]
+    },
+    {
+      "id": "energy",
+      "label": "Energy",
+      "simple_label": "Power",
+      "examples": [
+        "Solar mini-grid",
+        "Captive solar for a business",
+        "Solar home systems",
+        "Gas-fired power"
+      ],
+      "illustration": "solar",
+      "step2_title": "How much power will you sell?",
+      "inputs": [
+        {
+          "key": "connections",
+          "label": "Customer connections",
+          "simple_label": "Homes and businesses connected",
+          "unit": "connections",
+          "default": 1500,
+          "benchmark": false
+        },
+        {
+          "key": "kwh_per_connection_month",
+          "label": "Consumption per connection",
+          "simple_label": "Power each customer uses a month",
+          "unit": "kWh per month",
+          "default": 25,
+          "benchmark": true
+        },
+        {
+          "key": "tariff_per_kwh",
+          "label": "Tariff",
+          "simple_label": "Price per unit of power",
+          "unit": "per kWh",
+          "default": 0.35,
+          "benchmark": true
+        },
+        {
+          "key": "collection_pct",
+          "label": "Collection rate",
+          "simple_label": "Share of bills you'll actually collect",
+          "unit": "%",
+          "default": 95,
+          "hint": "Prepaid meters usually push this close to 100%",
+          "benchmark": true
+        },
+        {
+          "key": "connection_grant",
+          "label": "Grant per connection",
+          "simple_label": "Grant you receive for each new connection",
+          "unit": "per connection, one-off",
+          "default": 0
+        }
+      ],
+      "revenue_formula": "connections * kwh_per_connection_month * 12 * tariff_per_kwh * collection_pct / 100",
+      "revenue_explained": "Customers, times the power each uses in a year, times the price, times the share you collect. One-off connection grants are treated as funding, not sales.",
+      "cost_lines": [
+        {
+          "key": "om_pct_capex",
+          "label": "Operation and maintenance",
+          "simple_label": "Keeping the system running",
+          "type": "pct_of_capex",
+          "default": 3
+        },
+        {
+          "key": "fuel_per_kwh",
+          "label": "Fuel per kWh (hybrid systems)",
+          "simple_label": "Diesel or gas for backup",
+          "type": "variable_per_kwh",
+          "default": 0.03
+        },
+        {
+          "key": "overheads",
+          "label": "Fixed overheads",
+          "simple_label": "Staff, metering and admin",
+          "type": "fixed",
+          "default": 40000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Solar panels and inverters",
+          "class": "solar"
+        },
+        {
+          "label": "Batteries",
+          "class": "equipment"
+        },
+        {
+          "label": "Distribution network and meters",
+          "class": "civil_works"
+        }
+      ],
+      "ramp_up_default": [
+        0.6,
+        0.9,
+        1
+      ]
+    },
+    {
+      "id": "petroleum",
+      "label": "Oil, gas and petroleum",
+      "simple_label": "Refining and gas",
+      "examples": [
+        "Modular refinery",
+        "Gas processing",
+        "LPG distribution"
+      ],
+      "illustration": "refinery",
+      "step2_title": "How much will you process?",
+      "inputs": [
+        {
+          "key": "capacity_bpd",
+          "label": "Nameplate capacity",
+          "simple_label": "Barrels you could process a day",
+          "unit": "barrels per day",
+          "default": 5000,
+          "benchmark": false
+        },
+        {
+          "key": "utilisation_pct",
+          "label": "Utilisation",
+          "simple_label": "How busy the plant will be",
+          "unit": "%",
+          "default": 85,
+          "benchmark": true
+        },
+        {
+          "key": "operating_days",
+          "label": "Operating days per year",
+          "simple_label": "Days running each year",
+          "unit": "days",
+          "default": 330
+        },
+        {
+          "key": "product_value_per_bbl",
+          "label": "Product value per barrel processed",
+          "simple_label": "What the products from one barrel sell for",
+          "unit": "per barrel",
+          "default": 95,
+          "benchmark": true
+        },
+        {
+          "key": "crude_cost_per_bbl",
+          "label": "Feedstock cost per barrel",
+          "simple_label": "What each barrel of crude costs you",
+          "unit": "per barrel",
+          "default": 80,
+          "benchmark": true
+        },
+        {
+          "key": "export_pct",
+          "label": "Export share of sales",
+          "simple_label": "Share you'll sell abroad",
+          "unit": "%",
+          "default": 0
+        }
+      ],
+      "revenue_formula": "capacity_bpd * utilisation_pct / 100 * operating_days * product_value_per_bbl",
+      "revenue_explained": "Barrels a day, times how busy the plant is, times days running, times what the products from a barrel sell for. The gap between product value and crude cost is the refining margin.",
+      "cost_lines": [
+        {
+          "key": "crude_cost_per_bbl",
+          "label": "Feedstock",
+          "simple_label": "Buying crude",
+          "type": "variable_per_barrel",
+          "default": 80
+        },
+        {
+          "key": "processing_cost_per_bbl",
+          "label": "Processing cost per barrel",
+          "simple_label": "Power, chemicals and maintenance",
+          "type": "variable_per_barrel",
+          "default": 4
+        },
+        {
+          "key": "overheads",
+          "label": "Fixed overheads",
+          "simple_label": "Staff, insurance and admin",
+          "type": "fixed",
+          "default": 3000000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Process units",
+          "class": "plant"
+        },
+        {
+          "label": "Storage tanks and loading",
+          "class": "civil_works"
+        },
+        {
+          "label": "Utilities and power",
+          "class": "plant"
+        }
+      ],
+      "ramp_up_default": [
+        0.6,
+        0.9,
+        1
+      ]
+    },
+    {
+      "id": "tech",
+      "label": "Technology and software",
+      "simple_label": "An app or software",
+      "examples": [
+        "Subscription software",
+        "Marketplace",
+        "Edtech",
+        "Healthtech"
+      ],
+      "illustration": "laptop",
+      "step2_title": "How will customers find you and pay?",
+      "inputs": [
+        {
+          "key": "starting_customers",
+          "label": "Paying customers at launch",
+          "simple_label": "Paying customers you start with",
+          "unit": "customers",
+          "default": 200
+        },
+        {
+          "key": "new_customers_month",
+          "label": "New paying customers per month",
+          "simple_label": "New paying customers each month",
+          "unit": "per month",
+          "default": 150,
+          "benchmark": false
+        },
+        {
+          "key": "price_per_month",
+          "label": "Average revenue per customer",
+          "simple_label": "What each customer pays a month",
+          "unit": "per month",
+          "default": 12,
+          "benchmark": true
+        },
+        {
+          "key": "churn_pct_month",
+          "label": "Monthly churn",
+          "simple_label": "Customers who leave each month",
+          "unit": "%",
+          "default": 4,
+          "benchmark": true
+        },
+        {
+          "key": "cac",
+          "label": "Customer acquisition cost",
+          "simple_label": "Cost to win each new customer",
+          "unit": "per customer",
+          "default": 40,
+          "benchmark": true
+        },
+        {
+          "key": "growth_pct_year",
+          "label": "Growth in new customers per year",
+          "simple_label": "How much faster you'll add customers each year",
+          "unit": "%",
+          "default": 30
+        }
+      ],
+      "revenue_formula": "average_customers * price_per_month * 12",
+      "revenue_explained": "The average number of paying customers in the year, times what each pays a month, times 12. Customers grow with new sign-ups and shrink with churn.",
+      "cost_lines": [
+        {
+          "key": "cac",
+          "label": "Sales and marketing",
+          "simple_label": "Winning new customers",
+          "type": "per_new_customer",
+          "default": 40
+        },
+        {
+          "key": "hosting_pct",
+          "label": "Hosting and payment fees",
+          "simple_label": "Servers and card fees",
+          "type": "pct_of_revenue",
+          "default": 12
+        },
+        {
+          "key": "team_cost",
+          "label": "Team and overheads",
+          "simple_label": "Salaries, office and tools",
+          "type": "fixed",
+          "default": 300000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Product build",
+          "class": "it"
+        },
+        {
+          "label": "Equipment",
+          "class": "equipment"
+        }
+      ],
+      "ramp_up_default": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "fintech",
+      "label": "Fintech and payments",
+      "simple_label": "Payments or lending",
+      "examples": [
+        "Payments",
+        "Pay-as-you-go asset finance",
+        "Digital lending",
+        "Savings"
+      ],
+      "illustration": "phone",
+      "step2_title": "How will money move through your product?",
+      "inputs": [
+        {
+          "key": "active_customers",
+          "label": "Active customers (year 1 average)",
+          "simple_label": "Customers using it each month",
+          "unit": "customers",
+          "default": 20000,
+          "benchmark": false
+        },
+        {
+          "key": "customer_growth_pct",
+          "label": "Customer growth per year",
+          "simple_label": "How fast your customers grow each year",
+          "unit": "%",
+          "default": 40
+        },
+        {
+          "key": "volume_per_customer",
+          "label": "Annual volume per customer",
+          "simple_label": "Money each customer moves or borrows a year",
+          "unit": "per customer per year",
+          "default": 400,
+          "benchmark": true
+        },
+        {
+          "key": "take_rate_pct",
+          "label": "Take rate or net yield",
+          "simple_label": "What you earn on each 100 that moves",
+          "unit": "%",
+          "default": 2,
+          "benchmark": true
+        },
+        {
+          "key": "loss_rate_pct",
+          "label": "Credit or fraud losses",
+          "simple_label": "Share of volume lost to bad debt or fraud",
+          "unit": "% of volume",
+          "default": 1,
+          "benchmark": true
+        },
+        {
+          "key": "cac",
+          "label": "Customer acquisition cost",
+          "simple_label": "Cost to win each new customer",
+          "unit": "per customer",
+          "default": 8
+        }
+      ],
+      "revenue_formula": "active_customers * volume_per_customer * take_rate_pct / 100",
+      "revenue_explained": "Customers, times the money each moves or borrows, times what you keep from it. Losses are a cost, so they come off later.",
+      "cost_lines": [
+        {
+          "key": "loss_rate_pct",
+          "label": "Credit and fraud losses",
+          "simple_label": "Bad debt and fraud",
+          "type": "pct_of_volume",
+          "default": 1
+        },
+        {
+          "key": "processing_pct",
+          "label": "Processing and partner fees",
+          "simple_label": "Bank, card and network fees",
+          "type": "pct_of_revenue",
+          "default": 20
+        },
+        {
+          "key": "team_cost",
+          "label": "Team and overheads",
+          "simple_label": "Salaries, compliance and office",
+          "type": "fixed",
+          "default": 600000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Platform build",
+          "class": "it"
+        },
+        {
+          "label": "Licences and set-up",
+          "class": "other"
+        }
+      ],
+      "ramp_up_default": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "manufacturing",
+      "label": "Manufacturing and industrial",
+      "simple_label": "Making products",
+      "examples": [
+        "Building materials",
+        "Packaging",
+        "Food products",
+        "Asphalt and aggregates"
+      ],
+      "illustration": "factory",
+      "step2_title": "How much will you make?",
+      "inputs": [
+        {
+          "key": "units_per_month",
+          "label": "Capacity per month",
+          "simple_label": "Most you could make in a month",
+          "unit": "units per month",
+          "default": 10000,
+          "benchmark": false
+        },
+        {
+          "key": "utilisation_pct",
+          "label": "Utilisation",
+          "simple_label": "How busy the plant will be",
+          "unit": "%",
+          "default": 65,
+          "benchmark": true
+        },
+        {
+          "key": "price_per_unit",
+          "label": "Price per unit",
+          "simple_label": "Selling price of each unit",
+          "unit": "per unit",
+          "default": 20,
+          "benchmark": true
+        },
+        {
+          "key": "materials_per_unit",
+          "label": "Materials per unit",
+          "simple_label": "Materials for each unit",
+          "unit": "per unit",
+          "default": 9,
+          "benchmark": true
+        },
+        {
+          "key": "export_pct",
+          "label": "Export share of sales",
+          "simple_label": "Share you'll sell abroad",
+          "unit": "%",
+          "default": 0
+        }
+      ],
+      "revenue_formula": "units_per_month * 12 * utilisation_pct / 100 * price_per_unit",
+      "revenue_explained": "Units you could make a month, times 12, times how busy the plant is, times the price.",
+      "cost_lines": [
+        {
+          "key": "materials_per_unit",
+          "label": "Materials",
+          "simple_label": "Materials",
+          "type": "variable_per_unit",
+          "default": 9
+        },
+        {
+          "key": "energy_per_unit",
+          "label": "Energy per unit",
+          "simple_label": "Power and fuel",
+          "type": "variable_per_unit",
+          "default": 1.5
+        },
+        {
+          "key": "overheads",
+          "label": "Fixed overheads",
+          "simple_label": "Staff, maintenance and admin",
+          "type": "fixed",
+          "default": 300000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Production machinery",
+          "class": "plant"
+        },
+        {
+          "label": "Factory building",
+          "class": "civil_works"
+        },
+        {
+          "label": "Vehicles",
+          "class": "equipment"
+        }
+      ],
+      "ramp_up_default": [
+        0.5,
+        0.8,
+        1
+      ]
+    },
+    {
+      "id": "logistics",
+      "label": "Logistics, cold chain and infrastructure",
+      "simple_label": "Moving or storing goods",
+      "examples": [
+        "Cold storage",
+        "Trucking",
+        "Warehouse",
+        "Port or terminal"
+      ],
+      "illustration": "truck",
+      "step2_title": "How much will you move or store?",
+      "inputs": [
+        {
+          "key": "capacity_units",
+          "label": "Capacity",
+          "simple_label": "Most you could move or store",
+          "unit": "units (crates, pallets, trips or containers) per period",
+          "default": 1500,
+          "benchmark": false
+        },
+        {
+          "key": "periods_per_year",
+          "label": "Billing periods per year",
+          "simple_label": "Times you can charge for that space each year",
+          "unit": "per year",
+          "default": 365,
+          "hint": "365 for a daily storage fee, 12 for monthly, 1 for annual throughput"
+        },
+        {
+          "key": "utilisation_pct",
+          "label": "Utilisation",
+          "simple_label": "How full you'll be",
+          "unit": "%",
+          "default": 70,
+          "benchmark": true
+        },
+        {
+          "key": "rate_per_unit",
+          "label": "Rate per unit per period",
+          "simple_label": "What you charge each time",
+          "unit": "per unit",
+          "default": 0.25,
+          "benchmark": true
+        }
+      ],
+      "revenue_formula": "capacity_units * periods_per_year * utilisation_pct / 100 * rate_per_unit",
+      "revenue_explained": "Space or trips available, times how often you can charge, times how full you are, times the rate.",
+      "cost_lines": [
+        {
+          "key": "variable_pct",
+          "label": "Variable operating costs",
+          "simple_label": "Fuel, power and handling",
+          "type": "pct_of_revenue",
+          "default": 25
+        },
+        {
+          "key": "om_pct_capex",
+          "label": "Maintenance",
+          "simple_label": "Keeping equipment working",
+          "type": "pct_of_capex",
+          "default": 3
+        },
+        {
+          "key": "overheads",
+          "label": "Fixed overheads",
+          "simple_label": "Staff, insurance and admin",
+          "type": "fixed",
+          "default": 30000
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Cold rooms, warehouse or terminal",
+          "class": "civil_works"
+        },
+        {
+          "label": "Vehicles and handling equipment",
+          "class": "equipment"
+        },
+        {
+          "label": "Power systems",
+          "class": "solar"
+        }
+      ],
+      "ramp_up_default": [
+        0.5,
+        0.8,
+        1
+      ]
+    },
+    {
+      "id": "health",
+      "label": "Health",
+      "simple_label": "Health services",
+      "examples": [
+        "Hospital",
+        "Clinic network",
+        "Diagnostics centre",
+        "Pharmacy"
+      ],
+      "illustration": "clinic",
+      "step2_title": "How many patients will you care for?",
+      "inputs": [
+        {
+          "key": "beds",
+          "label": "Beds",
+          "simple_label": "Beds",
+          "unit": "beds",
+          "default": 50,
+          "benchmark": false
+        },
+        {
+          "key": "occupancy_pct",
+          "label": "Bed occupancy",
+          "simple_label": "How full the beds will be",
+          "unit": "%",
+          "default": 70,
+          "benchmark": true
+        },
+        {
+          "key": "avg_stay_days",
+          "label": "Average length of stay",
+          "simple_label": "Nights each inpatient stays",
+          "unit": "days",
+          "default": 4
+        },
+        {
+          "key": "fee_per_admission",
+          "label": "Average fee per admission",
+          "simple_label": "What each inpatient stay brings in",
+          "unit": "per admission",
+          "default": 400,
+          "benchmark": true
+        },
+        {
+          "key": "outpatient_visits",
+          "label": "Outpatient visits per year",
+          "simple_label": "Outpatient visits each year",
+          "unit": "visits",
+          "default": 20000,
+          "benchmark": false
+        },
+        {
+          "key": "fee_per_visit",
+          "label": "Average fee per visit",
+          "simple_label": "What each outpatient visit brings in",
+          "unit": "per visit",
+          "default": 15
+        },
+        {
+          "key": "public_payer_pct",
+          "label": "Public or insurer payer share",
+          "simple_label": "Share paid by government or insurers",
+          "unit": "%",
+          "default": 50,
+          "hint": "Public payers can pay late, so this affects cash"
+        }
+      ],
+      "revenue_formula": "beds * occupancy_pct / 100 * 365 / avg_stay_days * fee_per_admission + outpatient_visits * fee_per_visit",
+      "revenue_explained": "Inpatient stays the beds can hold in a year, times the fee per stay, plus outpatient visits times the fee per visit. For a public-private partnership paid a fixed annual fee, enter that fee as one admission line instead.",
+      "cost_lines": [
+        {
+          "key": "staff_cost",
+          "label": "Clinical and support staff",
+          "simple_label": "Doctors, nurses and support staff",
+          "type": "fixed",
+          "default": 900000
+        },
+        {
+          "key": "consumables_pct",
+          "label": "Drugs and consumables",
+          "simple_label": "Medicines and supplies",
+          "type": "pct_of_revenue",
+          "default": 20
+        },
+        {
+          "key": "om_pct_capex",
+          "label": "Facility maintenance",
+          "simple_label": "Keeping the building and equipment working",
+          "type": "pct_of_capex",
+          "default": 2
+        }
+      ],
+      "capex_lines": [
+        {
+          "label": "Building",
+          "class": "civil_works"
+        },
+        {
+          "label": "Medical equipment",
+          "class": "equipment"
+        },
+        {
+          "label": "IT systems",
+          "class": "it"
+        }
+      ],
+      "ramp_up_default": [
+        0.5,
+        0.8,
+        1
+      ]
+    }
+  ],
+  "funding_types": [
+    {
+      "id": "own",
+      "label": "My own money",
+      "investor_label": "Sponsor equity",
+      "fields": [
+        "equity_amount"
+      ]
+    },
+    {
+      "id": "own_plus_loan",
+      "label": "Own money plus a loan",
+      "investor_label": "Equity and senior debt",
+      "fields": [
+        "equity_amount",
+        "loan_amount",
+        "interest_rate",
+        "tenor_years",
+        "grace_years",
+        "repayment_type"
+      ]
+    },
+    {
+      "id": "investors",
+      "label": "Bring in investors",
+      "investor_label": "Equity round",
+      "fields": [
+        "round_amount",
+        "pre_money_valuation",
+        "round_name"
+      ]
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment financing",
+      "investor_label": "Equipment finance or lease",
+      "fields": [
+        "equipment_cost",
+        "deposit_pct",
+        "interest_rate",
+        "tenor_years",
+        "balloon_pct"
+      ]
+    },
+    {
+      "id": "grant",
+      "label": "Grant",
+      "investor_label": "Grant funding",
+      "fields": [
+        "grant_amount",
+        "grant_conditions"
+      ]
+    },
+    {
+      "id": "mix",
+      "label": "A mix",
+      "investor_label": "Blended finance",
+      "fields": [
+        "tranches"
+      ]
+    }
+  ],
+  "lender_types": [
+    {
+      "id": "own",
+      "label": "Own money or retained earnings"
+    },
+    {
+      "id": "commercial_bank",
+      "label": "Commercial bank"
+    },
+    {
+      "id": "dfi",
+      "label": "Development finance institution (DFI)"
+    },
+    {
+      "id": "exim",
+      "label": "Export-Import Bank or export credit agency"
+    },
+    {
+      "id": "equipment_finance",
+      "label": "Equipment financier or lessor"
+    },
+    {
+      "id": "angel_seed",
+      "label": "Angel or seed investors"
+    },
+    {
+      "id": "venture",
+      "label": "Venture capital"
+    },
+    {
+      "id": "grant_funder",
+      "label": "Grant funder"
+    },
+    {
+      "id": "impact_debt",
+      "label": "Impact or subordinated debt fund"
+    },
+    {
+      "id": "sovereign",
+      "label": "Government contribution"
+    }
+  ],
+  "readiness_documents": {
+    "all": [
+      "Business plan or feasibility study",
+      "Financial model",
+      "Company registration and good standing",
+      "Management team CVs"
+    ],
+    "commercial_bank": [
+      "Audited accounts (usually 2 to 3 years)",
+      "Collateral or security",
+      "Offtake or sales contracts",
+      "Insurance"
+    ],
+    "dfi": [
+      "Feasibility study",
+      "Environmental and social impact assessment (ESIA)",
+      "Audited accounts",
+      "Offtake agreements",
+      "Land title or lease",
+      "Procurement plan"
+    ],
+    "exim": [
+      "Supply contract with exporter from the lending country",
+      "Sovereign or bank guarantee",
+      "Feasibility study",
+      "Environmental and social impact assessment (ESIA)",
+      "Evidence of local content rules being met"
+    ],
+    "equipment_finance": [
+      "Equipment quotations",
+      "Deposit (often 10 to 30%)",
+      "Insurance on the equipment",
+      "Maintenance plan"
+    ],
+    "angel_seed": [
+      "Pitch deck",
+      "Cap table",
+      "Evidence of demand (users, pilots or letters of intent)"
+    ],
+    "venture": [
+      "Pitch deck",
+      "Cap table",
+      "Monthly metrics (growth, churn, unit economics)",
+      "Data room with contracts and policies"
+    ],
+    "grant_funder": [
+      "Grant application",
+      "Impact measurement plan",
+      "Budget and procurement plan",
+      "Matching funds where required"
+    ],
+    "sovereign": [
+      "Budget appropriation or approval",
+      "Inter-agency agreements"
+    ]
+  },
+  "glossary": {
+    "DSCR": "How many times your spare cash covers your loan payments. Lenders usually want at least 1.3.",
+    "LLCR": "The value of cash available over the rest of the loan, divided by what's still owed.",
+    "IRR": "The yearly return the project earns on the money put in, over its whole life.",
+    "NPV": "What all future cash is worth today, after allowing for the cost of waiting for it.",
+    "Payback": "How many years until the cash coming in covers the money put in.",
+    "Break-even": "The sales level where income just covers costs.",
+    "Gearing": "How much of the project is paid for by debt rather than your own money.",
+    "Runway": "How many months your cash lasts at the current rate of spending.",
+    "CAPEX": "One-off money spent to build or buy things that last, like machines or buildings.",
+    "OPEX": "The regular costs of running the business.",
+    "EBITDA": "Profit before interest, tax and the wearing out of equipment.",
+    "Depreciation": "Spreading the cost of equipment over the years it's used.",
+    "Moratorium": "A period at the start of a loan when you don't repay the amount borrowed, and sometimes not the interest either.",
+    "Tenor": "How long you have to repay a loan.",
+    "Annuity": "Equal total payments each period, with interest falling and principal rising over time.",
+    "Bullet": "Repaying the whole amount borrowed in one go at the end.",
+    "Working capital": "Cash tied up in stock and unpaid customer bills, less bills you haven't paid yet.",
+    "Take rate": "The share of each payment or loan that you keep as income."
+  }
+}

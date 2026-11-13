@@ -1,0 +1,3500 @@
+{
+  "version": 1,
+  "generated": "2026-11-13",
+  "notes": "Case library for Tenor. Every number carries a quality label: sourced (stated in a source opened and checked on the date shown), derived (calculated from sourced figures, method in the note) or assumed (no source found; reason in the note). Assumed values are illustrative and must not be read as facts about the project.",
+  "cases": [
+    {
+      "id": "ng-triming-irrigation",
+      "name": "Transforming Irrigation Management in Nigeria (TRIMING)",
+      "sponsor": "Federal Government of Nigeria",
+      "country": "Nigeria",
+      "sector": "irrigation",
+      "sub_sector": "Rehabilitation of large public irrigation schemes (rice and other crops)",
+      "stage": "new",
+      "concept": "Rehabilitate dams and canals in four large public irrigation schemes in northern Nigeria, set up water users' associations and help farmers raise yields.",
+      "revenue_model": "Public project. Benefits are the extra crop farmers grow with reliable water, plus any irrigation service fees. The scheme owner does not sell the crop.",
+      "currency": "USD",
+      "fx": null,
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "assumed",
+          "note": "Rice from these schemes is sold in Nigeria. No export share was found."
+        }
+      },
+      "drivers": {
+        "hectares": {
+          "value": 43400,
+          "quality": "sourced",
+          "source": "s2",
+          "note": "World Bank: the project 'modernized 43,400 hectares of farmland'."
+        },
+        "crop": {
+          "value": "Rice",
+          "quality": "assumed",
+          "note": "Rice is the main crop farmers describe in the World Bank feature. Other crops are grown but not quantified."
+        },
+        "harvests_per_year": {
+          "value": 2,
+          "quality": "assumed",
+          "note": "Assumes a wet and a dry season crop once water is reliable."
+        },
+        "yield_without": {
+          "value": 2.2,
+          "quality": "derived",
+          "note": "From a farmer's account of 15 to 20 bags per acre before the project (mid-point 17.5), assuming 50 kg bags of paddy and 2.471 acres per hectare.",
+          "source": "s2"
+        },
+        "yield_per_ha": {
+          "value": 4.0,
+          "quality": "derived",
+          "note": "From the same farmer's 30 to 35 bags per acre after the project (mid-point 32.5), assuming 50 kg bags. One farmer's account, not a project-wide average.",
+          "source": "s2"
+        },
+        "price_per_tonne": {
+          "value": 350,
+          "quality": "assumed",
+          "note": "Illustrative paddy price in USD. Nigerian paddy prices vary widely with the exchange rate. Replace with a current local price."
+        },
+        "losses_pct": {
+          "value": 10,
+          "quality": "assumed",
+          "note": "Typical allowance for post-harvest losses in smallholder rice."
+        },
+        "water_fee_per_ha": {
+          "value": 0,
+          "quality": "assumed",
+          "note": "No irrigation service fee figure was found, so fees are left out."
+        }
+      },
+      "capex": [
+        {
+          "label": "Total project cost (all components)",
+          "class": "irrigation",
+          "amount": {
+            "value": 560300030,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "World Bank Projects API field 'lendprojectcost'."
+          }
+        }
+      ],
+      "capex_split_note": "The split between dam safety, scheme rehabilitation, farmer support and management was not found in the sources opened, so the whole cost is treated as irrigation infrastructure.",
+      "opex": {
+        "fixed": [
+          {
+            "label": "Operation and maintenance",
+            "amount": {
+              "value": "2% of capex a year",
+              "quality": "assumed",
+              "note": "Common planning allowance for canal and pump maintenance."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Extra growing costs per hectare per harvest",
+            "amount": {
+              "value": 250,
+              "quality": "assumed",
+              "note": "Illustrative cost of extra seed, fertiliser and labour for a second crop."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "DFI loan with government counterpart funding",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "International Development Association (World Bank)",
+            "provider_type": "dfi",
+            "amount": {
+              "value": 504250816,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "World Bank Projects API field 'idacommamt' (total IDA commitment)."
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 30,
+              "quality": "assumed",
+              "note": "IDA credit terms were not in the sources opened. Assumes long concessional terms."
+            },
+            "grace_years": {
+              "value": 5,
+              "quality": "assumed",
+              "note": "Assumed concessional grace period."
+            },
+            "interest_rate_pct": {
+              "value": 2.0,
+              "quality": "assumed",
+              "note": "Assumed all-in concessional rate including service charge. Not confirmed."
+            },
+            "repayment_type": {
+              "value": "equal_principal",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "Federal Government of Nigeria (counterpart funding)",
+            "provider_type": "sovereign",
+            "amount": {
+              "value": 56049214,
+              "quality": "derived",
+              "note": "Total project cost less IDA commitment (560,300,030 minus 504,250,816).",
+              "source": "s1"
+            },
+            "currency": "USD"
+          }
+        ]
+      },
+      "timeline": {
+        "approval_date": {
+          "value": "2014-06-19",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "closing_date": {
+          "value": "2025-06-30",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "construction_years": {
+          "value": 3,
+          "quality": "assumed",
+          "note": "Assumes three years of works before full benefits."
+        }
+      },
+      "outcomes": {
+        "schemes": {
+          "value": [
+            "Kano River",
+            "Hadejia Valley",
+            "Bakolori",
+            "Dadin Kowa"
+          ],
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "water_users_associations": {
+          "value": "Over 800 established or strengthened",
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "people_fed": {
+          "value": "Enough food to feed a million people",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Transforming Irrigation Management in Nigeria Project (P123112), project record",
+          "url": "https://search.worldbank.org/api/v3/projects?id=P123112&format=json",
+          "publisher": "World Bank",
+          "date": "accessed 2026-11-13",
+          "supports": "Approval and closing dates, total project cost, IDA commitment"
+        },
+        {
+          "id": "s2",
+          "title": "How smarter irrigation is changing Nigerian farming",
+          "url": "https://www.worldbank.org/en/news/feature/2025/10/15/how-smarter-irrigation-is-changing-nigerian-farming",
+          "publisher": "World Bank",
+          "date": "2025-10-15",
+          "supports": "Hectares, schemes, water users' associations, farmer yield account"
+        }
+      ],
+      "caveats": [
+        "The World Bank feature gives two different areas for one community (6,000 and over 15,000 hectares). Only the project-wide 43,400 hectares is used.",
+        "Yields come from one farmer's account and are illustrative."
+      ],
+      "data_quality_summary": {
+        "fields": 24,
+        "sourced": 8,
+        "derived": 3,
+        "assumed": 13,
+        "pct_sourced": 33,
+        "pct_sourced_or_derived": 46
+      }
+    },
+    {
+      "id": "rw-exim-india-irrigation",
+      "name": "Mugesera and Rweru irrigation schemes (Exim Bank of India line of credit)",
+      "sponsor": "Government of Rwanda, through the Rwanda Agriculture and Animal Resources Development Board",
+      "country": "Rwanda",
+      "sector": "irrigation",
+      "sub_sector": "New irrigation schemes for high-value crops",
+      "stage": "new",
+      "concept": "Build irrigation schemes in Eastern Province so farmers can grow high-value crops in three seasons a year, financed by a US$100 million Government of India line of credit through Exim Bank of India.",
+      "revenue_model": "Public project. Benefits are the extra crop value farmers earn. The loan is repaid by the Government of Rwanda.",
+      "currency": "USD",
+      "fx": null,
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "assumed",
+          "note": "No export share was found. High-value crops could be exported, so this is conservative."
+        }
+      },
+      "drivers": {
+        "hectares": {
+          "value": 6500,
+          "quality": "derived",
+          "note": "Mugesera target of 3,500 hectares plus Rweru target of 3,000 hectares, as reported in 2021.",
+          "source": "s2"
+        },
+        "crop": {
+          "value": "High-value horticulture",
+          "quality": "assumed",
+          "note": "The source says 'high value crops' without naming them."
+        },
+        "harvests_per_year": {
+          "value": 3,
+          "quality": "sourced",
+          "source": "s2",
+          "note": "'three seasons a year with high value crops'."
+        },
+        "yield_without": {
+          "value": 1.5,
+          "quality": "assumed",
+          "note": "Assumed rain-fed baseline, in tonnes per hectare per season."
+        },
+        "yield_per_ha": {
+          "value": 10,
+          "quality": "assumed",
+          "note": "Assumed irrigated vegetable yield in tonnes per hectare per season. Replace with crop-specific data."
+        },
+        "price_per_tonne": {
+          "value": 250,
+          "quality": "assumed",
+          "note": "Illustrative farm-gate price in USD for mixed vegetables."
+        },
+        "losses_pct": {
+          "value": 15,
+          "quality": "assumed",
+          "note": "Higher loss allowance for perishable horticulture."
+        },
+        "water_fee_per_ha": {
+          "value": 0,
+          "quality": "assumed",
+          "note": "No water fee figure found."
+        }
+      },
+      "capex": [
+        {
+          "label": "Irrigation works and equipment (loan-financed)",
+          "class": "irrigation",
+          "amount": {
+            "value": 100000000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "Line of credit amount."
+          }
+        },
+        {
+          "label": "Government contribution (land, studies, supervision)",
+          "class": "other",
+          "amount": {
+            "value": 10000000,
+            "quality": "assumed",
+            "note": "Assumes the government funds about 10% on top of the loan. Not found in sources."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Operation and maintenance",
+            "amount": {
+              "value": "2% of capex a year",
+              "quality": "assumed",
+              "note": "Planning allowance."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Extra growing costs per hectare per season",
+            "amount": {
+              "value": 600,
+              "quality": "assumed",
+              "note": "Illustrative cost for irrigated horticulture."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Exim Bank line of credit (tied to Indian goods and services) plus government funds",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "Exim Bank of India (Government of India supported line of credit)",
+            "provider_type": "exim",
+            "amount": {
+              "value": 100000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 25,
+              "quality": "assumed",
+              "note": "Category I terms under India's IDEAS scheme are 25 years including a 5-year moratorium (s3). Which category applied to this 2018 agreement was not found, so this is an assumption."
+            },
+            "grace_years": {
+              "value": 5,
+              "quality": "assumed",
+              "note": "IDEAS terms include a 5-year moratorium for all categories (s3)."
+            },
+            "interest_rate_pct": {
+              "value": 1.5,
+              "quality": "assumed",
+              "note": "IDEAS Category I fixed rate is 1.5% a year (s3). Category II is 1.75%. Not confirmed for this loan."
+            },
+            "repayment_type": {
+              "value": "equal_principal",
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "conditions": {
+              "value": "At least 75% of the contract value must be supplied from India",
+              "quality": "sourced",
+              "source": "s1"
+            }
+          }
+        ]
+      },
+      "timeline": {
+        "agreement_date": {
+          "value": "2018-07-23",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "effective_date": {
+          "value": "2019-04-02",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "planned_duration_years": {
+          "value": 4,
+          "quality": "sourced",
+          "source": "s2",
+          "note": "'supposed to be complete in four years'."
+        },
+        "status_2021": {
+          "value": "Not started by August 2021. Rweru proposed to replace Warufu and Nyamukana, pending lender approval.",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "outcomes": {
+        "farmers": {
+          "value": "About 6,000 farmers in Bugesera and Ngoma",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Exim Bank's Government of India supported Line of Credit of USD 100 million to the Government of the Republic of Rwanda (A.P. (DIR Series) Circular No. 30)",
+          "url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?ID=11539",
+          "publisher": "Reserve Bank of India",
+          "date": "2019-04-18",
+          "supports": "Loan amount, agreement and effective dates, projects, 75% Indian content rule"
+        },
+        {
+          "id": "s2",
+          "title": "$100m irrigation schemes face financing setback",
+          "url": "https://www.newtimes.co.rw/article/188199/News/100m-irrigation-schemes-face-financing-setback/amp",
+          "publisher": "The New Times",
+          "date": "2021-08-03",
+          "supports": "Hectares, seasons per year, status, farmers, duration"
+        },
+        {
+          "id": "s3",
+          "title": "Government of India supported Lines of Credit Programme under IDEAS",
+          "url": "https://events.development.asia/sites/default/files/materials/2024/09/202409-government-india-supported-lines-credit-programme-under-ideas.pdf",
+          "publisher": "Exim Bank of India (presentation at an ADB seminar)",
+          "date": "2024-09-27",
+          "supports": "Standard LOC tenor, moratorium and interest rate by country category"
+        }
+      ],
+      "caveats": [
+        "The brief asked for an Exim irrigation case with about a 10-year tenor. Real Government of India lines of credit run 15 to 25 years including a 5-year moratorium, so the real structure is used.",
+        "Original scope covered Warufu, Nyamukana and Mugesera. The 2021 report says the scope was being changed to Mugesera and Rweru."
+      ],
+      "data_quality_summary": {
+        "fields": 24,
+        "sourced": 9,
+        "derived": 1,
+        "assumed": 14,
+        "pct_sourced": 38,
+        "pct_sourced_or_derived": 42
+      }
+    },
+    {
+      "id": "ng-olam-rukubi-rice",
+      "name": "Olam integrated rice farm and mill, Rukubi",
+      "sponsor": "Olam (Nigeria)",
+      "country": "Nigeria",
+      "sector": "crops",
+      "sub_sector": "Irrigated rice farm with integrated mill and outgrower scheme",
+      "stage": "new",
+      "concept": "A large mechanised and irrigated paddy farm with its own parboiling and milling plant, plus support for surrounding smallholder outgrowers, selling rice into Nigeria's domestic market.",
+      "revenue_model": "Sales of milled rice to the domestic market, from own paddy and paddy bought from outgrowers.",
+      "currency": "NGN",
+      "fx": {
+        "usd_rate": {
+          "value": 160,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar around 2014, when the investment figure was reported. Used only to show USD equivalents."
+        },
+        "revenue_currency": "NGN",
+        "debt_currency": null
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Mill output is for 'the domestic market'."
+        }
+      },
+      "drivers": {
+        "hectares": {
+          "value": 10000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Full planned farm area. Tenor models the farm at full size with a ramp-up."
+        },
+        "hectares_cultivated_2014": {
+          "value": 3000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'3,000 hectares are already under cultivation'."
+        },
+        "crop": {
+          "value": "Rice",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "harvests_per_year": {
+          "value": 2,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'over two annual crop cycles'."
+        },
+        "yield_per_ha": {
+          "value": 5,
+          "quality": "derived",
+          "note": "Factsheet expects 10 tonnes per hectare a year over two crop cycles, so 5 tonnes per harvest.",
+          "source": "s1"
+        },
+        "milled_output_tpy": {
+          "value": 36000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'36,000 metric tonnes (MT) of milled rice per annum'."
+        },
+        "price_per_tonne": {
+          "value": 70000,
+          "quality": "assumed",
+          "note": "Illustrative paddy value in naira per tonne at 2014 prices (about US$440 at the assumed rate). Not from the source. Milling margin is not modelled separately."
+        },
+        "losses_pct": {
+          "value": 8,
+          "quality": "assumed",
+          "note": "Lower loss allowance for a mechanised farm with on-site drying."
+        },
+        "employees_farm": {
+          "value": 1044,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "employees_mill": {
+          "value": 959,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "outgrowers": {
+          "value": 3000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Target of 16,000 by 2018, then 20,000."
+        }
+      },
+      "capex": [
+        {
+          "label": "Farm development, irrigation and mill (investment to date)",
+          "class": "irrigation",
+          "amount": {
+            "value": 18000000000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "'Over Naira 18 billion' invested to date. Treated as the full capex."
+          }
+        }
+      ],
+      "capex_split_note": "The factsheet gives only the total. It lists 375.9 km of irrigation canals, 372.5 km of drains and 269.6 km of roads, which suggests most of the cost is land and water infrastructure.",
+      "opex": {
+        "fixed": [
+          {
+            "label": "Farm and mill overheads",
+            "amount": {
+              "value": 900000000,
+              "quality": "assumed",
+              "note": "Illustrative naira overheads for about 2,000 staff. Not from the source."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Growing costs per hectare per harvest",
+            "amount": {
+              "value": 90000,
+              "quality": "assumed",
+              "note": "Illustrative naira cost. Not from the source."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Own money (company balance sheet)",
+        "instruments": [
+          {
+            "type": "equity",
+            "provider": "Olam",
+            "provider_type": "own",
+            "amount": {
+              "value": 18000000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "NGN",
+            "note": "No outside lender is named in the source. Treated as funded from Olam's own balance sheet, which is an assumption."
+          }
+        ]
+      },
+      "timeline": {
+        "project_start": {
+          "value": "2011-10-21",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "land_development_start": {
+          "value": "2012-01",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "first_crop": {
+          "value": "2012-11",
+          "quality": "sourced",
+          "source": "s1",
+          "note": "First crop cycle, 952 hectares."
+        }
+      },
+      "outcomes": {
+        "canals_km": {
+          "value": 375.9,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "drains_km": {
+          "value": 372.5,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "roads_km": {
+          "value": 269.6,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Olam integrated rice farm and mill factsheet",
+          "url": "https://ipar.sn/wp-content/uploads/2024/08/OLAM-INTEGRATED-RICE-FARM-MILL-FACTSHEET-Key-Facts-Location-Rukubi-Doma-LGA-Nasarawa-State.pdf",
+          "publisher": "Olam (hosted by IPAR)",
+          "date": "about 2014 (fourth crop cycle in progress, June 2014)",
+          "supports": "Hectares, crop cycles, yield, mill output, investment, staff, outgrowers, dates"
+        }
+      ],
+      "caveats": [
+        "The factsheet is from about 2014. Later press reports give different farm and mill figures, which were not used.",
+        "Financing structure is assumed. Treat this as the self-funded example."
+      ],
+      "data_quality_summary": {
+        "fields": 23,
+        "sourced": 17,
+        "derived": 1,
+        "assumed": 5,
+        "pct_sourced": 74,
+        "pct_sourced_or_derived": 78
+      }
+    },
+    {
+      "id": "ng-babban-gona-maize",
+      "name": "Babban Gona farmer franchise",
+      "sponsor": "Babban Gona Farmer Services Nigeria",
+      "country": "Nigeria",
+      "sector": "crops",
+      "sub_sector": "Smallholder maize: inputs on credit, training and marketing",
+      "stage": "trading",
+      "concept": "A franchise model that gives smallholder maize farmers inputs on credit, training and help selling their crop, funded by development and impact lenders.",
+      "revenue_model": "Margin on aggregated maize sales and service charges to member farmers. Lenders are repaid from farmers' loan repayments.",
+      "currency": "NGN",
+      "fx": {
+        "usd_rate": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar for illustration. Debt is in US dollars and revenue in naira, so a weaker naira raises the cost of repayment."
+        },
+        "revenue_currency": "NGN",
+        "debt_currency": "USD"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "assumed",
+          "note": "Maize is sold in Nigeria."
+        }
+      },
+      "drivers": {
+        "farmers": {
+          "value": 37000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'37,000 Smallholder farmers supported in 2020 alone'."
+        },
+        "hectares": {
+          "value": 37000,
+          "quality": "derived",
+          "note": "Assumes about 1 hectare per member farmer.",
+          "source": "s1"
+        },
+        "crop": {
+          "value": "Maize",
+          "quality": "sourced",
+          "source": "s2",
+          "note": "'the premier maize producer in Nigeria'."
+        },
+        "harvests_per_year": {
+          "value": 1,
+          "quality": "assumed",
+          "note": "One rain-fed maize season assumed."
+        },
+        "yield_per_ha": {
+          "value": 4,
+          "quality": "assumed",
+          "note": "The FMO page says yields reach up to 2 times the national average. Assumes about 4 tonnes per hectare."
+        },
+        "price_per_tonne": {
+          "value": 100000,
+          "quality": "assumed",
+          "note": "Babban Gona's own income per tonne of member maize it handles (recovery of input loans plus a service margin), not the market price of maize. Illustrative, set so the model is consistent with the 99.9% loan repayment rate the source reports."
+        },
+        "market_price_per_tonne": {
+          "value": 450000,
+          "quality": "assumed",
+          "note": "Illustrative naira maize market price, for context only."
+        },
+        "losses_pct": {
+          "value": 8,
+          "quality": "assumed",
+          "note": "Assumed."
+        },
+        "loan_repayment_rate_pct": {
+          "value": 99.9,
+          "quality": "sourced",
+          "source": "s2",
+          "note": "'a 99.9% loan repayment rate'."
+        },
+        "income_uplift": {
+          "value": "Up to 3.5 times the national average",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "capex": [
+        {
+          "label": "Warehouses and aggregation centres",
+          "class": "civil_works",
+          "amount": {
+            "value": 2500000000,
+            "quality": "assumed",
+            "note": "Illustrative naira figure. Not from sources."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Field staff and overheads",
+            "amount": {
+              "value": 1200000000,
+              "quality": "assumed",
+              "note": "Illustrative naira figure."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Inputs supplied on credit per hectare",
+            "amount": {
+              "value": 250000,
+              "quality": "assumed",
+              "note": "Illustrative naira input package per hectare."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Development and impact debt",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "FMO (MASSIF fund)",
+            "provider_type": "dfi",
+            "amount": {
+              "value": 4000000,
+              "quality": "sourced",
+              "source": "s2"
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 4,
+              "quality": "derived",
+              "note": "FMO lists the investment as effective 27 June 2017 and ending 15 April 2021, just under four years.",
+              "source": "s2"
+            },
+            "grace_years": {
+              "value": 1,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "interest_rate_pct": {
+              "value": 9,
+              "quality": "assumed",
+              "note": "Assumed USD rate for a DFI loan to an agribusiness. Not found."
+            },
+            "repayment_type": {
+              "value": "equal_principal",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          },
+          {
+            "type": "subordinated_loan",
+            "provider": "Global Innovation Fund",
+            "provider_type": "impact_debt",
+            "amount": {
+              "value": 2500000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 4,
+              "quality": "assumed",
+              "note": "GIF lists the investment period as 2017 to 2021."
+            },
+            "grace_years": {
+              "value": 2,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "interest_rate_pct": {
+              "value": 6,
+              "quality": "assumed",
+              "note": "Assumed. The source says the agreement included a financial incentive linked to farmer impact."
+            },
+            "repayment_type": {
+              "value": "bullet",
+              "quality": "assumed",
+              "note": "Assumed for subordinated debt."
+            }
+          }
+        ]
+      },
+      "timeline": {
+        "fmo_effective": {
+          "value": "2017-06-27",
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "fmo_end": {
+          "value": "2021-04-15",
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "gif_agreement_year": {
+          "value": 2017,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "people_impacted": {
+          "value": "550,000 individuals impacted to date",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "goal": {
+          "value": "Scale and impact one million smallholder farmers by 2025",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Babban Gona (investment profile)",
+          "url": "https://www.globalinnovation.fund/investments/babban-gona",
+          "publisher": "Global Innovation Fund",
+          "date": "investment period 2017 to 2021",
+          "supports": "US$2.5m subordinated debt, farmers supported in 2020, people impacted"
+        },
+        {
+          "id": "s2",
+          "title": "Babban Gona Farmer Services Nigeria (project detail 51738)",
+          "url": "https://www.fmo.nl/project-detail/51738",
+          "publisher": "FMO",
+          "date": "effective 2017-06-27",
+          "supports": "US$4m loan, dates, yield and income uplift, repayment rate, maize focus"
+        }
+      ],
+      "caveats": [
+        "A 2025 British International Investment debt commitment was reported in the press, but its page could not be opened, so it is left out.",
+        "Farm economics are illustrative. Only the financing and impact figures are sourced."
+      ],
+      "data_quality_summary": {
+        "fields": 30,
+        "sourced": 11,
+        "derived": 2,
+        "assumed": 17,
+        "pct_sourced": 37,
+        "pct_sourced_or_derived": 43
+      }
+    },
+    {
+      "id": "tz-kagera-sugar-equipment",
+      "name": "Kagera Sugar farm equipment purchase",
+      "sponsor": "Kagera Sugar Limited",
+      "country": "Tanzania",
+      "sector": "crops",
+      "sub_sector": "Sugarcane estate mechanisation",
+      "stage": "trading",
+      "concept": "A sugar estate buys US-made agricultural equipment, financed by a loan guaranteed by the Export-Import Bank of the United States.",
+      "revenue_model": "Sugarcane grown on the estate and sold to the company's own mill. The equipment is meant to raise output and cut field costs.",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 2600,
+          "quality": "assumed",
+          "note": "Assumed Tanzanian shillings per US dollar. Revenue is in shillings and the loan in dollars."
+        },
+        "revenue_currency": "TZS",
+        "debt_currency": "USD"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "assumed",
+          "note": "Sugar sold in Tanzania assumed."
+        }
+      },
+      "drivers": {
+        "hectares": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Illustrative area served by the new equipment. Not from the source."
+        },
+        "crop": {
+          "value": "Sugarcane",
+          "quality": "assumed",
+          "note": "Implied by the buyer, a sugar company."
+        },
+        "harvests_per_year": {
+          "value": 1,
+          "quality": "assumed",
+          "note": "Sugarcane is harvested about once a year."
+        },
+        "yield_per_ha": {
+          "value": 90,
+          "quality": "assumed",
+          "note": "Illustrative cane yield in tonnes per hectare."
+        },
+        "price_per_tonne": {
+          "value": 35,
+          "quality": "assumed",
+          "note": "Illustrative cane value in USD per tonne."
+        },
+        "losses_pct": {
+          "value": 5,
+          "quality": "assumed",
+          "note": "Assumed."
+        }
+      },
+      "capex": [
+        {
+          "label": "Agricultural equipment from Rome Plow Company",
+          "class": "equipment",
+          "amount": {
+            "value": 6940000,
+            "quality": "derived",
+            "note": "Guaranteed loan of US$5.9m plus an assumed 15% buyer deposit. The deposit is an assumption, common in export credit deals.",
+            "source": "s1"
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Equipment operators and maintenance",
+            "amount": {
+              "value": 400000,
+              "quality": "assumed",
+              "note": "Illustrative."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Field costs per hectare",
+            "amount": {
+              "value": 1100,
+              "quality": "assumed",
+              "note": "Illustrative."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Equipment financing guaranteed by an export credit agency",
+        "instruments": [
+          {
+            "type": "equipment_loan",
+            "provider": "Commercial lender with a US EXIM guarantee",
+            "provider_type": "exim",
+            "amount": {
+              "value": 5900000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 5,
+              "quality": "assumed",
+              "note": "Assumed medium-term tenor for agricultural equipment. Not stated."
+            },
+            "grace_years": {
+              "value": 1,
+              "quality": "assumed",
+              "note": "Assumed six months before the first repayment, rounded up to one year because Tenor's model is annual."
+            },
+            "interest_rate_pct": {
+              "value": 7.5,
+              "quality": "assumed",
+              "note": "Assumed USD rate including the guarantee fee. Not stated."
+            },
+            "repayment_type": {
+              "value": "annuity",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "Kagera Sugar (deposit)",
+            "provider_type": "own",
+            "amount": {
+              "value": 1040000,
+              "quality": "derived",
+              "note": "Assumed 15% deposit on the equipment cost."
+            },
+            "currency": "USD"
+          }
+        ]
+      },
+      "timeline": {
+        "date": {
+          "value": "not stated",
+          "quality": "assumed",
+          "note": "The EXIM page lists the deal without a date."
+        }
+      },
+      "outcomes": {},
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Sub-Saharan Africa (EXIM special initiatives, Tanzania success story)",
+          "url": "https://www.exim.gov/about/special-initiatives/africa",
+          "publisher": "Export-Import Bank of the United States",
+          "date": "undated page, accessed 2026-11-13",
+          "supports": "US$5.9m loan guarantee, supplier and buyer"
+        }
+      ],
+      "caveats": [
+        "Only the guarantee amount, supplier and buyer are sourced. Everything else is illustrative, so this case mainly shows the equipment-financing structure."
+      ],
+      "data_quality_summary": {
+        "fields": 18,
+        "sourced": 1,
+        "derived": 2,
+        "assumed": 15,
+        "pct_sourced": 6,
+        "pct_sourced_or_derived": 17
+      }
+    },
+    {
+      "id": "zm-zambeef-integrated",
+      "name": "Zambeef Products (integrated meat, dairy and cropping)",
+      "sponsor": "Zambeef Products plc (listed in Lusaka and London)",
+      "country": "Zambia",
+      "sector": "livestock",
+      "sub_sector": "Integrated beef, chicken, pork, dairy, stockfeed, cropping and retail",
+      "stage": "trading",
+      "concept": "An already-trading, vertically integrated food company that grows grain, feeds and processes animals and sells through its own shops. It is expanding capacity with a US$100 million medium-term plan.",
+      "revenue_model": "Sales of meat, dairy, flour, stockfeed and crops through its own outlets and wholesale.",
+      "currency": "ZMW",
+      "fx": {
+        "usd_rate": {
+          "value": 24.73,
+          "quality": "derived",
+          "note": "Implied average rate: operating profit of ZMW 487.2m reported as USD 19.7m.",
+          "source": "s1"
+        },
+        "revenue_currency": "ZMW",
+        "debt_currency": "ZMW",
+        "depreciation_pct_year": {
+          "value": 26,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Kwacha depreciated 26% against the US dollar in the year."
+        }
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 95,
+          "quality": "assumed",
+          "note": "The company operates mainly in Zambia, with some West African retail. No export split was given."
+        }
+      },
+      "drivers": {
+        "cattle_slaughter_capacity": {
+          "value": 230000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Cattle a year."
+        },
+        "broiler_capacity": {
+          "value": 10600000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Broilers a year."
+        },
+        "pig_slaughter_capacity": {
+          "value": 75000,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "dairy_litres_per_day": {
+          "value": 120000,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "irrigated_crop_hectares": {
+          "value": 7787,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Planted twice a year."
+        },
+        "rainfed_crop_hectares": {
+          "value": 8694,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "retail_outlets": {
+          "value": 236,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "inflation_pct": {
+          "value": 15.6,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Inflation at the end of the period."
+        }
+      },
+      "capex": [
+        {
+          "label": "Medium-term expansion plan (cropping, milling, stockfeed, dairy, poultry)",
+          "class": "plant",
+          "currency": "USD",
+          "amount": {
+            "value": 100000000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "'our $100 million medium-term expansion plans', in USD."
+          }
+        }
+      ],
+      "opex": {
+        "note": "Use the historical income statement below as the cost base."
+      },
+      "historicals": {
+        "units": "ZMW thousands, years ended 30 September, audited (group)",
+        "source": "s1",
+        "FY2023": {
+          "revenue": 6046157,
+          "fair_value_biological_assets": 643197,
+          "cost_of_sales": -4846092,
+          "gross_profit": 1843262,
+          "administrative_expenses": -1336486,
+          "distribution_expenses": -96287,
+          "operating_profit": 361357,
+          "net_finance_costs": -155089,
+          "profit_before_tax": 203673,
+          "tax": -72851,
+          "profit_continuing": 130822,
+          "property_plant_equipment": 4818533,
+          "cash": 271222,
+          "long_term_debt": 687679,
+          "short_term_debt": 972827,
+          "equity": 4677126,
+          "total_assets": 7704368,
+          "operating_cash_flow": 177691,
+          "investing_cash_flow": -813270,
+          "financing_cash_flow": 382820
+        },
+        "FY2024": {
+          "revenue": 7315845,
+          "fair_value_biological_assets": 1040358,
+          "cost_of_sales": -5881085,
+          "gross_profit": 2475118,
+          "administrative_expenses": -1682765,
+          "distribution_expenses": -208395,
+          "operating_profit": 487192,
+          "net_finance_costs": -294531,
+          "profit_before_tax": 192661,
+          "tax": -12565,
+          "profit_continuing": 180096,
+          "property_plant_equipment": 5577265,
+          "cash": 334415,
+          "long_term_debt": 856362,
+          "short_term_debt": 1525671,
+          "equity": 4957940,
+          "total_assets": 8812498,
+          "operating_cash_flow": 171351,
+          "investing_cash_flow": -805971,
+          "financing_cash_flow": 622097
+        }
+      },
+      "financing": {
+        "structure": "Bank borrowings plus retained earnings",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "Banks (long-term interest-bearing liabilities)",
+            "provider_type": "commercial_bank",
+            "amount": {
+              "value": 856362000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "Long-term interest-bearing liabilities at 30 Sept 2024, in ZMW."
+            },
+            "currency": "ZMW",
+            "tenor_years": {
+              "value": 5,
+              "quality": "assumed",
+              "note": "Not disclosed in the results announcement."
+            },
+            "grace_years": {
+              "value": 1,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "interest_rate_pct": {
+              "value": 14.6,
+              "quality": "derived",
+              "note": "Net finance costs of ZMW 294.5m divided by average total interest-bearing debt over the year (about ZMW 2,021m). Rough, because finance costs include other items.",
+              "source": "s1"
+            },
+            "repayment_type": {
+              "value": "equal_principal",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          },
+          {
+            "type": "loan",
+            "provider": "Banks (short-term interest-bearing liabilities)",
+            "provider_type": "commercial_bank",
+            "amount": {
+              "value": 1525671000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "Short-term interest-bearing liabilities, in ZMW."
+            },
+            "currency": "ZMW",
+            "tenor_years": {
+              "value": 3,
+              "quality": "assumed",
+              "note": "Short-term facilities are rolled over in practice. Tenor spreads repayment over 3 years rather than assuming all of it is repaid in one year."
+            },
+            "grace_years": {
+              "value": 0,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "interest_rate_pct": {
+              "value": 14.6,
+              "quality": "derived",
+              "note": "Same derived average rate.",
+              "source": "s1"
+            },
+            "repayment_type": {
+              "value": "equal_principal",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          }
+        ]
+      },
+      "timeline": {
+        "results_date": {
+          "value": "2024-12-10",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "note": {
+          "value": "Interest expenses doubled, mainly from more debt to fund expansion and higher rates.",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Zambeef Products plc full year 2024 financial results (SENS announcement)",
+          "url": "https://luse.co.zm/wp-content/uploads/2024/12/SENS-Announcement-Zambeef-Products-Plc-FY-Results-2024-10.12.2024-FINAL.pdf",
+          "publisher": "Zambeef Products plc, via the Lusaka Securities Exchange",
+          "date": "2024-12-10",
+          "supports": "Audited income statement, balance sheet and cash flow for FY2023 and FY2024, capacities, expansion plan, inflation and currency movement"
+        }
+      ],
+      "caveats": [
+        "Revenue includes fair value changes in biological assets as a separate line. Tenor treats it as part of gross profit, as the company does."
+      ],
+      "data_quality_summary": {
+        "fields": 24,
+        "sourced": 14,
+        "derived": 3,
+        "assumed": 7,
+        "pct_sourced": 58,
+        "pct_sourced_or_derived": 71
+      }
+    },
+    {
+      "id": "sl-rice-agro-industrial-cluster",
+      "name": "Sierra Leone Rice Agro-Industrial Cluster (SL RAIC)",
+      "sponsor": "Government of Sierra Leone, Ministry of Agriculture and Forestry",
+      "country": "Sierra Leone",
+      "sector": "agro_processing",
+      "sub_sector": "Rice milling cluster with irrigated paddy supply",
+      "stage": "new",
+      "concept": "Build a cluster of privately operated rice mills with parboiling, destoning and packaging, supplied by smallholders on about 5,000 hectares of new irrigation, funded mainly by African Development Fund grants.",
+      "revenue_model": "Private mill operators earn from milling and selling rice. Mill owners pay a lump sum and repay the non-grant part of their equipment.",
+      "currency": "USD",
+      "fx": {
+        "ua_to_usd": {
+          "value": 1.44467,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "1 UA = USD 1.44467."
+        },
+        "revenue_currency": "SLE",
+        "debt_currency": null
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "The project aims at rice self-sufficiency in Sierra Leone."
+        }
+      },
+      "drivers": {
+        "milling_units": {
+          "value": 7,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Cluster to house 7 milling units of 2.5 to 5 tonnes per hour."
+        },
+        "capacity_tpy": {
+          "value": 26250,
+          "quality": "derived",
+          "note": "7 units at an average 3.75 tonnes of paddy per hour, assuming 1,000 operating hours a year in a seasonal supply area.",
+          "source": "s1"
+        },
+        "utilisation_pct": {
+          "value": 60,
+          "quality": "assumed",
+          "note": "Assumed for a new cluster dependent on smallholder supply."
+        },
+        "conversion_pct": {
+          "value": 62,
+          "quality": "assumed",
+          "note": "Typical paddy to milled rice recovery for rubber-roll mills with parboiling."
+        },
+        "product_price": {
+          "value": 800,
+          "quality": "assumed",
+          "note": "Illustrative milled rice price in USD per tonne."
+        },
+        "input_price": {
+          "value": 380,
+          "quality": "assumed",
+          "note": "Illustrative paddy price in USD per tonne."
+        },
+        "byproduct_revenue_pct": {
+          "value": 3,
+          "quality": "assumed",
+          "note": "Bran and husk briquettes. The project includes briquetting equipment."
+        },
+        "irrigated_hectares": {
+          "value": 5000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'Development of irrigation schemes for about 5000 ha of land'."
+        },
+        "paddy_yield_before": {
+          "value": 2.8,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Results framework baseline, tonnes per hectare."
+        },
+        "paddy_yield_target": {
+          "value": 3.5,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Results framework target, tonnes per hectare."
+        },
+        "beneficiaries": {
+          "value": 35000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Active smallholder farmers."
+        }
+      },
+      "capex": [
+        {
+          "label": "Enhancement of agricultural production systems",
+          "class": "irrigation",
+          "amount": {
+            "value": 13620000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "US$ thousands 13,620 (Table 2.4a)."
+          }
+        },
+        {
+          "label": "Green industrial (milling) cluster",
+          "class": "plant",
+          "amount": {
+            "value": 14862000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "US$ thousands 14,862."
+          }
+        },
+        {
+          "label": "Capacity building and institutional strengthening",
+          "class": "other",
+          "amount": {
+            "value": 2736000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "US$ thousands 2,736."
+          }
+        },
+        {
+          "label": "Project management",
+          "class": "other",
+          "amount": {
+            "value": 3442000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "US$ thousands 3,442."
+          }
+        },
+        {
+          "label": "Physical and price contingencies",
+          "class": "other",
+          "amount": {
+            "value": 2126000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "US$ thousands 1,026 plus 1,100."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Cluster operations and maintenance",
+            "amount": {
+              "value": 450000,
+              "quality": "assumed",
+              "note": "Illustrative USD a year for the cluster."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Energy and consumables per tonne of paddy",
+            "amount": {
+              "value": 30,
+              "quality": "assumed",
+              "note": "Illustrative."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "DFI grants with government and beneficiary in-kind contributions",
+        "instruments": [
+          {
+            "type": "grant",
+            "provider": "African Development Fund (ADF-15 and Transition Support Facility)",
+            "provider_type": "dfi",
+            "amount": {
+              "value": 30591000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "UA 21.17 million, US$ thousands 30,591 (Table 2.4b)."
+            },
+            "currency": "USD"
+          },
+          {
+            "type": "equity",
+            "provider": "Government of Sierra Leone (in kind)",
+            "provider_type": "sovereign",
+            "amount": {
+              "value": 4799000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "UA 3.32 million."
+            },
+            "currency": "USD"
+          },
+          {
+            "type": "equity",
+            "provider": "Beneficiaries (in kind)",
+            "provider_type": "own",
+            "amount": {
+              "value": 1396000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "UA 0.97 million."
+            },
+            "currency": "USD"
+          }
+        ]
+      },
+      "timeline": {
+        "appraisal_date": {
+          "value": "2021-08",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "firr_pct": {
+          "value": 21,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "npv_usd": {
+          "value": 13764912,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Financial NPV, base case."
+        },
+        "eirr_pct": {
+          "value": 23,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "economic_npv_usd": {
+          "value": 16523827,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "discount_rate_pct": {
+          "value": 12,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'opportunity cost of capital (12%)'."
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Rice Agro Industrial Cluster (SL RAIC) Project, Sierra Leone: Project Appraisal Report",
+          "url": "https://ewsdata.rightsindevelopment.org/files/documents/21/AFDB-P-SL-AA0-021.pdf",
+          "publisher": "African Development Bank Group (copy hosted by the Early Warning System)",
+          "date": "2021-08",
+          "supports": "Costs by component, financing plan, exchange rate, hectares, yields, mills, FIRR, EIRR, NPV, discount rate, beneficiaries"
+        }
+      ],
+      "caveats": [
+        "The project is grant-funded, so it is the grant example in the library.",
+        "Mill throughput hours, prices and recovery rate are assumptions. The appraisal's financial NPV is shown as the published benchmark, not recalculated.",
+        "Tenor models only the mill cluster's own sales, so its returns come out far below the appraisal's 21% FIRR, which also counts farmers' extra paddy. This is a known limit of a single-business view of a public programme."
+      ],
+      "data_quality_summary": {
+        "fields": 29,
+        "sourced": 21,
+        "derived": 1,
+        "assumed": 7,
+        "pct_sourced": 72,
+        "pct_sourced_or_derived": 76
+      }
+    },
+    {
+      "id": "ng-electrification-minigrids",
+      "name": "Nigeria Electrification Project: solar hybrid mini-grids",
+      "sponsor": "Rural Electrification Agency, Federal Government of Nigeria",
+      "country": "Nigeria",
+      "sector": "energy",
+      "sub_sector": "Private solar hybrid mini-grids with capital subsidies",
+      "stage": "new",
+      "concept": "Private developers build and run about 850 solar hybrid mini-grids in unserved areas. IDA funds capital subsidies through a minimum-subsidy tender and per-connection performance grants, and developers bring private capital for the rest.",
+      "revenue_model": "Developers sell power to homes and businesses through prepaid meters. Grants reduce upfront cost so tariffs can stay below full cost recovery.",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar. Tariffs are collected in naira while much equipment is imported in dollars."
+        },
+        "revenue_currency": "NGN",
+        "debt_currency": "USD"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "drivers": {
+        "mini_grids": {
+          "value": 850,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'It is expected that about 850 mini grids will be built by private firms'."
+        },
+        "connections": {
+          "value": 340000,
+          "quality": "assumed",
+          "note": "Assumes about 400 connections per mini-grid. Not stated in the document opened."
+        },
+        "kwh_per_connection_month": {
+          "value": 25,
+          "quality": "assumed",
+          "note": "Illustrative mix of homes and small businesses."
+        },
+        "tariff_per_kwh": {
+          "value": 0.5,
+          "quality": "assumed",
+          "note": "Illustrative tariff in USD. The document says rural tariffs must be cost-reflective, with NERC ceilings for systems over 100 kW."
+        },
+        "collection_pct": {
+          "value": 97,
+          "quality": "assumed",
+          "note": "Prepaid meters are required, so collection is assumed to be high."
+        },
+        "connection_grant": {
+          "value": 350,
+          "quality": "assumed",
+          "note": "The performance-based grant is paid per new connection, but the amount was not in the document opened."
+        }
+      },
+      "capex": [
+        {
+          "label": "Mini-grid component total (all mini-grids)",
+          "class": "solar",
+          "amount": {
+            "value": 330000000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "'is about US$330 million, of which about US$150 million will be provided by IDA'."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Operation and maintenance",
+            "amount": {
+              "value": "3% of capex a year",
+              "quality": "assumed",
+              "note": "Planning allowance."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Diesel backup fuel per kWh",
+            "amount": {
+              "value": 0.03,
+              "quality": "assumed",
+              "note": "Illustrative, in USD."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Blended: IDA-funded grants plus private developer capital",
+        "instruments": [
+          {
+            "type": "grant",
+            "provider": "IDA via the Rural Electrification Agency: minimum subsidy tender",
+            "provider_type": "dfi",
+            "amount": {
+              "value": 70000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD"
+          },
+          {
+            "type": "grant",
+            "provider": "IDA via the Rural Electrification Agency: performance-based grants",
+            "provider_type": "dfi",
+            "amount": {
+              "value": 80000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD"
+          },
+          {
+            "type": "mixed",
+            "provider": "Private developers (equity and commercial debt)",
+            "provider_type": "commercial_bank",
+            "amount": {
+              "value": 180000000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "'US$180 million of private capital will be leveraged'."
+            },
+            "currency": "USD",
+            "split_note": "Assumes 40% developer equity and 60% commercial debt.",
+            "tenor_years": {
+              "value": 7,
+              "quality": "assumed",
+              "note": "Assumed for commercial mini-grid debt."
+            },
+            "grace_years": {
+              "value": 1,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "interest_rate_pct": {
+              "value": 11,
+              "quality": "assumed",
+              "note": "Assumed USD rate."
+            },
+            "repayment_type": {
+              "value": "annuity",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          }
+        ],
+        "programme_level": {
+          "total_project_cost": {
+            "value": 765000000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "Total Project Cost 765.00 (US$ millions)."
+          },
+          "ida_credit": {
+            "value": 350000000,
+            "quality": "sourced",
+            "source": "s1"
+          },
+          "commercial_financing": {
+            "value": 410000000,
+            "quality": "sourced",
+            "source": "s1"
+          },
+          "borrower_contribution": {
+            "value": 5000000,
+            "quality": "sourced",
+            "source": "s1"
+          }
+        }
+      },
+      "timeline": {
+        "approval_date": {
+          "value": "2018-06-27",
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "closing_date": {
+          "value": "2024-12-31",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "outcomes": {
+        "components": {
+          "value": {
+            "mini_grids": 150,
+            "standalone_solar": 75,
+            "energizing_education": 105,
+            "technical_assistance": 20
+          },
+          "quality": "sourced",
+          "source": "s1",
+          "note": "IDA allocation by component, US$ millions."
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Nigeria Electrification Project (P161885): Combined Project Information Documents / Integrated Safeguards Data Sheet",
+          "url": "https://documents1.worldbank.org/curated/en/493201525197708435/pdf/Project-Information-Document-Integrated-Safeguards-Data-Sheet-Nigeria-Electrification-Project-P161885.pdf",
+          "publisher": "World Bank",
+          "date": "2017-11-12 (approved for disclosure May 2018)",
+          "supports": "Total cost and financing, component amounts, number of mini-grids, private capital, tariff rules"
+        },
+        {
+          "id": "s2",
+          "title": "Nigeria Electrification Project (P161885), project record",
+          "url": "https://search.worldbank.org/api/v3/projects?id=P161885&format=json",
+          "publisher": "World Bank",
+          "date": "accessed 2026-11-13",
+          "supports": "Approval and closing dates, total cost, IDA commitment"
+        }
+      ],
+      "caveats": [
+        "The document opened is the pre-appraisal information document. Allocations were later restructured, so figures reflect the original design.",
+        "Per-mini-grid economics (connections, tariff, grant per connection) are assumptions."
+      ],
+      "data_quality_summary": {
+        "fields": 25,
+        "sourced": 13,
+        "derived": 0,
+        "assumed": 12,
+        "pct_sourced": 52,
+        "pct_sourced_or_derived": 52
+      }
+    },
+    {
+      "id": "ng-waltersmith-modular-refinery",
+      "name": "Waltersmith modular refinery, Ibigwe (phase 1)",
+      "sponsor": "Waltersmith Petroman Oil (70%) and the Nigerian Content Development and Monitoring Board (30%)",
+      "country": "Nigeria",
+      "sector": "petroleum",
+      "sub_sector": "Modular crude oil refinery",
+      "stage": "new",
+      "concept": "A 5,000 barrel-a-day modular refinery next to the company's own Ibigwe oil field, producing diesel, naphtha, kerosene and fuel oil for the Nigerian market.",
+      "revenue_model": "Sales of refined products. Margin is the gap between product value and the cost of crude from the adjacent field.",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar. Products may be priced in naira while crude and debt are in dollars."
+        },
+        "revenue_currency": "NGN",
+        "debt_currency": "USD"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "assumed",
+          "note": "Sources describe supply to the Nigerian market."
+        }
+      },
+      "drivers": {
+        "capacity_bpd": {
+          "value": 5000,
+          "quality": "sourced",
+          "source": "s3",
+          "note": "First phase of 5,000 barrels a day."
+        },
+        "crude_throughput_bbl_year": {
+          "value": 1800000,
+          "quality": "sourced",
+          "source": "s3",
+          "note": "'process about 1.8 million bbl crude and condensate annually'."
+        },
+        "utilisation_pct": {
+          "value": 99,
+          "quality": "derived",
+          "note": "1.8 million barrels a year divided by 5,000 barrels a day times 365 days (1.825 million).",
+          "source": "s3"
+        },
+        "operating_days": {
+          "value": 330,
+          "quality": "assumed",
+          "note": "Allows for maintenance shutdowns."
+        },
+        "product_output_litres_year": {
+          "value": 271000000,
+          "quality": "sourced",
+          "source": "s2",
+          "note": "'will produce 271 million liters of petroleum product annually'."
+        },
+        "products": {
+          "value": [
+            "Diesel",
+            "Naphtha",
+            "Kerosene",
+            "High-pour fuel oil"
+          ],
+          "quality": "sourced",
+          "source": "s3"
+        },
+        "product_value_per_bbl": {
+          "value": 90,
+          "quality": "assumed",
+          "note": "Illustrative weighted product value in USD per barrel processed."
+        },
+        "crude_cost_per_bbl": {
+          "value": 75,
+          "quality": "assumed",
+          "note": "Illustrative crude cost in USD per barrel, assuming a discount for crude from the adjacent field."
+        }
+      },
+      "capex": [
+        {
+          "label": "Refinery phase 1 (implied total funding)",
+          "class": "plant",
+          "amount": {
+            "value": 68333333,
+            "quality": "derived",
+            "note": "AFC debt of US$35m plus implied total equity of US$33.3m. Equity is derived from NCDMB's US$10m for 30%, assuming both shareholders paid the same price per share. Total cost was not found.",
+            "source": "s1"
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Staff, insurance and overheads",
+            "amount": {
+              "value": 3000000,
+              "quality": "assumed",
+              "note": "Illustrative USD a year."
+            }
+          }
+        ],
+        "variable": [
+          {
+            "label": "Processing cost per barrel",
+            "amount": {
+              "value": 4,
+              "quality": "assumed",
+              "note": "Illustrative USD per barrel."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Sponsor equity, government agency equity and DFI debt",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "Africa Finance Corporation",
+            "provider_type": "dfi",
+            "amount": {
+              "value": 35000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 7,
+              "quality": "assumed",
+              "note": "Terms not disclosed."
+            },
+            "grace_years": {
+              "value": 2,
+              "quality": "assumed",
+              "note": "Assumed to cover construction."
+            },
+            "interest_rate_pct": {
+              "value": 10,
+              "quality": "assumed",
+              "note": "Assumed USD rate."
+            },
+            "repayment_type": {
+              "value": "annuity",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "Nigerian Content Development and Monitoring Board",
+            "provider_type": "sovereign",
+            "amount": {
+              "value": 10000000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "US$10m equity investment agreement (2018)."
+            },
+            "currency": "USD",
+            "stake_pct": {
+              "value": 30,
+              "quality": "sourced",
+              "source": "s2"
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "Waltersmith Petroman Oil",
+            "provider_type": "own",
+            "amount": {
+              "value": 23333333,
+              "quality": "derived",
+              "note": "70% stake priced at the same rate as NCDMB's US$10m for 30%.",
+              "source": "s2"
+            },
+            "currency": "USD",
+            "stake_pct": {
+              "value": 70,
+              "quality": "sourced",
+              "source": "s2"
+            }
+          }
+        ]
+      },
+      "timeline": {
+        "debt_signed": {
+          "value": "2018-07",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "commissioned": {
+          "value": "2020-11-24",
+          "quality": "sourced",
+          "source": "s3"
+        },
+        "next_phase": {
+          "value": "A further 45,000 barrels a day planned, 24 to 30 months",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "outcomes": {
+        "early_output": {
+          "value": "5 million litres delivered to the market soon after start-up",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "AFC signs $35 million debt facility for Waltersmith refinery",
+          "url": "https://nairametrics.com/2018/07/19/afc-35-million-debt-facility-for-waltersmith-refinery",
+          "publisher": "Nairametrics",
+          "date": "2018-07-19",
+          "supports": "AFC debt amount, NCDMB US$10m equity, planned capacity"
+        },
+        {
+          "id": "s2",
+          "title": "Nigeria's 5,000 bpd refinery will produce 271 million litres of petroleum product every year",
+          "url": "https://nairametrics.com/2020/11/24/nigerias-5000-bpd-refinery-will-produce-271-million-liters-of-petrol-every-year/",
+          "publisher": "Nairametrics",
+          "date": "2020-11-24",
+          "supports": "Output, ownership split, next phase"
+        },
+        {
+          "id": "s3",
+          "title": "Waltersmith commissions phase 1 of grassroots Nigerian refinery",
+          "url": "https://www.ogj.com/general-interest/article/14189111/waltersmith-commissions-phase-1-of-grassroots-nigerian-refinery",
+          "publisher": "Oil & Gas Journal",
+          "date": "2020-12-14",
+          "supports": "Location, start-up date, products, crude throughput, crude source"
+        }
+      ],
+      "caveats": [
+        "Total project cost was not found. The capex figure is derived from the financing and should be treated as an estimate.",
+        "No source confirms how much of the AFC facility was drawn."
+      ],
+      "data_quality_summary": {
+        "fields": 26,
+        "sourced": 12,
+        "derived": 3,
+        "assumed": 11,
+        "pct_sourced": 46,
+        "pct_sourced_or_derived": 58
+      }
+    },
+    {
+      "id": "us-mailchimp-selffunded",
+      "name": "Mailchimp (self-funded software company)",
+      "sponsor": "Mailchimp (privately held until its sale to Intuit)",
+      "country": "United States",
+      "sector": "tech",
+      "sub_sector": "Subscription marketing software for small businesses",
+      "stage": "trading",
+      "concept": "Email and marketing software for small businesses that grew to 800,000 paid customers while privately held, then sold to Intuit for about US$12 billion.",
+      "revenue_model": "Monthly subscriptions, with a free tier converting to paid plans.",
+      "currency": "USD",
+      "fx": null,
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 50,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'50 percent of customers outside of the U.S.' Used as a proxy for revenue split."
+        }
+      },
+      "drivers": {
+        "total_users": {
+          "value": 13000000,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "monthly_active_users": {
+          "value": 2400000,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "starting_customers": {
+          "value": 800000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Paid customers at the time of the deal (2021)."
+        },
+        "price_per_month": {
+          "value": 85,
+          "quality": "assumed",
+          "note": "Illustrative average revenue per paid customer a month. Mailchimp's revenue was not in the source opened."
+        },
+        "churn_pct_month": {
+          "value": 2,
+          "quality": "assumed",
+          "note": "Illustrative churn for small-business software."
+        },
+        "new_customers_month": {
+          "value": 25000,
+          "quality": "assumed",
+          "note": "Illustrative."
+        },
+        "cac": {
+          "value": 150,
+          "quality": "assumed",
+          "note": "Illustrative. Much growth came from the free tier."
+        },
+        "growth_pct_year": {
+          "value": 10,
+          "quality": "assumed",
+          "note": "Illustrative."
+        }
+      },
+      "capex": [
+        {
+          "label": "Product and infrastructure (annual)",
+          "class": "it",
+          "amount": {
+            "value": 30000000,
+            "quality": "assumed",
+            "note": "Illustrative."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Team and overheads",
+            "amount": {
+              "value": 240000000,
+              "quality": "assumed",
+              "note": "Illustrative: about 1,200 employees (sourced, s1) at an assumed US$200,000 fully loaded cost each."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Own money (no outside investors)",
+        "instruments": [
+          {
+            "type": "equity",
+            "provider": "Founders and retained earnings",
+            "provider_type": "own",
+            "amount": {
+              "value": 0,
+              "quality": "assumed",
+              "note": "No outside funding round was found. The source says the company is privately held, which is consistent with self-funding but does not prove it."
+            },
+            "currency": "USD"
+          }
+        ]
+      },
+      "timeline": {
+        "founded": {
+          "value": 2001,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "acquisition_announced": {
+          "value": "2021-09-13",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "exit_value_usd": {
+          "value": 12000000000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'total consideration of approximately $12 billion'."
+        },
+        "employees": {
+          "value": "1,200+",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Intuit to acquire Mailchimp (press release, Exhibit 99.1 to Form 8-K)",
+          "url": "https://www.sec.gov/Archives/edgar/data/896878/000119312521271682/d226456dex991.htm",
+          "publisher": "Intuit Inc. via SEC EDGAR",
+          "date": "2021-09-13",
+          "supports": "Deal value, users, paid customers, employees, international share, founding year, private status"
+        }
+      ],
+      "caveats": [
+        "Revenue and costs are illustrative because the filing opened does not state them. The case shows how a self-funded subscription business grows, not Mailchimp's actual accounts."
+      ],
+      "data_quality_summary": {
+        "fields": 16,
+        "sourced": 8,
+        "derived": 0,
+        "assumed": 8,
+        "pct_sourced": 50,
+        "pct_sourced_or_derived": 50
+      }
+    },
+    {
+      "id": "ng-ulesson-seed",
+      "name": "uLesson (seed-funded edtech)",
+      "sponsor": "uLesson",
+      "country": "Nigeria",
+      "sector": "tech",
+      "sub_sector": "Subscription learning app for secondary school students",
+      "stage": "pre-revenue",
+      "concept": "An app-based home learning kit with animated lessons for secondary school students in Anglophone West Africa, raising a seed round before launch.",
+      "revenue_model": "Yearly subscription of about US$70 up front, or pay as you go.",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar. Students pay in local currency."
+        },
+        "revenue_currency": "NGN",
+        "debt_currency": null
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 70,
+          "quality": "assumed",
+          "note": "Launch planned in Nigeria, Ghana, Sierra Leone and Gambia. Assumes most early customers are in Nigeria. Sales to the other three are counted as export."
+        }
+      },
+      "drivers": {
+        "starting_customers": {
+          "value": 0,
+          "quality": "assumed",
+          "note": "Pre-launch at the time of the round."
+        },
+        "price_per_month": {
+          "value": 5.83,
+          "quality": "derived",
+          "note": "About US$70 a year divided by 12.",
+          "source": "s1"
+        },
+        "new_customers_month": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Illustrative early growth."
+        },
+        "churn_pct_month": {
+          "value": 3,
+          "quality": "assumed",
+          "note": "Illustrative, given yearly subscriptions."
+        },
+        "cac": {
+          "value": 25,
+          "quality": "assumed",
+          "note": "Illustrative, including counsellor network costs."
+        },
+        "growth_pct_year": {
+          "value": 60,
+          "quality": "assumed",
+          "note": "Illustrative."
+        },
+        "lesson_videos": {
+          "value": 3000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'already created 3000 animated videos'."
+        },
+        "addressable_market": {
+          "value": "About 300 million people in Anglophone West Africa",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "capex": [
+        {
+          "label": "Content studio and product build",
+          "class": "it",
+          "amount": {
+            "value": 800000,
+            "quality": "assumed",
+            "note": "Illustrative share of the seed round spent on content and product."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Team and studio",
+            "amount": {
+              "value": 1200000,
+              "quality": "assumed",
+              "note": "Illustrative yearly cost."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Seed round",
+        "instruments": [
+          {
+            "type": "equity",
+            "provider": "TLcom Capital (lead) and the founder",
+            "provider_type": "angel_seed",
+            "amount": {
+              "value": 3100000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD",
+            "pre_money_valuation": {
+              "value": 9000000,
+              "quality": "assumed",
+              "note": "Not disclosed. Illustrative only, used to show dilution."
+            }
+          }
+        ]
+      },
+      "timeline": {
+        "round_announced": {
+          "value": "2019-11-26",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "planned_launch": {
+          "value": "2020-02",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {},
+      "sources": [
+        {
+          "id": "s1",
+          "title": "uLesson African edtech startup raises $3.1M",
+          "url": "https://techcrunch.com/2019/11/26/sim-shagayas-ulesson-african-edtech-startup-raises-3-1m/",
+          "publisher": "TechCrunch",
+          "date": "2019-11-26",
+          "supports": "Round size, lead investor, price, product, markets, launch plan, content"
+        }
+      ],
+      "caveats": [
+        "No user numbers were in the source, so growth figures are illustrative."
+      ],
+      "data_quality_summary": {
+        "fields": 16,
+        "sourced": 5,
+        "derived": 1,
+        "assumed": 10,
+        "pct_sourced": 31,
+        "pct_sourced_or_derived": 38
+      }
+    },
+    {
+      "id": "ng-flutterwave-series-b",
+      "name": "Flutterwave (venture-funded payments)",
+      "sponsor": "Flutterwave",
+      "country": "Nigeria and United States",
+      "sector": "fintech",
+      "sub_sector": "Payments infrastructure for businesses",
+      "stage": "trading",
+      "concept": "A payments platform that lets businesses accept and send payments across Africa, raising a venture Series B to expand into Francophone and North Africa.",
+      "revenue_model": "A fee on each transaction processed.",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar. Fees are earned in several currencies."
+        },
+        "revenue_currency": "multiple",
+        "debt_currency": null
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 50,
+          "quality": "assumed",
+          "note": "Assumes half of revenue from Nigeria. Not stated."
+        }
+      },
+      "drivers": {
+        "transactions_processed": {
+          "value": 107000000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Cumulative to January 2020."
+        },
+        "value_processed_usd": {
+          "value": 5400000000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Cumulative value to January 2020."
+        },
+        "transactions_2017": {
+          "value": 14000000,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "value_2017_usd": {
+          "value": 1500000000,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "active_customers": {
+          "value": 10000,
+          "quality": "assumed",
+          "note": "Illustrative number of merchant customers."
+        },
+        "volume_per_customer": {
+          "value": 250000,
+          "quality": "assumed",
+          "note": "Illustrative annual payment volume per merchant."
+        },
+        "take_rate_pct": {
+          "value": 1.2,
+          "quality": "assumed",
+          "note": "Illustrative net fee. Not stated."
+        },
+        "loss_rate_pct": {
+          "value": 0.05,
+          "quality": "assumed",
+          "note": "Illustrative fraud and chargeback losses for a payment processor."
+        },
+        "customer_growth_pct": {
+          "value": 60,
+          "quality": "assumed",
+          "note": "Illustrative."
+        }
+      },
+      "capex": [
+        {
+          "label": "Platform build",
+          "class": "it",
+          "amount": {
+            "value": 3000000,
+            "quality": "assumed",
+            "note": "Illustrative."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Team, compliance and overheads",
+            "amount": {
+              "value": 12000000,
+              "quality": "assumed",
+              "note": "Illustrative."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Venture capital (Series B)",
+        "instruments": [
+          {
+            "type": "equity",
+            "provider": "Greycroft and eVentures (co-leads), with Green Visor and CRE Venture Capital",
+            "provider_type": "venture",
+            "amount": {
+              "value": 35000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD",
+            "pre_money_valuation": {
+              "value": 150000000,
+              "quality": "assumed",
+              "note": "Not disclosed. Illustrative only, used to show dilution."
+            }
+          }
+        ]
+      },
+      "timeline": {
+        "round_announced": {
+          "value": "2020-01-21",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "founded": {
+          "value": 2016,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "partners": {
+          "value": "Worldpay and Visa partnerships announced with the round",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Flutterwave raises $35 million in Series B funding",
+          "url": "https://nairametrics.com/2020/01/21/flutterwave-raises-35-million-in-series-b-funding/",
+          "publisher": "Nairametrics",
+          "date": "2020-01-21",
+          "supports": "Round size, investors, transactions and value processed, expansion plans, founding year"
+        }
+      ],
+      "caveats": [
+        "Revenue drivers are illustrative. Reports differ on the transaction count (100 million or 107 million). The source opened says 107 million."
+      ],
+      "data_quality_summary": {
+        "fields": 18,
+        "sourced": 8,
+        "derived": 0,
+        "assumed": 10,
+        "pct_sourced": 44,
+        "pct_sourced_or_derived": 44
+      }
+    },
+    {
+      "id": "ke-mkopa-paygo",
+      "name": "M-KOPA (pay-as-you-go asset finance)",
+      "sponsor": "M-KOPA",
+      "country": "Kenya, Uganda, Nigeria and Ghana",
+      "sector": "fintech",
+      "sub_sector": "Pay-as-you-go financing for smartphones, solar and motorbikes",
+      "stage": "trading",
+      "concept": "Customers pay a deposit, take a smartphone, solar kit or electric motorbike, and pay small daily amounts until they own it. Growth is funded by equity and a large sustainability-linked debt facility.",
+      "revenue_model": "Financing income built into daily payments on assets sold on credit.",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 130,
+          "quality": "assumed",
+          "note": "Assumed Kenyan shillings per US dollar. Debt is mainly in dollars and repayments in local currencies."
+        },
+        "revenue_currency": "multiple",
+        "debt_currency": "USD"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 60,
+          "quality": "assumed",
+          "note": "Assumes Kenya is about 60% of business. Not stated."
+        }
+      },
+      "drivers": {
+        "active_customers": {
+          "value": 3000000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'reached three million customers'."
+        },
+        "cumulative_financing_usd": {
+          "value": 1000000000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'$1 billion in cumulative financing'."
+        },
+        "volume_per_customer": {
+          "value": 333,
+          "quality": "derived",
+          "note": "US$1bn cumulative financing divided by 3 million customers, used as an average amount financed per customer.",
+          "source": "s1"
+        },
+        "take_rate_pct": {
+          "value": 35,
+          "quality": "assumed",
+          "note": "Illustrative financing margin over the life of a pay-as-you-go contract."
+        },
+        "loss_rate_pct": {
+          "value": 8,
+          "quality": "assumed",
+          "note": "Illustrative credit loss rate."
+        },
+        "customer_growth_pct": {
+          "value": 85,
+          "quality": "derived",
+          "note": "Compound annual growth in new customer acquisition 2020 to 2022, used as a growth proxy.",
+          "source": "s2"
+        },
+        "cac": {
+          "value": 20,
+          "quality": "assumed",
+          "note": "Illustrative."
+        }
+      },
+      "capex": [
+        {
+          "label": "Platform and devices management",
+          "class": "it",
+          "amount": {
+            "value": 10000000,
+            "quality": "assumed",
+            "note": "Illustrative."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Team, field agents and overheads",
+            "amount": {
+              "value": 60000000,
+              "quality": "assumed",
+              "note": "Illustrative."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Equity plus sustainability-linked debt",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "Standard Bank Group (lead), with IFC, Mirova SunFunder, Nithio and others",
+            "provider_type": "commercial_bank",
+            "amount": {
+              "value": 200000000,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "'over $200 million in debt financing'."
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 4,
+              "quality": "assumed",
+              "note": "Not disclosed."
+            },
+            "grace_years": {
+              "value": 1,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "interest_rate_pct": {
+              "value": 11,
+              "quality": "assumed",
+              "note": "Not disclosed. Pricing is linked to environmental and social targets (s2)."
+            },
+            "repayment_type": {
+              "value": "annuity",
+              "quality": "assumed",
+              "note": "Assumed. Borrowing-base facility in reality."
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "Sumitomo Corporation (lead, US$36.5m) and others",
+            "provider_type": "venture",
+            "amount": {
+              "value": 55000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD"
+          }
+        ]
+      },
+      "timeline": {
+        "round_announced": {
+          "value": "2023-05-15",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "previous_round": {
+          "value": "US$75m growth equity, March 2022",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {},
+      "sources": [
+        {
+          "id": "s1",
+          "title": "M-KOPA raises $250 million in equity and debt",
+          "url": "https://techpoint.africa/news/m-kopa-25o-million-fundraise/",
+          "publisher": "Techpoint Africa",
+          "date": "2023-05-15",
+          "supports": "Debt and equity amounts, lenders and investors, customers, cumulative financing, products, countries, previous round"
+        },
+        {
+          "id": "s2",
+          "title": "M-KOPA raises $250m to scale consumer fintech across Africa",
+          "url": "https://businessday.ng/technology/article/m-kopa-raises-250m-to-scale-consumer-fintech-across-africa/",
+          "publisher": "BusinessDay",
+          "date": "2023-05-15",
+          "supports": "Sustainability-linked debt pricing, customer acquisition growth rate, lender list"
+        }
+      ],
+      "caveats": [
+        "The two sources list slightly different lenders and equity investors."
+      ],
+      "data_quality_summary": {
+        "fields": 19,
+        "sourced": 6,
+        "derived": 2,
+        "assumed": 11,
+        "pct_sourced": 32,
+        "pct_sourced_or_derived": 42
+      }
+    },
+    {
+      "id": "ug-ibbi-quarry-asphalt",
+      "name": "IBBI granite quarry and asphalt plant",
+      "sponsor": "IBBI (Ugandan construction and consultancy firm)",
+      "country": "Uganda",
+      "sector": "manufacturing",
+      "sub_sector": "Crushed aggregates and asphalt for road building",
+      "stage": "new",
+      "concept": "Set up a granite quarry and an asphalt production plant using UK-made machinery, financed by a buyer loan guaranteed by UK Export Finance.",
+      "revenue_model": "Sales of crushed stone and asphalt to road and construction projects.",
+      "currency": "GBP",
+      "fx": {
+        "usd_rate": {
+          "value": 0.79,
+          "quality": "assumed",
+          "note": "Assumed pounds per US dollar."
+        },
+        "revenue_currency": "UGX",
+        "debt_currency": "GBP"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "assumed",
+          "note": "Uganda construction market assumed."
+        }
+      },
+      "drivers": {
+        "units_per_month": {
+          "value": 20000,
+          "quality": "assumed",
+          "note": "Illustrative tonnes of asphalt and aggregate a month, about a 100 tonne-an-hour plant running 200 hours a month. Plant capacity was not stated."
+        },
+        "utilisation_pct": {
+          "value": 55,
+          "quality": "assumed",
+          "note": "Illustrative, given lumpy demand from road contracts."
+        },
+        "price_per_unit": {
+          "value": 45,
+          "quality": "assumed",
+          "note": "Illustrative blended price in GBP per tonne."
+        },
+        "materials_per_unit": {
+          "value": 22,
+          "quality": "assumed",
+          "note": "Illustrative cost of bitumen, fuel and blasting per tonne."
+        }
+      },
+      "capex": [
+        {
+          "label": "Asphalt plant, granite crusher, vehicles and logistics from Rainbo",
+          "class": "plant",
+          "amount": {
+            "value": 6220000,
+            "quality": "derived",
+            "note": "UKEF-guaranteed loan of £5.29m plus an assumed 15% buyer deposit.",
+            "source": "s1"
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Staff, maintenance and site costs",
+            "amount": {
+              "value": 600000,
+              "quality": "assumed",
+              "note": "Illustrative GBP a year."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Export credit buyer loan (UK Export Finance Standard Buyer Loan Guarantee)",
+        "instruments": [
+          {
+            "type": "equipment_loan",
+            "provider": "London Forfaiting Company, guaranteed by UK Export Finance",
+            "provider_type": "exim",
+            "amount": {
+              "value": 5290000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "GBP",
+            "tenor_years": {
+              "value": 5,
+              "quality": "assumed",
+              "note": "Not stated."
+            },
+            "grace_years": {
+              "value": 1,
+              "quality": "assumed",
+              "note": "Assumed six months, rounded up to one year because Tenor's model is annual."
+            },
+            "interest_rate_pct": {
+              "value": 8.5,
+              "quality": "assumed",
+              "note": "Assumed GBP rate including the guarantee premium."
+            },
+            "repayment_type": {
+              "value": "equal_principal",
+              "quality": "assumed",
+              "note": "Assumed. Export credit loans usually repay in equal instalments."
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "IBBI (deposit)",
+            "provider_type": "own",
+            "amount": {
+              "value": 930000,
+              "quality": "derived",
+              "note": "Assumed 15% deposit."
+            },
+            "currency": "GBP"
+          }
+        ]
+      },
+      "timeline": {
+        "announced": {
+          "value": "2025-08-12",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {},
+      "sources": [
+        {
+          "id": "s1",
+          "title": "From Crawley to Kampala: multimillion pound UKEF deal seals export win",
+          "url": "https://www.gov.uk/government/news/from-crawley-to-kampala-multimillion-pound-ukef-deal-seals-export-win",
+          "publisher": "UK Export Finance",
+          "date": "2025-08-12",
+          "supports": "Loan amount, lender, product, what the machinery is for, supplier"
+        }
+      ],
+      "caveats": [
+        "Only the financing and purpose are sourced. Output, prices and costs are illustrative."
+      ],
+      "data_quality_summary": {
+        "fields": 15,
+        "sourced": 2,
+        "derived": 2,
+        "assumed": 11,
+        "pct_sourced": 13,
+        "pct_sourced_or_derived": 27
+      }
+    },
+    {
+      "id": "ng-coldhubs-solar-cold-rooms",
+      "name": "ColdHubs solar-powered cold rooms",
+      "sponsor": "ColdHubs",
+      "country": "Nigeria",
+      "sector": "logistics",
+      "sub_sector": "Pay-per-crate solar cold storage at markets and farms",
+      "stage": "trading",
+      "concept": "Walk-in solar-powered cold rooms at markets where farmers and traders pay a small daily fee per crate to keep produce fresh for much longer.",
+      "revenue_model": "Daily flat fee per crate stored.",
+      "currency": "NGN",
+      "fx": {
+        "usd_rate": {
+          "value": 370,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar around 2019, matching the source's fee conversion of about US$0.27 for 100 naira."
+        },
+        "revenue_currency": "NGN",
+        "debt_currency": null
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "drivers": {
+        "capacity_units": {
+          "value": 150,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'approximately 2 tons of perishable food (150 crates)' per hub."
+        },
+        "hubs": {
+          "value": 19,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'In 2019, 19 ColdHubs have been installed', with 40 planned."
+        },
+        "periods_per_year": {
+          "value": 365,
+          "quality": "assumed",
+          "note": "Daily fee."
+        },
+        "utilisation_pct": {
+          "value": 110,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Utilisation rate used in the ownership model. Above 100% because crates turn over during the day."
+        },
+        "rate_per_unit": {
+          "value": 100,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'cooling fee of 100 N/crate'."
+        },
+        "shelf_life_days": {
+          "value": "From 2 days to 21",
+          "quality": "sourced",
+          "source": "s2"
+        }
+      },
+      "capex": [
+        {
+          "label": "One solar cold hub",
+          "class": "solar",
+          "amount": {
+            "value": 11470000,
+            "quality": "derived",
+            "note": "Mid-point of US$28,500 to US$33,500 installation cost (s1), at an assumed 370 naira per dollar.",
+            "source": "s1"
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Hub attendant and maintenance",
+            "amount": {
+              "value": 1200000,
+              "quality": "assumed",
+              "note": "Illustrative naira a year per hub."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Grant",
+        "instruments": [
+          {
+            "type": "grant",
+            "provider": "Grant funders (pilot under Powering Agriculture: An Energy Grand Challenge)",
+            "provider_type": "grant_funder",
+            "amount": {
+              "value": 11470000,
+              "quality": "derived",
+              "note": "Assumes one hub is fully grant-funded. Grant amounts were not stated.",
+              "source": "s1"
+            },
+            "currency": "NGN"
+          }
+        ]
+      },
+      "timeline": {
+        "data_year": {
+          "value": 2019,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "published_model_irr_pct": {
+          "value": 48,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Ownership model over 20 years."
+        },
+        "published_model_dscr": {
+          "value": 1.36,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "household_income": {
+          "value": "612 users' household income rose from US$60 to US$120 a month",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "ColdHubs: Solar Cold Rooms in Nigeria",
+          "url": "https://energypedia.info/wiki/ColdHubs_-_Solar_Cold_Rooms_in_Nigeria",
+          "publisher": "energypedia",
+          "date": "last edited 2019-12-05",
+          "supports": "Hub capacity, installation cost, fee, utilisation, number of hubs, published IRR and DSCR, income uplift"
+        },
+        {
+          "id": "s2",
+          "title": "Our solution",
+          "url": "https://coldhubs.com/our-solution/",
+          "publisher": "ColdHubs",
+          "date": "undated, accessed 2026-11-13",
+          "supports": "Shelf-life extension, daily flat fee per crate"
+        }
+      ],
+      "caveats": [
+        "Figures are from 2019 and may be out of date.",
+        "The wiki gives two inconsistent hub counts (5 and 19) and a food-saved figure that looks too high for five 2-tonne hubs. Neither of those questionable figures is used."
+      ],
+      "data_quality_summary": {
+        "fields": 15,
+        "sourced": 10,
+        "derived": 2,
+        "assumed": 3,
+        "pct_sourced": 67,
+        "pct_sourced_or_derived": 80
+      }
+    },
+    {
+      "id": "ng-lekki-deep-sea-port",
+      "name": "Lekki Deep Sea Port, phase 1",
+      "sponsor": "Lekki Port LFTZ Enterprise (China Harbour Engineering Company, Tolaram, Lagos State and Nigerian Ports Authority)",
+      "country": "Nigeria",
+      "sector": "logistics",
+      "sub_sector": "Container port under a 45-year concession",
+      "stage": "new",
+      "concept": "A deep-water container port near Lagos, built and run by a private consortium under a 45-year build, own, operate and transfer concession, financed with a large China Development Bank loan and sponsor equity.",
+      "revenue_model": "Container handling and port charges per TEU (twenty-foot equivalent unit).",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 1500,
+          "quality": "assumed",
+          "note": "Assumed naira per US dollar. Port tariffs are usually set in dollars, which reduces currency risk on the dollar loan."
+        },
+        "revenue_currency": "USD",
+        "debt_currency": "USD"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "assumed",
+          "note": "Port services in Nigeria."
+        }
+      },
+      "drivers": {
+        "capacity_units": {
+          "value": 1200000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Phase 1 adds 1.2 million TEU of handling capacity (AidData). Templars gives 2.7 million TEU, which likely refers to the full port."
+        },
+        "periods_per_year": {
+          "value": 1,
+          "quality": "assumed",
+          "note": "Annual throughput."
+        },
+        "utilisation_pct": {
+          "value": 70,
+          "quality": "assumed",
+          "note": "Illustrative steady-state utilisation."
+        },
+        "rate_per_unit": {
+          "value": 250,
+          "quality": "assumed",
+          "note": "Illustrative average revenue per TEU in USD."
+        },
+        "variable_pct": {
+          "value": 10,
+          "quality": "assumed",
+          "note": "Illustrative variable cost share for a container terminal, which has high fixed and low variable costs."
+        },
+        "berths": {
+          "value": "Two 680-metre container berths, 16.5 metres deep",
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "concession_years": {
+          "value": 45,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "capex": [
+        {
+          "label": "Phase 1 total cost",
+          "class": "civil_works",
+          "amount": {
+            "value": 1043000000,
+            "quality": "sourced",
+            "source": "s1",
+            "note": "'The total cost of Phase 1 is $1.043 billion'."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Port operations and maintenance",
+            "amount": {
+              "value": 40000000,
+              "quality": "assumed",
+              "note": "Illustrative USD a year."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "China Development Bank loan plus sponsor equity",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "China Development Bank",
+            "provider_type": "exim",
+            "amount": {
+              "value": 629000000,
+              "quality": "sourced",
+              "source": "s1"
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 16,
+              "quality": "assumed",
+              "note": "AidData says 'The borrowing terms of the loan are unknown.' Assumed long tenor for port infrastructure."
+            },
+            "grace_years": {
+              "value": 4,
+              "quality": "assumed",
+              "note": "Assumed to cover construction and ramp-up."
+            },
+            "interest_rate_pct": {
+              "value": 6,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "repayment_type": {
+              "value": "equal_principal",
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "drawdowns": {
+              "value": "First tranche of US$60m received 29 April 2021",
+              "quality": "sourced",
+              "source": "s3"
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "China Harbour Engineering Company",
+            "provider_type": "own",
+            "amount": {
+              "value": 221047248,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "Direct equity investment, 30 March 2020."
+            },
+            "currency": "USD",
+            "stake_pct": {
+              "value": 52.5,
+              "quality": "sourced",
+              "source": "s1",
+              "note": "Indirect stake."
+            }
+          },
+          {
+            "type": "equity",
+            "provider": "Other shareholders and other funding (Tolaram, Lagos State, Nigerian Ports Authority, other lenders)",
+            "provider_type": "mixed",
+            "amount": {
+              "value": 192952752,
+              "quality": "derived",
+              "note": "Phase 1 cost less the CDB loan and CHEC's equity. AidData mentions other lenders without amounts, so this balancing figure is not split.",
+              "source": "s1"
+            },
+            "currency": "USD"
+          }
+        ]
+      },
+      "timeline": {
+        "loan_signed": {
+          "value": "2019-10-23",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "handover": {
+          "value": "2022-10-24",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "shareholding": {
+          "value": {
+            "CHEC": 52.5,
+            "Tolaram": 22.5,
+            "Lagos State": 20,
+            "Nigerian Ports Authority": 5
+          },
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "operator": {
+          "value": "CMA CGM subsidiary",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "China Development Bank provides $629 million loan for Phase 1 of Lekki Deep Water Port Project",
+          "url": "https://china.aiddata.org/projects/85628",
+          "publisher": "AidData, William & Mary",
+          "date": "accessed 2026-11-13",
+          "supports": "Loan, total cost, equity, shareholding, concession, capacity, dates, operator, unknown loan terms"
+        },
+        {
+          "id": "s2",
+          "title": "Templars advises project sponsors on a US$629 million project financing for the Lekki Deep Sea Port project",
+          "url": "https://www.templars-law.com/news/templars-advises-project-sponsors-on-a-us629-million-project-financing-for-the-lekki-deep-sea-port-project/",
+          "publisher": "TEMPLARS",
+          "date": "2019-10-28",
+          "supports": "Berths and water depth, concession, sponsors"
+        },
+        {
+          "id": "s3",
+          "title": "Lekki port receives 1st tranche of $629 million loan from China Dev Bank",
+          "url": "https://nairametrics.com/2021/05/04/lekki-port-receives-1st-tranche-of-629-million-loan-from-china-dev-bank/",
+          "publisher": "Nairametrics",
+          "date": "2021-05-04",
+          "supports": "First drawdown"
+        }
+      ],
+      "caveats": [
+        "Capacity figures conflict between sources (1.2 million TEU for phase 1 versus 2.7 million TEU). The phase 1 figure is used.",
+        "Loan terms are not public."
+      ],
+      "data_quality_summary": {
+        "fields": 24,
+        "sourced": 12,
+        "derived": 1,
+        "assumed": 11,
+        "pct_sourced": 50,
+        "pct_sourced_or_derived": 54
+      }
+    },
+    {
+      "id": "ls-qmmh-health-ppp",
+      "name": "Queen 'Mamohato Memorial Hospital and clinics PPP",
+      "sponsor": "Tsepong consortium (led by Netcare with local investors), under contract to the Government of Lesotho",
+      "country": "Lesotho",
+      "sector": "health",
+      "sub_sector": "National referral hospital and clinics under a public-private partnership",
+      "stage": "new",
+      "ramp_up": {
+        "value": [
+          1
+        ],
+        "quality": "assumed",
+        "note": "Paid an annual fee for contracted patient volumes from opening, so there is no ramp-up in income."
+      },
+      "concept": "A private consortium designed, built, part-financed and now runs a 425-bed national referral hospital and three clinics, paid an annual fee by the government for up to 20,000 inpatients and 310,000 outpatients a year.",
+      "revenue_model": "An annual payment from the government covering an agreed volume of patients.",
+      "currency": "USD",
+      "fx": {
+        "usd_rate": {
+          "value": 18,
+          "quality": "assumed",
+          "note": "Assumed maloti per US dollar. Payments are in local currency."
+        },
+        "revenue_currency": "LSL",
+        "debt_currency": "ZAR"
+      },
+      "revenue_split": {
+        "domestic_pct": {
+          "value": 100,
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "drivers": {
+        "beds": {
+          "value": 425,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "contracted_inpatients": {
+          "value": 20000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "'up to 20,000 inpatients and 310,000 outpatients per year in exchange for a lump sum payment'."
+        },
+        "outpatient_visits": {
+          "value": 310000,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "actual_inpatients_2015": {
+          "value": 27000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "More than 27,000 in 2015."
+        },
+        "actual_outpatients_2015": {
+          "value": 350000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Nearly 350,000 in 2015."
+        },
+        "occupancy_pct": {
+          "value": 75,
+          "quality": "assumed",
+          "note": "Illustrative."
+        },
+        "avg_stay_days": {
+          "value": 5.8,
+          "quality": "derived",
+          "note": "425 beds at 75% occupancy for 365 days, divided by 20,000 contracted inpatients.",
+          "source": "s1"
+        },
+        "fee_per_admission": {
+          "value": 2300,
+          "quality": "assumed",
+          "note": "The annual unitary payment was not in the sources opened. Illustrative fee in USD, set so that total income roughly covers running costs and debt service."
+        },
+        "fee_per_visit": {
+          "value": 25,
+          "quality": "assumed",
+          "note": "Illustrative."
+        },
+        "public_payer_pct": {
+          "value": 100,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Paid by the government."
+        }
+      },
+      "capex": [
+        {
+          "label": "Hospital and clinics",
+          "class": "civil_works",
+          "amount": {
+            "value": 100000000,
+            "quality": "sourced",
+            "source": "s2",
+            "note": "'The project cost approximately US $100 million'."
+          }
+        }
+      ],
+      "opex": {
+        "fixed": [
+          {
+            "label": "Clinical staff and operations",
+            "amount": {
+              "value": 30000000,
+              "quality": "assumed",
+              "note": "Illustrative USD a year."
+            }
+          }
+        ]
+      },
+      "historicals": null,
+      "financing": {
+        "structure": "Public-private partnership: DBSA commercial loan, government capital contribution and private equity",
+        "instruments": [
+          {
+            "type": "loan",
+            "provider": "Development Bank of Southern Africa",
+            "provider_type": "dfi",
+            "amount": {
+              "value": 65000000,
+              "quality": "assumed",
+              "note": "The source names DBSA commercial financing without an amount. Assumes 65% of cost."
+            },
+            "currency": "USD",
+            "tenor_years": {
+              "value": 15,
+              "quality": "assumed",
+              "note": "Assumed within the 18-year contract."
+            },
+            "grace_years": {
+              "value": 3,
+              "quality": "assumed",
+              "note": "Assumed to cover construction."
+            },
+            "interest_rate_pct": {
+              "value": 10,
+              "quality": "assumed",
+              "note": "Assumed."
+            },
+            "repayment_type": {
+              "value": "annuity",
+              "quality": "assumed",
+              "note": "Assumed."
+            }
+          },
+          {
+            "type": "grant",
+            "provider": "Government of Lesotho capital contribution",
+            "provider_type": "sovereign",
+            "amount": {
+              "value": 25000000,
+              "quality": "assumed",
+              "note": "The source names a government capital contribution without an amount. Assumed 25%."
+            },
+            "currency": "USD"
+          },
+          {
+            "type": "equity",
+            "provider": "Tsepong consortium (private equity)",
+            "provider_type": "own",
+            "amount": {
+              "value": 10000000,
+              "quality": "assumed",
+              "note": "Assumed 10%."
+            },
+            "currency": "USD"
+          }
+        ]
+      },
+      "timeline": {
+        "contract_years": {
+          "value": 18,
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "construction_start": {
+          "value": "2009-03",
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "clinics_opened": {
+          "value": "2010-05",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "hospital_opened": {
+          "value": "2011-10",
+          "quality": "sourced",
+          "source": "s1"
+        }
+      },
+      "outcomes": {
+        "health_budget_share": {
+          "value": "34.8% of the government's recurrent health budget on average, 2012 to 2015",
+          "quality": "sourced",
+          "source": "s1"
+        },
+        "results": {
+          "value": "Overall death rate down 41%, patient satisfaction up 22%",
+          "quality": "sourced",
+          "source": "s2"
+        },
+        "gpoba_grant_usd": {
+          "value": 6250000,
+          "quality": "sourced",
+          "source": "s1",
+          "note": "Grant supporting initial primary care delivery."
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "title": "Lesotho Health Network PPP",
+          "url": "https://www.worldbank.org/en/country/lesotho/brief/lesotho-health-network-ppp",
+          "publisher": "World Bank",
+          "date": "2016-02-19",
+          "supports": "Beds, contract length, patient volumes, budget share, dates, grant"
+        },
+        {
+          "id": "s2",
+          "title": "Public-Private Partnership Impact Stories: Lesotho Public Health Network",
+          "url": "https://documents1.worldbank.org/curated/en/167751542053203697/pdf/96911-BRI-PUBLIC-PPPImpactStories-Lesotho-PublicHealthNetwork.pdf",
+          "publisher": "IFC / World Bank",
+          "date": "updated 2013-12",
+          "supports": "Project cost, financing sources, construction start, outcomes"
+        },
+        {
+          "id": "s3",
+          "title": "A Dangerous Diversion: will the IFC's flagship health PPP bankrupt Lesotho's Ministry of Health?",
+          "url": "https://policy-practice.oxfam.org/resources/a-dangerous-diversion-will-the-ifcs-flagship-health-ppp-bankrupt-lesothos-minis-315183/",
+          "publisher": "Oxfam",
+          "date": "2014-04-07",
+          "supports": "Critical view: says the contract consumes more than half of the health budget"
+        }
+      ],
+      "caveats": [
+        "Sources disagree on affordability: the World Bank gives 34.8% of the recurrent health budget, and Oxfam says more than half. Both are shown as a key risk.",
+        "The financing split and annual payment are assumptions."
+      ],
+      "data_quality_summary": {
+        "fields": 29,
+        "sourced": 15,
+        "derived": 1,
+        "assumed": 13,
+        "pct_sourced": 52,
+        "pct_sourced_or_derived": 55
+      }
+    }
+  ]
+}
