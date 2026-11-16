@@ -310,8 +310,8 @@
 
     /* ---------- render ---------- */
     const body = [null, step1, step2, step3, step4][step]();
-    el.innerHTML = '<div class="page"><div class="intake' + (step > 1 ? ' slim' : '') + '"><aside class="rail" aria-label="About this step"><p class="eyebrow">' + esc(r[0]) + '</p><h1>' + esc(r[1]) + '</h1><p class="intro">' + esc(r[2]) + '</p>' +
-      (step > 1 ? summaryHTML() : '') + '<div class="art" id="rail-art">' + root.TenorArt.scene(p.input.sector) + '</div><p class="foot">' + esc(r[3]) + '</p></aside><div>' + stepper + body + '</div></div></div>';
+    el.innerHTML = '<div class="page">' + A.backLink('#projects', 'Back to your projects') + '<div class="intake' + (step > 1 ? ' slim' : '') + '"><aside class="rail" aria-label="About this step"><p class="eyebrow">' + esc(r[0]) + '</p><h1>' + esc(r[1]) + '</h1><p class="intro">' + esc(r[2]) + '</p>' +
+      (step > 1 ? summaryHTML() : '') + (step === 1 ? '<figure class="rail-img"><img src="img/hero-768.webp" width="768" height="512" alt="" loading="lazy"></figure>' : '') + '<p class="foot">' + esc(r[3]) + '</p></aside><div>' + stepper + body + '</div></div></div>';
     if (step === 3) { const [t, c] = coverLine(); const cl = $('#cover-line', el); cl.textContent = t; cl.className = 'note-line ' + c; }
     if (step === 4) p.meta.reachedReview = true;
 
@@ -338,7 +338,7 @@
     });
     el.addEventListener('change', (e) => {
       const t = e.target;
-      if (t.dataset.action === 'sector') { P.changeSector(p, t.value, D.sectors); save(); const art = $('#rail-art', el); if (art) art.innerHTML = root.TenorArt.scene(p.input.sector); return; }
+      if (t.dataset.action === 'sector') { P.changeSector(p, t.value, D.sectors); save(); return; }
       if (t.dataset.action === 'ftype') { applyFundingType(p, t.value); save(); A.render(); return; }
       if (t.dataset.action === 'ramp') { const i = Number(t.value); if (RAMPS[i]) { p.input.revenue.ramp_up = RAMPS[i][1]; save(); } return; }
       if (t.dataset.action === 'capex-class') { const i = Number(t.id.replace('k-c', '')); p.input.capex[i].class = t.value; p.input.capex[i].life_years = (D.sectors.asset_classes[t.value] || {}).life_years || 10; save(); return; }

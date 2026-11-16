@@ -160,7 +160,7 @@
         .map(([kind, t, d]) => '<div><h3>' + t + '</h3><p>' + d + '</p><button type="button" class="btn" data-dl="' + kind + '">' + A.ICON.download + 'Download ' + (kind === 'csv' ? 'data as CSV' : t.toLowerCase()) + '</button><span class="dl-status" id="dls-' + kind + '" role="status"></span></div>').join('') +
       '</div><div class="actions" style="margin-top:16px"><button type="button" class="btn btn-quiet" id="save-case">Save this plan as a case in my library</button></div></section>';
 
-    el.innerHTML = '<div class="page"><p class="crumbs"><a href="#projects">Your projects</a> / ' + esc(input.name || 'Untitled plan') + '</p>' +
+    el.innerHTML = '<div class="page">' + A.backLink('#projects', 'Back to your projects') +
       '<div class="results-head"><div><h1>Your plan, brought into focus.</h1><p class="meta">' + esc([input.name, p.meta.crop && ['crops', 'irrigation'].includes(input.sector) ? p.meta.crop : tpl.label, input.country].filter(Boolean).join(' · ')) + '</p></div>' +
       '<div class="tools"><div class="toggle" role="group" aria-label="View"><button type="button" data-mode="simple" aria-pressed="' + (mode === 'simple') + '">Simple view</button><button type="button" data-mode="investor" aria-pressed="' + (mode === 'investor') + '">Investor view</button></div>' +
       '<a class="btn" href="#edit/' + p.id + '/2">Adjust assumptions</a><a class="btn btn-primary" href="#downloads" id="to-dl">' + A.ICON.download + 'Download your plan</a></div></div>' +

@@ -19,6 +19,9 @@
     download: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v8M4.5 7L8 10.5 11.5 7M3 13.5h10"/></svg>',
   };
 
+  /* Back link shown at the top of inner pages. The chevron is an icon, not part of the text. */
+  const backLink = (href, label) => '<a class="back-link" href="' + href + '"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5L5.5 8l4.5 4.5"/></svg>' + esc(label) + '</a>';
+
   /* Finance term with a one-line explanation (keyboard and hover). */
   let termN = 0;
   function term(word, label) {
@@ -129,9 +132,8 @@
     }).join('');
     let body;
     if (!projects.length) {
-      body = '<div class="empty"><div><h1>Every great plan starts somewhere.</h1><p class="lede">Tell Tenor about your project in plain words and a few numbers. It builds a financial plan you can share with a bank, an investor or your own team.</p>' +
-        '<div class="actions"><a class="btn btn-primary" href="#new">Start a new plan</a><button class="btn" type="button" data-example="' + EXAMPLES[0].id + '">Try a real example</button></div>' +
-        '<p class="small muted" style="margin-top:14px">' + esc(EXAMPLES[0].blurb) + ' Opens the results straight away.</p></div><div class="art">' + root.TenorArt.scene('fields') + '</div></div>';
+      body = '<div class="projects-head"><div><h1>Your projects</h1><p class="lede">Plans you start are saved in this browser. Nothing is sent to a server.</p></div><div class="actions"><a class="btn btn-primary" href="#new">Start a new plan</a><button class="btn" type="button" data-example="' + EXAMPLES[0].id + '">Try a real example</button></div></div>' +
+        '<div class="empty-state glass"><span class="empty-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path class="duo" d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M12 11v5M9.5 13.5h5"/></svg></span><div><h2>No plans yet</h2><p class="muted">Start a new plan, or open one of the real examples below and change it to fit your project.</p></div></div>';
     } else {
       const rows = projects.map((p) => {
         let k = null;
@@ -210,7 +212,7 @@
     const drivers = Object.entries(c.drivers || {}).map(([k, d]) => '<tr><td>' + esc(k.replace(/_/g, ' ')) + '<div class="small muted">' + esc(d.note || '') + '</div></td><td>' + esc(fmtVal(d)) + '</td><td><span class="q q-' + esc(d.quality) + '">' + esc(d.quality) + '</span></td></tr>').join('');
     const fin = (c.financing.instruments || []).map((i) => '<tr><td>' + esc(i.provider) + '<div class="small muted">' + esc(i.type.replace(/_/g, ' ')) + '</div></td><td>' + esc(i.currency || c.currency) + ' ' + esc(fmtVal(i.amount)) + '</td><td><span class="q q-' + esc((i.amount || {}).quality) + '">' + esc((i.amount || {}).quality || '') + '</span></td></tr>').join('');
     const q = c.data_quality_summary || {};
-    el.innerHTML = '<div class="page case-detail"><p class="crumbs"><a href="#library">Library</a> / ' + esc(c.name) + '</p><h1>' + esc(c.name) + '</h1><p class="lede">' + esc(c.concept) + '</p>' +
+    el.innerHTML = '<div class="page case-detail">' + backLink('#library', 'Back to the case library') + '<h1>' + esc(c.name) + '</h1><p class="lede">' + esc(c.concept) + '</p>' +
       '<div class="actions"><button class="btn btn-primary" type="button" id="use-case">Use as a starting point</button><button class="btn" type="button" id="see-case">See the results</button></div>' +
       '<div class="grid"><div><div class="facts"><div><div class="k">Sector</div><div class="v">' + esc(s.label) + '</div></div><div><div class="k">Where</div><div class="v">' + esc(c.country) + '</div></div>' +
       '<div><div class="k">Funding</div><div class="v">' + esc(caseFunding(c)) + '</div></div><div><div class="k">Stage</div><div class="v">' + esc(c.stage === 'trading' ? 'Already trading' : c.stage === 'pre-revenue' ? 'Before launch' : 'New project') + '</div></div></div>' +
@@ -239,7 +241,7 @@
   function setNav(name) { $$('.nav a').forEach((a) => (a.dataset.nav === name ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'))); }
   let lastRoute = '';
   function render() {
-    const h = (location.hash || '#projects').slice(1);
+    const h = (location.hash || '#home').slice(1);
     const [name, a, b] = h.split('/');
     const el = $('#app');
     if (app.cleanup) { try { app.cleanup(); } catch (e) { /* ignore */ } app.cleanup = null; }
@@ -249,10 +251,11 @@
       if (name === 'library') { setNav('library'); viewLibrary(el, a); document.title = 'Library · Tenor'; }
       else if (name === 'method') { setNav('method'); viewMethod(el); document.title = 'Method · Tenor'; }
       else if (name === 'case-study') { setNav('case-study'); app.views.caseStudy(el); }
-      else if (name === 'new') { setNav('new'); app.views.intake(el, null, 1); document.title = 'New plan · Tenor'; }
+      else if (name === 'new') { setNav(''); app.views.intake(el, null, 1); document.title = 'New plan · Tenor'; }
       else if (name === 'edit') { setNav(''); app.views.intake(el, a, Number(b) || 1); document.title = 'Edit plan · Tenor'; }
       else if (name === 'results') { setNav(''); app.views.results(el, a, b); }
-      else { setNav('projects'); viewProjects(el); document.title = 'Tenor · Project finance modeller'; }
+      else if (name === 'projects') { setNav('projects'); viewProjects(el); document.title = 'Your projects · Tenor'; }
+      else { setNav('home'); app.views.home(el); }
       planNav(name, a);
     } catch (e) {
       console.error(e);
@@ -273,6 +276,6 @@
     render();
   }
 
-  Object.assign(app, { start, render, $, $$, esc, term, toast, money, tween, ICON, allCases, sectorOf, fundingLabel, FUNDING_LABELS, openExample, reduced });
+  Object.assign(app, { backLink, start, render, $, $$, esc, term, toast, money, tween, ICON, allCases, sectorOf, fundingLabel, FUNDING_LABELS, openExample, reduced });
   root.TenorApp = app;
 })(typeof self !== 'undefined' ? self : this);
