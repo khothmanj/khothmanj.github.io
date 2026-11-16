@@ -18,16 +18,37 @@
     grid: I('<rect class="duo" x="4" y="4" width="16" height="16" rx="3"/><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9.5h16M4 14.5h16M9.5 4v16"/>'),
   };
 
-  /* Small product previews built in HTML, so they stay sharp and follow the theme. */
-  const MOCK = {
-    excel: '<div class="mock mock-sheet" aria-hidden="true">' + Array.from({ length: 24 }, (_, i) => '<span class="' + (i < 4 ? 'h' : i % 4 === 0 ? 'l' : [5, 10, 15, 22].includes(i) ? 'b' : '') + '"></span>').join('') + '</div>',
-    word: '<div class="mock mock-doc" aria-hidden="true"><div class="page back"></div><div class="page"><i class="t"></i><i></i><i class="s"></i><div class="bars"><b style="height:40%"></b><b style="height:62%"></b><b style="height:55%"></b><b style="height:80%"></b></div><i></i><i class="s"></i></div></div>',
-    deck: '<div class="mock mock-slide" aria-hidden="true"><i class="t"></i><div class="bars"><b style="height:30%"></b><b style="height:45%"></b><b style="height:42%"></b><b style="height:64%"></b><b style="height:78%"></b><b style="height:96%"></b></div></div>',
-    csv: '<div class="mock mock-csv" aria-hidden="true"><code>year,sales,costs</code><code>2028,18.1m,8.3m</code><code>2029,29.6m,12.1m</code><code>2030,37.9m,15.0m</code></div>',
-  };
+  /* Small product previews built in HTML, filled with the engine's real output for the
+     sample case, so every number shown is one the downloads would contain. */
+  const SAMPLE_CASE = 'ng-olam-rukubi-rice';
+  function previews() {
+    const P = root.TenorProject, E = root.TenorEngine, N = root.TenorNarrative, D = A.data;
+    const c = A.allCases().find((x) => x.id === SAMPLE_CASE);
+    const input = P.engineInput(P.fromCase(c, D.sectors, D.defaults), D.defaults);
+    const m = E.run(input), o = m.out, k = m.kpis, cur = input.currency;
+    const money = (x) => N.money(x, cur);
+    const short = (x) => N.money(x, '');
+    const first = m.opsStart || 1; // first operating year (1-based)
+    const Y = (t) => m.years[t - 1]; // out arrays are 1-based, years 0-based
+    const rows = [0, 1, 2, 3].map((i) => first + i).filter((t) => t <= m.N);
+    const opsRev = o.revenue.slice(first, first + 8);
+    const max = Math.max.apply(null, opsRev) || 1;
+    const bars = (vals) => '<div class="bars">' + vals.map((v) => '<b style="height:' + Math.max(6, Math.round((v / max) * 100)) + '%"></b>').join('') + '</div>';
+    return {
+      name: c.name,
+      excel: '<div class="mock mock-sheet" aria-hidden="true"><table><tr><th>Year</th><th>Sales</th><th>EBITDA</th></tr>' +
+        rows.slice(0, 3).map((t) => '<tr><td>' + Y(t) + '</td><td>' + short(o.revenue[t]) + '</td><td>' + short(o.ebitda[t]) + '</td></tr>').join('') + '</table></div>',
+      word: '<div class="mock mock-doc" aria-hidden="true"><div class="page back"></div><div class="page"><strong>Rice farm and mill plan</strong><span>Project IRR ' + N.pct(k.projectIRR) + '. The money put in comes back in about ' + k.paybackYears.toFixed(1) + ' years.</span>' + bars(opsRev.slice(0, 6)) + '<span>Sales by year, ' + Y(first) + ' to ' + Y(Math.min(first + 5, m.N)) + '</span></div></div>',
+      deck: '<div class="mock mock-slide" aria-hidden="true"><div class="slide"><strong>Sales reach ' + money(opsRev[opsRev.length - 1]) + ' by ' + Y(first + opsRev.length - 1) + '</strong><span>EBITDA margin ' + N.pct(k.ebitdaMargin) + '</span>' + bars(opsRev) + '</div></div>',
+      csv: '<div class="mock mock-csv" aria-hidden="true"><code>year,sales_m,ebitda_m</code>' +
+        rows.slice(0, 3).map((t) => '<code>' + Y(t) + ',' + (o.revenue[t] / 1e6).toFixed(1) + ',' + (o.ebitda[t] / 1e6).toFixed(1) + '</code>').join('') + '</div>',
+    };
+  }
 
   function view(el) {
     document.title = 'Tenor · Project finance modeller';
+    let MOCK;
+    try { MOCK = previews(); } catch (e) { MOCK = { excel: '', word: '', deck: '', csv: '' }; }
     el.innerHTML = '<div class="page home">' +
       '<section class="home-hero glass" aria-labelledby="home-h">' +
         '<div class="home-hero-text">' +
@@ -53,7 +74,7 @@
           '<article class="output glass">' + MOCK.word + '<h3>Word report</h3><p>A business-plan style report with charts, ready for a funding application.</p></article>' +
           '<article class="output glass">' + MOCK.deck + '<h3>Presentation</h3><p>12 slides with editable charts and speaker notes for investor meetings.</p></article>' +
           '<article class="output glass">' + MOCK.csv + '<h3>CSV data</h3><p>Every table as plain values, ready to load into other tools.</p></article>' +
-        '</div></section>' +
+        '</div>' + (MOCK.name ? '<p class="outputs-note">Previews show real output for the ' + A.esc(MOCK.name) + ' example in the case library.</p>' : '') + '</section>' +
 
       '<section class="home-sec" aria-labelledby="who-h"><div class="home-sec-head"><h2 id="who-h">Made for three readers</h2><p class="muted">One set of numbers, explained the way each person needs.</p></div>' +
         '<div class="who3">' +
