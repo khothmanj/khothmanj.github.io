@@ -92,7 +92,7 @@ The portfolio and all projects should feel like one brand, while each project ke
 - Instrument Serif for large editorial headlines on case study pages.
 - Geist for all UI and body text, with tabular numbers for data.
 
-**Avoid these, because they make work look AI-generated:**
+**Avoid these, because they make work look generic:**
 - ALL CAPS labels or tracked-out eyebrow text above headings.
 - Gradient blobs and decorative gradients.
 - Identical rounded cards with the same soft shadow everywhere.
@@ -188,7 +188,7 @@ Label it "inspired by" her public-sector work. Never imply it's the real governm
 
 ### 8.6 Tenor (`/tenor/`): built, refine only
 AI-assisted project finance modeller. Replaces the earlier "investment readiness model generator" idea. Turns a project's story and numbers into a linked Excel model, a Word report, a PowerPoint deck and CSV data, for any sector and funding route. Full brief: `private/briefs/tenor.md` (not committed).
-- **Own colour scheme:** Tenor uses its own dark green-black and mint palette with Newsreader and Geist, not the portfolio's violet and gold, including on its case study tab. This is deliberate (see the brief, section 3).
+- **Own look:** Tenor uses its own brand, not the portfolio's violet and gold, including on its case study tab. Light by default on pure white (#FFFFFF) with a dark option, frosted glass panels, soft corners, a left sidebar with duotone icons, and Geist throughout (Outfit only for the wordmark). Colour follows the Tenor logo (`tenor/img/tenor-mark.svg`): neutral navy text (#0B1220) with the logo blue (#3550FC) used sparingly for primary actions, the active item, focus and key chart lines. A faint blue wash behind the page is deliberate: it is what the frosted glass blurs, and it is the one exception to the no-gradients rule.
 - **Data:** `tenor/data/cases.json` holds 17 real projects from public sources. Every value is labelled sourced, derived or assumed. Never add a figure without opening its source.
 - **Tests:** `tenor/tests/run-node.js` (engine), `tenor/tests/engine.test.html` (browser), and `tenor/tests/lo-recalc.sh` with `excel-compare.js` and `excel-input-change.js` to check every Excel cell against the engine in LibreOffice.
 - **Results from the original tool (CV):** manual modelling time cut by ~70%; investment-ready proposals across 6 projects and 4 sectors, valued at over $70M.
