@@ -5,8 +5,8 @@
 (function (root) {
   'use strict';
 
-  const C = { dark: '121715', panel: '19201D', paper: 'F5F3EC', ink: '13261C', muted: '56685D', mint: '8FD0AB', green: '1E6B47', line: 'D7DDD8', sage: 'A3B3A9', red: 'A2382B', amber: '9A6A12' };
-  const SERIF = 'Georgia', SANS = 'Arial';
+  const C = { dark: '0B1220', panel: '1A2233', paper: 'FFFFFF', ink: '0B1220', muted: '5B6475', mint: '8EA2FF', green: '3550FC', line: 'E3E6EC', sage: 'A1A9B8', slate: 'CBD2DE', red: 'C2352B', amber: '9A5B00' }; // green = brand blue, kept for compatibility
+  const SERIF = 'Arial', SANS = 'Arial';
   // right-align a column only when its body cells are numbers, money, ratios or percentages
   const NUMERIC = /^(n\/a|[A-Z]{3} [\u2212-]?[\d.,]+(m|bn)?|[\u2212-]?[\d.,]+(x|%| years| months)?)$/;
   const looksNumeric = (v, rows, j) => rows.slice(1).every((r) => NUMERIC.test(String(r[j]).trim()));
@@ -108,7 +108,7 @@
       { name: 'Sales', labels, values: cols.map((t) => Math.round(m.out.revenue[t])) },
       { name: 'Running costs', labels, values: cols.map((t) => Math.round(m.out.varCost[t] + m.out.fixCost[t])) },
       { name: 'Cash left after loan payments', labels, values: cols.map((t) => Math.round(m.out.cashAfterDebt[t])) },
-    ], { x: 0.6, y: 1.9, w: 12.1, h: 4.8, barDir: 'col', barGrouping: 'clustered', chartColors: [C.green, C.sage, C.mint], showLegend: true, legendPos: 'b', legendFontFace: SANS, legendFontSize: 11,
+    ], { x: 0.6, y: 1.9, w: 12.1, h: 4.8, barDir: 'col', barGrouping: 'clustered', chartColors: [C.green, C.slate, C.mint], showLegend: true, legendPos: 'b', legendFontFace: SANS, legendFontSize: 11,
       valAxisLabelFormatCode: '#,##0', valAxisLabelFontSize: 10, catAxisLabelFontSize: 11, valGridLine: { color: 'E4E7E3', size: 0.5 }, catGridLine: { style: 'none' } });
     s.addNotes('Sales, running costs and the cash left after loan payments for the first five operating years. The chart is editable in PowerPoint.');
 

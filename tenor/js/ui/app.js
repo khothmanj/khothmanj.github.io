@@ -42,10 +42,41 @@
 
   /* ---------- theme ---------- */
   function applyThemeButton() {
-    const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
     const b = $('#theme-btn');
-    b.innerHTML = dark ? ICON.sun : ICON.moon;
-    b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    b.innerHTML = (dark ? ICON.sun : ICON.moon) + '<span>' + (dark ? 'Light mode' : 'Dark mode') + '</span>';
+    b.setAttribute('aria-pressed', String(dark));
+    const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.setAttribute('content', dark ? '#0A0C12' : '#FFFFFF');
+  }
+
+  /* ---------- mobile menu ---------- */
+  function setMenu(open) {
+    const sb = $('#sidebar'), btn = $('#menu-btn'), scrim = $('#scrim');
+    document.body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    scrim.hidden = !open;
+    if (open) { const first = sb.querySelector('a'); if (first) first.focus(); }
+  }
+
+  /* ---------- "This plan" group in the sidebar ---------- */
+  const PLAN_LINKS = [
+    ['results', '', 'Results', '<path class="duo" d="M4 19.5h16V6.5z"/><path d="M4 19.5h16M6 16l4-4.5 3 2.5 5.5-7"/><circle cx="18.5" cy="7" r="1.3"/>'],
+    ['edit', '/2', 'Edit assumptions', '<path class="duo" d="M5 19l1-4L16 5l3 3L9 18z"/><path d="M5 19l1-4L16 5l3 3L9 18zM14 7l3 3"/>'],
+    ['results', '/readiness', 'Readiness', '<circle class="duo" cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12.3l2.4 2.4 4.8-5.2"/>'],
+  ];
+  function planNav(name, id) {
+    const box = $('#plan-nav');
+    const p = (name === 'results' || name === 'edit') && id ? P.get(id) : null;
+    if (!p) { box.hidden = true; box.innerHTML = ''; return; }
+    box.hidden = false;
+    const here = location.hash;
+    box.innerHTML = '<p class="nav-label">This plan</p><p class="plan-name" title="' + esc(p.input.name || 'Untitled plan') + '">' + esc(p.input.name || 'Untitled plan') + '</p>' +
+      PLAN_LINKS.map(([r, suffix, label, ico]) => {
+        const href = '#' + r + '/' + p.id + suffix;
+        const cur = r === 'edit' ? name === 'edit' : (suffix ? here === href : name === 'results' && !here.endsWith('/readiness'));
+        return '<a href="' + href + '"' + (cur ? ' aria-current="page"' : '') + '><svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + ico + '</svg><span>' + label + '</span></a>';
+      }).join('');
   }
   function toggleTheme() {
     const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
@@ -218,10 +249,11 @@
       if (name === 'library') { setNav('library'); viewLibrary(el, a); document.title = 'Library · Tenor'; }
       else if (name === 'method') { setNav('method'); viewMethod(el); document.title = 'Method · Tenor'; }
       else if (name === 'case-study') { setNav('case-study'); app.views.caseStudy(el); }
-      else if (name === 'new') { setNav('projects'); app.views.intake(el, null, 1); document.title = 'New plan · Tenor'; }
-      else if (name === 'edit') { setNav('projects'); app.views.intake(el, a, Number(b) || 1); document.title = 'Edit plan · Tenor'; }
-      else if (name === 'results') { setNav('projects'); app.views.results(el, a, b); }
+      else if (name === 'new') { setNav('new'); app.views.intake(el, null, 1); document.title = 'New plan · Tenor'; }
+      else if (name === 'edit') { setNav(''); app.views.intake(el, a, Number(b) || 1); document.title = 'Edit plan · Tenor'; }
+      else if (name === 'results') { setNav(''); app.views.results(el, a, b); }
       else { setNav('projects'); viewProjects(el); document.title = 'Tenor · Project finance modeller'; }
+      planNav(name, a);
     } catch (e) {
       console.error(e);
       el.innerHTML = '<div class="page"><h1>Something went wrong.</h1><p class="lede">' + esc(e.message) + '</p><a class="btn" href="#projects">Back to your projects</a></div>';
@@ -232,6 +264,10 @@
   async function start() {
     applyThemeButton();
     $('#theme-btn').addEventListener('click', toggleTheme);
+    $('#menu-btn').addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+    $('#scrim').addEventListener('click', () => setMenu(false));
+    $('#sidebar').addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); $('#menu-btn').focus(); } });
     try { await load(); } catch (e) { $('#app').innerHTML = '<div class="page"><h1>Tenor could not load its data.</h1><p class="lede">Open it through a web server rather than as a file, then reload.</p></div>'; return; }
     window.addEventListener('hashchange', render);
     render();

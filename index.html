@@ -7,7 +7,7 @@
 <meta name="description" content="Khadijat Othman, Product Manager for AI-enabled products, B2B SaaS and fintech. Working, clickable product prototypes with the thinking behind them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif&family=Outfit:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/base.css">
 <style>
   header.intro { padding-top: clamp(48px, 9vw, 112px); padding-bottom: clamp(36px, 6vw, 64px); }
@@ -18,12 +18,15 @@
   section.work > h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 20px; }
   .project { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; }
   .project:hover .go { text-decoration: underline; }
-  .project .shot { background: #121715; color: #EEF0EA; padding: clamp(20px, 3vw, 32px); display: grid; align-content: space-between; gap: 20px; min-height: 280px; }
-  .shot .tenor { font-family: "Instrument Serif", Georgia, serif; font-size: 1.6rem; }
-  .shot .figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border-top: 1px solid #2B3430; padding-top: 14px; }
-  .shot .figs span { display: block; color: #A3B3A9; font-size: 0.78rem; }
-  .shot .figs strong { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2.4vw, 1.8rem); }
-  .shot .line { color: #8FD0AB; width: 100%; height: 70px; }
+  /* Tenor preview in Tenor's own look: white, frosted, with its logo blue as the only colour */
+  .project .shot { position: relative; overflow: hidden; background: radial-gradient(420px 260px at 90% 0%, rgba(53,80,252,0.12), transparent 70%), radial-gradient(360px 240px at 0% 100%, rgba(64,57,253,0.08), transparent 70%), #FFFFFF; color: #0B1220; padding: clamp(18px, 3vw, 28px); display: grid; align-content: space-between; gap: 16px; min-height: 280px; }
+  .shot .tenor { display: inline-flex; align-items: center; gap: 8px; font: 700 1.3rem/1 "Outfit", Geist, sans-serif; }
+  .shot .tenor img { width: 26px; height: 25px; }
+  .shot .panel { background: rgba(255,255,255,0.66); -webkit-backdrop-filter: blur(18px) saturate(170%); backdrop-filter: blur(18px) saturate(170%); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 0 0 1px rgba(15,23,42,0.07), 0 12px 30px -14px rgba(15,23,42,0.18); border-radius: 16px; padding: 14px; }
+  .shot .figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .shot .figs span { display: block; color: #5B6475; font-size: 0.74rem; }
+  .shot .figs strong { font-family: Geist, sans-serif; font-weight: 600; font-size: clamp(1.05rem, 2vw, 1.35rem); letter-spacing: -0.02em; }
+  .shot .line { color: #3550FC; width: 100%; height: 64px; display: block; }
   .project .text { padding: clamp(22px, 3vw, 36px); display: grid; align-content: start; gap: 14px; }
   .project h3 { font-size: clamp(2rem, 3.6vw, 2.6rem); }
   .project .problem { margin: 0; font-size: 1.05rem; }
@@ -50,9 +53,10 @@
     <h2 id="work-h">Projects</h2>
     <a class="project" href="tenor/">
       <div class="shot" aria-hidden="true">
-        <span class="tenor">Tenor</span>
-        <svg class="line" viewBox="0 0 300 70" fill="none" stroke="currentColor" stroke-width="2" preserveAspectRatio="none"><path d="M0 62 L30 40 L60 30 L90 34 L120 26 L150 24 L180 20 L210 17 L240 14 L270 11 L300 8"/><path d="M0 62 L30 40 L60 30 L90 34 L120 26 L150 24 L180 20 L210 17 L240 14 L270 11 L300 8 L300 70 L0 70 Z" fill="currentColor" opacity="0.12" stroke="none"/></svg>
-        <div class="figs"><div><span>Yearly sales</span><strong>$2.16m</strong></div><div><span>Largest loan payment</span><strong>$328k</strong></div><div><span>Paid off by</span><strong>Year 10</strong></div></div>
+        <span class="tenor"><img src="tenor/img/tenor-mark.svg" alt="">Tenor</span>
+        <div class="panel"><svg class="line" viewBox="0 0 300 70" fill="none" stroke="currentColor" stroke-width="2" preserveAspectRatio="none"><path d="M0 62 L30 40 L60 30 L90 34 L120 26 L150 24 L180 20 L210 17 L240 14 L270 11 L300 8"/><path d="M0 62 L30 40 L60 30 L90 34 L120 26 L150 24 L180 20 L210 17 L240 14 L270 11 L300 8 L300 70 L0 70 Z" fill="currentColor" opacity="0.12" stroke="none"/></svg>
+        </div>
+        <div class="panel figs"><div><span>Yearly sales</span><strong>$2.16m</strong></div><div><span>Largest loan payment</span><strong>$328k</strong></div><div><span>Paid off by</span><strong>Year 10</strong></div></div>
       </div>
       <div class="text">
         <h3>Tenor</h3>

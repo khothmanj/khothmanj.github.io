@@ -11,8 +11,8 @@
 (function (root) {
   'use strict';
 
-  const BLUE = 'FF0B3D91', GREEN = 'FF0A6B37', BLACK = 'FF111111', MUTED = 'FF5A665F';
-  const HEAD_FILL = 'FF19201D', HEAD_TEXT = 'FFEEF0EA', SECTION_FILL = 'FFE8EFE9', INPUT_FILL = 'FFFFFBEA';
+  const BLUE = 'FF0B3D91', GREEN = 'FF0A6B37', BLACK = 'FF111111', MUTED = 'FF5B6475';
+  const HEAD_FILL = 'FF0B1220', HEAD_TEXT = 'FFFFFFFF', SECTION_FILL = 'FFEEF1FF', INPUT_FILL = 'FFFFFBEA';
   const FMT = {
     money: '#,##0;[Red]-#,##0', money2: '#,##0.00;[Red]-#,##0.00', num: '#,##0.##', int: '#,##0', pct: '0.0"%"',
     frac: '0.0%', ratio: '0.00"x"', year: '0', flag: '0', months: '0.0',
@@ -44,11 +44,11 @@
       this.cached = []; // for QA: { sheet, addr, value }
     }
     sheet(name, title, subtitle, opts = {}) {
-      const ws = this.wb.addWorksheet(name, { properties: { tabColor: { argb: opts.tab || 'FF1E6B47' }, outlineProperties: { summaryBelow: false } } });
+      const ws = this.wb.addWorksheet(name, { properties: { tabColor: { argb: opts.tab || 'FF3550FC' }, outlineProperties: { summaryBelow: false } } });
       ws.getColumn(1).width = opts.labelWidth || 46;
       ws.getColumn(2).width = 14;
       if (opts.years !== false) for (let t = 0; t <= this.N; t++) ws.getColumn(3 + t).width = 14;
-      ws.getCell('A1').value = title; ws.getCell('A1').font = { name: 'Georgia', size: 16, bold: true, color: { argb: BLACK } };
+      ws.getCell('A1').value = title; ws.getCell('A1').font = { name: 'Arial', size: 16, bold: true, color: { argb: BLACK } };
       if (subtitle) { ws.getCell('A2').value = subtitle; ws.getCell('A2').font = { name: 'Arial', size: 9, italic: true, color: { argb: MUTED } }; }
       ws.nextRow = 4;
       if (opts.years !== false) {
@@ -93,7 +93,7 @@
     }
     section(ws, text) {
       const r = ws.nextRow++;
-      const c = ws.getCell('A' + r); c.value = text; c.font = { name: 'Georgia', size: 12, bold: true };
+      const c = ws.getCell('A' + r); c.value = text; c.font = { name: 'Arial', size: 12, bold: true };
       const last = ws.name === 'Inputs' ? 8 : 3 + this.N;
       for (let i = 1; i <= last; i++) ws.getCell(r, i).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: SECTION_FILL } };
       return r;
@@ -945,7 +945,7 @@
     RD.getCell('C' + sr).value = 100;
     B.reg.readyScore = { sheet: 'Readiness', row: sr };
     B.blank(RD);
-    const nh = RD.nextRow++; RD.getCell('A' + nh).value = 'Documents usually needed for this funding mix'; RD.getCell('A' + nh).font = { bold: true, name: 'Georgia', size: 12 };
+    const nh = RD.nextRow++; RD.getCell('A' + nh).value = 'Documents usually needed for this funding mix'; RD.getCell('A' + nh).font = { bold: true, name: 'Arial', size: 12 };
     docs.forEach((d, i) => { const r = RD.nextRow++; RD.getCell('A' + r).value = d; B.f(RD, 'B' + r, 'IF(INDEX(DocFlags,' + (i + 1) + '),"In place","Still needed")', input.documents && input.documents[d] ? 'In place' : 'Still needed', null); });
 
     /* ================================================================ SUMMARY */
@@ -956,7 +956,7 @@
     SM.getCell('A' + disc).value = 'Illustrative model for portfolio purposes. Not financial advice.';
     SM.getCell('A' + disc).font = { bold: true, name: 'Arial', color: { argb: 'FFA2382B' } };
     B.blank(SM);
-    const sh2 = SM.nextRow++; SM.getCell('A' + sh2).value = input.name || 'Project'; SM.getCell('A' + sh2).font = { name: 'Georgia', size: 14, bold: true };
+    const sh2 = SM.nextRow++; SM.getCell('A' + sh2).value = input.name || 'Project'; SM.getCell('A' + sh2).font = { name: 'Arial', size: 14, bold: true };
     B.blank(SM);
     B.section(SM, 'Headline results');
     const stY = k.steadyYear;
@@ -1008,7 +1008,7 @@
     cv('How to use it', 'Change blue cells on the Inputs sheet. Every other sheet recalculates. Check the Checks sheet shows TRUE after any change.', true);
     cv('Colour key', 'Blue text: inputs. Black text: calculations. Green text: links to another sheet.');
     CV.nextRow++;
-    const mh = CV.nextRow++; CV.getCell('A' + mh).value = 'Model map'; CV.getCell('A' + mh).font = { name: 'Georgia', size: 13, bold: true };
+    const mh = CV.nextRow++; CV.getCell('A' + mh).value = 'Model map'; CV.getCell('A' + mh).font = { name: 'Arial', size: 13, bold: true };
     const MAP = {
       Cover: 'This page.', Summary: 'Headline results, financing, readiness and the biggest risks.', Inputs: 'Every assumption, with where it came from. The only place to type numbers.',
       Revenue: 'How sales are built up each year.', CAPEX: 'Spending on assets and how it wears out (depreciation).', OPEX: 'Running costs, line by line.',
@@ -1022,7 +1022,7 @@
     /* ================================================================ SOURCES */
     const SO = WS.Sources;
     SO.getColumn(2).width = 22; SO.getColumn(3).width = 14; SO.getColumn(4).width = 60; SO.getColumn(5).width = 50; SO.nextRow = 3;
-    const sec = (t) => { const r = SO.nextRow++; SO.getCell('A' + r).value = t; SO.getCell('A' + r).font = { name: 'Georgia', size: 13, bold: true }; };
+    const sec = (t) => { const r = SO.nextRow++; SO.getCell('A' + r).value = t; SO.getCell('A' + r).font = { name: 'Arial', size: 13, bold: true }; };
     if (ctx.similar && ctx.similar.length) {
       sec('Similar projects in the Tenor library');
       ctx.similar.forEach((s2) => { const r = SO.nextRow++; SO.getCell('A' + r).value = s2.name; SO.getCell('D' + r).value = s2.why || ''; });

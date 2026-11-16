@@ -4,7 +4,7 @@
  */
 (function (root) {
   'use strict';
-  const INK = '#13261C', MUTED = '#56685D', GRID = '#E4E7E3', GREEN = '#1E6B47', SAGE = '#A3B3A9', MINT = '#8FD0AB', RED = '#A2382B';
+  const INK = '#0B1220', MUTED = '#5B6475', GRID = '#E3E6EC', GREEN = '#3550FC', SAGE = '#CBD2DE', MINT = '#8EA2FF', RED = '#C2352B'; // GREEN is the brand blue
   const W = 1200, H = 520;
 
   function toBytes(canvas) {
@@ -34,7 +34,7 @@
       { label: 'Sales', data: yr(m.out.revenue), backgroundColor: GREEN },
       { label: 'Running costs', data: yr(m.out.varCost).map((v, i) => v + m.out.fixCost[i + 1]), backgroundColor: SAGE },
     ] } });
-    const cash = draw(Chart, { type: 'line', data: { labels, datasets: [{ label: 'Cash left after loan payments', data: yr(m.out.cashAfterDebt), borderColor: GREEN, backgroundColor: 'rgba(143,208,171,0.35)', fill: 'origin', pointRadius: 3, tension: 0 }] } });
+    const cash = draw(Chart, { type: 'line', data: { labels, datasets: [{ label: 'Cash left after loan payments', data: yr(m.out.cashAfterDebt), borderColor: GREEN, backgroundColor: 'rgba(53,80,252,0.12)', fill: 'origin', pointRadius: 3, tension: 0 }] } });
     let dscr = null;
     if (m.loans.length) {
       const t = []; for (let i = 1; i <= m.N; i++) if (m.out.dscr[i] !== null) t.push(i);

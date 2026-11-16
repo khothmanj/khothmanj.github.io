@@ -6,7 +6,7 @@
 (function (root) {
   'use strict';
 
-  const GREEN = '1E6B47', INK = '13261C', MUTED = '56685D', LINE = 'D7DDD8', HEAD = '19201D';
+  const GREEN = '3550FC', INK = '0B1220', MUTED = '5B6475', LINE = 'E3E6EC', HEAD = '0B1220'; // GREEN is the brand accent (logo blue)
 
   function buildReport(D, ctx) {
     const { input, model: m, sens, ready, caseRecord, sectors } = ctx;
@@ -44,7 +44,7 @@
 
     /* ---------- cover ---------- */
     const cover = [
-      new Paragraph({ spacing: { before: 2400, after: 240 }, children: [new TextRun({ text: name, font: 'Georgia', size: 56, bold: true, color: INK })] }),
+      new Paragraph({ spacing: { before: 2400, after: 240 }, children: [new TextRun({ text: name, font: 'Arial', size: 56, bold: true, color: INK })] }),
       P([new TextRun({ text: [sector ? sector.label : input.sector, input.country].filter(Boolean).join(' · '), size: 28, color: MUTED })]),
       P([new TextRun({ text: inv ? 'Financial plan and credit summary' : 'Financial plan', size: 28, color: GREEN })]),
       P([new TextRun({ text: 'Prepared with Tenor on ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }), size: 20, color: MUTED })]),
@@ -93,7 +93,7 @@
     });
     built.push(new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
-      rows: [new TableRow({ tableHeader: true, children: ['Assumption', 'Value', 'Quality', 'Why'].map((h) => cell(h, { head: true })) })].concat(rows.slice(0, 40).map((r) => new TableRow({ children: r.map((v, i) => cell(v, { num: i === 1, fill: i === 2 ? (v === 'sourced' ? 'E3F1E8' : v === 'derived' ? 'EEF2E6' : 'FBF1E3') : undefined })) }))),
+      rows: [new TableRow({ tableHeader: true, children: ['Assumption', 'Value', 'Quality', 'Why'].map((h) => cell(h, { head: true })) })].concat(rows.slice(0, 40).map((r) => new TableRow({ children: r.map((v, i) => cell(v, { num: i === 1, fill: i === 2 ? (v === 'sourced' ? 'E6F4EC' : v === 'derived' ? 'EEF1FF' : 'FBF1E3') : undefined })) }))),
     }));
     built.push(note('Other assumptions: inflation ' + (input.inflation_pct || 0) + '% a year, tax ' + (input.tax && input.tax.rate_pct || 0) + '%, discount rate ' + (input.discount_rate_pct || 0) + '%, customers pay in ' + (input.working_capital && input.working_capital.receivable_days || 0) + ' days.'));
 
@@ -180,8 +180,8 @@
       styles: {
         default: { document: { run: { font: 'Arial', size: 21, color: INK }, paragraph: { spacing: { line: 300 } } } },
         paragraphStyles: [
-          { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { font: 'Georgia', size: 40, bold: true, color: INK }, paragraph: { spacing: { before: 240, after: 200 } } },
-          { id: 'Heading2', name: 'Heading 2', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { font: 'Georgia', size: 28, bold: true, color: GREEN }, paragraph: { spacing: { before: 240, after: 120 } } },
+          { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { font: 'Arial', size: 36, bold: true, color: INK }, paragraph: { spacing: { before: 240, after: 200 } } },
+          { id: 'Heading2', name: 'Heading 2', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { font: 'Arial', size: 26, bold: true, color: INK }, paragraph: { spacing: { before: 240, after: 120 } } },
         ],
       },
       sections: [{
