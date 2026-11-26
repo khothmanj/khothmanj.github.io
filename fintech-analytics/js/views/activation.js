@@ -24,11 +24,11 @@
 
     /* ----- funnel ----- */
     const rows = F.rows;
-    if (!rows.length || rows[0].lenders === 0) {
-      funnel.headline('No lenders signed up in this range with these filters.');
+    const steps = rows.filter((r) => r.pct_from_previous !== null);
+    if (!rows.length || rows[0].lenders === 0 || !steps.length) {
+      funnel.headline(rows.length && rows[0].lenders ? 'Only ' + K.plural(rows[0].lenders, 'lender') + ' signed up in this segment, and none got further. Too few for a funnel.' : 'No lenders signed up in this range with these filters.');
       funnel.body.innerHTML = '<div class="empty"><p class="muted">Widen the date range or clear a filter to see the funnel.</p></div>';
     } else {
-      const steps = rows.filter((r) => r.pct_from_previous !== null);
       const worst = steps.slice().sort((a, b) => a.pct_from_previous - b.pct_from_previous)[0];
       const slowest = steps.slice().sort((a, b) => b.median_days_from_previous - a.median_days_from_previous)[0];
       const prevStage = rows.find((r) => r.stage_order === worst.stage_order - 1);
@@ -73,7 +73,9 @@
     const at3 = (list) => { const c = list.map((m) => byCohort[m].cells[2]).filter(Boolean); const s = c.reduce((a, x) => a + x.signups, 0); return s ? 100 * c.reduce((a, x) => a + x.live, 0) / s : null; };
     const before = cohortMonths.filter((m) => m < '2025-07'), after = cohortMonths.filter((m) => m >= '2025-07');
     const b3 = at3(before), a3 = at3(after);
-    cohorts.headline(b3 !== null && a3 !== null
+    const size = (list) => list.reduce((n, m) => n + (byCohort[m].cells[2] ? byCohort[m].signups : 0), 0);
+    const enough = size(before) >= 15 && size(after) >= 15;
+    cohorts.headline(!enough && cohortMonths.length ? 'Too few lenders in this segment to compare cohorts before and after the docs rewrite fairly.' : b3 !== null && a3 !== null
       ? (a3 > b3 ? 'Lenders who signed up after the docs rewrite went live faster: ' + K.pct(a3, 0) + ' were live within three months, against ' + K.pct(b3, 0) + ' before.' : 'Cohorts after the docs rewrite have not gone live faster: ' + K.pct(a3, 0) + ' within three months, against ' + K.pct(b3, 0) + ' before.')
       : 'Share of each signup month live after each month.');
     cohorts.sub('Share of each signup month\'s lenders who had made a live call by the end of each month after signing up. All 24 months are shown so you can compare before and after the docs rewrite on 1 July 2025. Small cohorts swing a lot, so counts are in the tooltip.');
