@@ -169,5 +169,5 @@
   }
 
   A.register('toolkit', { render });
-  A.toolkit = { html, fill };
+  A.toolkit = { html, fill, loadDocx };
 })(window);

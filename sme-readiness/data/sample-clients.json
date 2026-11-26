@@ -116,7 +116,10 @@
         "rec-test-restore",
         "rec-leavers",
         "rec-auto-updates",
-        "rec-ai-data-rules"
+        "rec-ai-data-rules",
+        "rec-ai-human-review",
+        "rec-two-person",
+        "rec-no-urgent-policy"
       ]
     },
     {
@@ -236,7 +239,12 @@
         "rec-ai-human-review",
         "rec-ai-policy",
         "rec-incident-plan",
-        "rec-second-backup"
+        "rec-second-backup",
+        "rec-callback-rule",
+        "rec-ai-data-rules",
+        "rec-auto-updates",
+        "rec-two-person",
+        "rec-no-urgent-policy"
       ]
     },
     {
@@ -341,7 +349,9 @@
       "done": [
         "rec-2sv-email",
         "rec-2sv-accounts",
-        "rec-verify-bank-changes"
+        "rec-verify-bank-changes",
+        "rec-ai-data-rules",
+        "rec-auto-updates"
       ]
     },
     {
@@ -461,7 +471,11 @@
         "rec-chatbot-handover",
         "rec-dmarc",
         "rec-supplier-checks",
-        "rec-access-review"
+        "rec-access-review",
+        "rec-leavers",
+        "rec-device-lock",
+        "rec-ai-anonymise",
+        "rec-reduce-exposure"
       ]
     }
   ]
