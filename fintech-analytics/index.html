@@ -7,8 +7,8 @@
 <meta name="description" content="Signal is a product analytics workspace for Ferrow, a fictional lending API company. Every chart runs real SQL in your browser. A portfolio prototype by Khadijat Othman.">
 <meta name="theme-color" content="#F6F7F9">
 <script>
-  // Apply a saved theme and sidebar state before first paint.
-  (function () { try { if (localStorage.getItem('signal.side') === 'collapsed') document.documentElement.classList.add('side-collapsed'); } catch (e) {} })(); Otherwise follow the system setting.
+  // Apply a saved theme and sidebar state before first paint. Otherwise follow the system setting.
+  (function () { try { if (localStorage.getItem('signal.side') === 'collapsed') document.documentElement.classList.add('side-collapsed'); } catch (e) {} })();
   (function () { try { var t = localStorage.getItem('signal.theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {} })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">

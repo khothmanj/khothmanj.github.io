@@ -962,3 +962,6 @@ body::before {
 
 @media (max-width: 1120px) { .refreshed .label { display: none; } }
 @media (max-width: 980px) { .ws-view, .ws-sep { display: none; } }
+
+/* Collapsed state from the start-up script, before the app script runs */
+@media (min-width: 861px) { html.side-collapsed .app { grid-template-columns: 64px minmax(0, 1fr); } }

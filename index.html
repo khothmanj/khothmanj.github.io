@@ -34,6 +34,22 @@
   .project .result strong { color: var(--ink); font-weight: 500; }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
   .tags li { font-size: 0.82rem; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px; }
+  /* Signal preview in Signal's own look: petrol teal on frosted glass */
+  .project + .project { margin-top: 18px; }
+  .project .shot { grid-template-columns: minmax(0, 1fr); }
+  .shot .panel { min-width: 0; }
+  .project .shot.signal { background: radial-gradient(380px 240px at 92% 0%, rgba(13,128,136,0.26), transparent 70%), radial-gradient(340px 240px at 0% 100%, rgba(92,128,210,0.2), transparent 70%), radial-gradient(260px 200px at 50% 50%, rgba(110,196,158,0.16), transparent 70%), #F6F7F9; color: #111827; }
+  .shot .brand-s { display: inline-flex; align-items: center; gap: 8px; font: 600 1.15rem/1 Geist, sans-serif; letter-spacing: -0.01em; }
+  .shot .brand-s svg { width: 24px; height: 24px; }
+  .shot.signal .panel { background: rgba(255,255,255,0.46); border: 0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 10px 28px -14px rgba(15,23,42,0.22); }
+  .mf { display: grid; gap: 6px; }
+  .mf div { display: grid; grid-template-columns: 120px minmax(0, 1fr) 30px; gap: 8px; align-items: center; font-size: 0.74rem; color: #2D3644; }
+  .mf i { display: block; height: 9px; border-radius: 3px; background: #CBD2DB; }
+  .mf div.w i { background: #0D5C63; }
+  .mf div.w { font-weight: 600; }
+  .mf b { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .sql-line { font: 400 0.72rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; color: #2D3644; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sql-line b { color: #4A5BC4; font-weight: 500; }
   .go { color: var(--violet); font-weight: 500; }
   .note { color: var(--muted); font-size: 0.9rem; margin-top: 18px; }
   footer { border-top: 1px solid var(--line); padding: 22px 0 40px; color: var(--muted); font-size: 0.9rem; }
@@ -64,6 +80,20 @@
         <ul class="tags" aria-label="Topics"><li>Fintech</li><li>Project finance</li><li>AI-assisted</li><li>Data and Excel</li></ul>
         <p class="result">Based on the tool I built at Cape Mano Group, which cut manual modelling time by <strong>~70%</strong>.</p>
         <span class="go">Open Tenor and its case study</span>
+      </div>
+    </a>
+    <a class="project" href="fintech-analytics/">
+      <div class="shot signal" aria-hidden="true">
+        <span class="brand-s"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0D5C63"/><path d="M6 18.5h4.2l2.6-7.5 4.4 12 2.9-8.3 1.6 3.8H26" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Signal</span>
+        <div class="panel mf"><div><span>Signed up</span><i style="width:100%"></i><b>123</b></div><div><span>First sandbox call</span><i style="width:83%"></i><b>102</b></div><div class="w"><span>Compliance approved</span><i style="width:56%"></i><b>69</b></div><div><span>First live call</span><i style="width:50%"></i><b>61</b></div></div>
+        <div class="panel"><p class="sql-line"><b>WITH</b> cohort <b>AS</b> (<b>SELECT</b> c.id <b>FROM</b> customers c <b>WHERE</b> c.signup_date <b>BETWEEN</b> '2024-11-01' <b>AND</b> '2026-07-31')</p></div>
+      </div>
+      <div class="text">
+        <h3>Signal</h3>
+        <p class="problem">Lenders signed up for a lending API but never went live, and the team could not see where or why. Signal is a product analytics workspace where every chart runs real SQL in your browser, and it ends in a PRD and an experiment plan.</p>
+        <ul class="tags" aria-label="Topics"><li>Fintech</li><li>Product analytics</li><li>SQL</li><li>APIs and integrations</li></ul>
+        <p class="result">Based on my work as a Product Manager at a lending API company, where <strong>SQL analysis of inactive customers</strong> informed targeted activation and engagement with each account.</p>
+        <span class="go">Open Signal and its case study</span>
       </div>
     </a>
     <p class="note">More projects are being added. Every project is a working prototype with a fictional brand or public data, and a case study as its last tab.</p>

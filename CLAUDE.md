@@ -37,7 +37,7 @@ This file gives you the context for every task in this repository. Read it fully
 │   └── img/                # Optimised images and favicons
 ├── support-studio/         # Project 1
 │   └── index.html
-├── fintech-analytics/      # Project 2
+├── fintech-analytics/      # Project 2: Signal, lending API product analytics (own colour scheme)
 ├── velbourne/              # Project 3
 ├── fraud-toolkit/          # Project 4
 ├── food-security/          # Project 5
@@ -159,14 +159,13 @@ Each project folder has two parts. The product opens first. The case study is al
 AI customer support desk for a fictional retailer. Live chat with retrieval trace and confidence threshold, email drafts with human approval and fraud flagging, knowledge base with gap detection, quality test runner, competitor research agent.
 **Based on:** Masumi Headwear internship (AI chatbot, email drafting, Claude research agents, fraud review).
 
-### 8.2 Fintech product analytics (`/fintech-analytics/`)
-A lending-API product analytics dashboard for a fictional B2B lending platform.
-- Activation funnel: signed up, integrated, first API call, active.
-- Inactive customers list (signed up but never active) with filters and suggested next action.
-- API usage and spend trends per customer, integration health (error rates by endpoint, for example identity check and credit score).
-- A "SQL behind this" toggle that shows the query for each chart.
-- A data consistency checker that flags mismatches between front-end records and the underlying ledger (inspired by 4Core ERP work).
-- A short PRD panel for a re-engagement feature, built from the data.
+### 8.2 Signal (`/fintech-analytics/`): built, refine only
+Product analytics workspace for Ferrow, a fictional lending API company (renamed from Lendwell, which sounded too close to LendsQR). Full brief: `private/briefs/fintech-analytics.md` (not committed).
+- **Own look:** Signal uses its own brand, not the portfolio's violet and gold, including on its case study tab. Petrol teal (#0D5C63, dark #5FC4C9) on a cool #F6F7F9 canvas, frosted glass cards with a white top-edge highlight and soft shadows instead of border lines, bento layout, Inter for UI with tabular numbers, JetBrains Mono for SQL, Source Serif 4 for insight headlines. A faint petrol, slate and mint wash sits behind the page so the glass reads as glass: the one deliberate exception to the no-gradients rule. Status labels are coloured text with a meaningful symbol, never a tinted pill with a dot. No accent stripes.
+- **Structure:** opens on `#overview`; the case study is the last tab (`#case-study`). Views: Overview, Activation, Accounts to act on, Customer 360 (`#customer/:id`), Usage and spend, Integration health, Data checks, Insights and PRD, SQL workspace, How it was built. Collapsible sidebar (remembered), Back button in the top bar, filters in the URL hash.
+- **Data and SQL:** `fintech-analytics/data/generate.js` builds `signal.sqlite.gz` from a fixed seed (180 lenders, Nov 2024 to Oct 2026). sql.js 1.15.2 runs it in a Web Worker. Every chart is a query in `js/queries.js`; shared metric definitions are SQL views in `data/schema.sql`. Planted stories are listed in `data/STORIES.md` and checked by `data/stories.sql`.
+- **Tests:** `fintech-analytics/tests/queries.test.html` (every query, metric consistency, planted stories) and `tests/run-queries-node.js` (quick check with the sqlite3 CLI after `node data/generate.js --keep`).
+- **Results (CV only, qualitative):** SQL analysis of signed-up but inactive customers and usage and spend trends informed targeted activation and engagement with each account; NIBSS and credit-scoring API integration requirements; earlier, resolving data discrepancies that affected payments for 30,000+ beneficiaries. Never name LendsQR or 4Core in Signal.
 **Based on:** LendsQR (NIBSS and credit-scoring APIs, SQL analysis), 4Core (data integrity).
 
 ### 8.3 Velbourne (`/velbourne/`)
