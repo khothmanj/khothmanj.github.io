@@ -36,10 +36,10 @@
 
   /* ---------- routing ---------- */
   function parseHash() {
-    const raw = location.hash.replace(/^#/, '') || 'sql';
+    const raw = location.hash.replace(/^#/, '') || 'overview';
     const [path, qs] = raw.split('?');
     const parts = path.split('/').filter(Boolean);
-    return { name: parts[0] || 'sql', args: parts.slice(1), query: new URLSearchParams(qs || '') };
+    return { name: parts[0] || 'overview', args: parts.slice(1), query: new URLSearchParams(qs || '') };
   }
 
   // Filters shared by every view, cleaned against the allowed values.

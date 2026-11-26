@@ -14,6 +14,7 @@
  *   {{ep u}}                      "AND u.endpoint_id = 3" when an endpoint filter is set (alias u)
  *   {{customer}}                  a customer id
  *   {{uplift}}                    percentage points for opportunity sizing
+ *   {{stage}}                     an onboarding stage number (2 to 7)
  *
  * Works in the browser (window.SignalQueries) and in Node (module.exports) for tests.
  */
@@ -30,7 +31,7 @@
   const ENDPOINT_IDS = { bvn: [1, 'BVN verification'], nin: [2, 'NIN verification'], bureau: [3, 'Credit bureau report'], statement: [4, 'Bank statement analysis'], mandate: [5, 'Direct debit mandate'], disbursement: [6, 'Disbursement'], collection: [7, 'Repayment collection'], webhook: [8, 'Webhook delivery'] };
   const DATA_FIRST_MONTH = '2024-11';
   const DATA_LAST_MONTH = '2026-10';
-  const DEFAULTS = { from_month: '2025-11', to_month: '2026-10', lender_type: '', plan: '', size_band: '', region: '', endpoint: '', customer: 48, uplift: 10 };
+  const DEFAULTS = { from_month: '2025-11', to_month: '2026-10', lender_type: '', plan: '', size_band: '', region: '', endpoint: '', customer: 48, uplift: 10, stage: 4 };
   const SEGMENT_KEYS = ['lender_type', 'plan', 'size_band', 'region'];
 
   /* ---------- the library ---------- */
@@ -159,6 +160,77 @@ GROUP BY month
 ORDER BY month;`,
   });
 
+
+  add({
+    id: 'overview_trend', view: 'overview', title: 'Live calls and revenue over time',
+    question: 'How have live API calls and revenue grown since the start of the data?',
+    skills: ['GROUP BY month', 'joins'],
+    sql: `SELECT cm.month,
+       SUM(cm.live_calls) AS live_calls,
+       ROUND(SUM(cm.revenue_ngn)) AS revenue_ngn
+FROM customer_months cm
+JOIN customers c ON c.id = cm.customer_id
+WHERE cm.month <= '{{to_month}}'{{seg c}}
+GROUP BY cm.month
+ORDER BY cm.month;`,
+  });
+
+  add({
+    id: 'overview_endpoints', view: 'overview', title: 'Endpoint status this month',
+    question: 'Which endpoints are healthy this month, and how do errors and revenue compare with last month?',
+    skills: ['self join on months', 'CASE thresholds'],
+    sql: `-- Status: Healthy under 3% failed calls, Watch from 3%, Failing from 8%.
+WITH monthly AS (
+  SELECT u.endpoint_id, u.month,
+         SUM(u.calls) AS calls, SUM(u.errors) AS errors, SUM(u.revenue_ngn) AS revenue_ngn
+  FROM usage_priced u
+  JOIN customers c ON c.id = u.customer_id
+  WHERE u.month IN ('{{to_month}}', strftime('%Y-%m', '{{to_month}}-01', '-1 month')){{seg c}}
+  GROUP BY u.endpoint_id, u.month
+)
+SELECT e.code AS endpoint,
+       e.name,
+       cur.calls,
+       ROUND(100.0 * cur.errors / cur.calls, 2) AS error_rate_pct,
+       ROUND(100.0 * prev.errors / prev.calls, 2) AS prev_error_rate_pct,
+       ROUND(cur.revenue_ngn) AS revenue_ngn,
+       ROUND(prev.revenue_ngn) AS prev_revenue_ngn,
+       CASE
+         WHEN cur.calls IS NULL THEN 'No traffic'
+         WHEN 100.0 * cur.errors / cur.calls >= 8 THEN 'Failing'
+         WHEN 100.0 * cur.errors / cur.calls >= 3 THEN 'Watch'
+         ELSE 'Healthy'
+       END AS status
+FROM endpoints e
+LEFT JOIN monthly cur ON cur.endpoint_id = e.id AND cur.month = '{{to_month}}'
+LEFT JOIN monthly prev ON prev.endpoint_id = e.id AND prev.month = strftime('%Y-%m', '{{to_month}}-01', '-1 month')
+ORDER BY e.id;`,
+  });
+
+  add({
+    id: 'overview_compliance', view: 'overview', title: 'Compliance review speed',
+    question: 'Are compliance decisions getting slower, and how many lenders are waiting right now?',
+    skills: ['period comparison', 'scalar subquery'],
+    sql: `WITH reviews AS (
+  SELECT julianday(r.decided_at) - julianday(r.submitted_at) AS days,
+         CASE WHEN r.decided_at > date('{{to}}', '-3 months') THEN 'Last 3 months' ELSE 'The 3 months before' END AS period
+  FROM compliance_reviews r
+  JOIN customers c ON c.id = r.customer_id
+  WHERE r.decided_at IS NOT NULL
+    AND r.decided_at > date('{{to}}', '-6 months')
+    AND r.decided_at <= '{{to}} 23:59'{{seg c}}
+)
+SELECT period,
+       COUNT(*) AS decisions,
+       ROUND(AVG(days), 1) AS avg_days_to_decision,
+       (SELECT COUNT(*) FROM compliance_reviews p
+         WHERE p.submitted_at <= '{{to}} 23:59'
+           AND (p.decided_at IS NULL OR p.decided_at > '{{to}} 23:59')) AS waiting_at_month_end
+FROM reviews
+GROUP BY period
+ORDER BY period = 'Last 3 months' DESC;`,
+  });
+
   /* ===== Activation ===== */
   add({
     id: 'activation_funnel', view: 'activation', title: 'Onboarding funnel',
@@ -263,6 +335,24 @@ WHERE r.outcome = 'info_requested'
   AND c.signup_date BETWEEN '{{from}}' AND '{{to}}'{{seg c}}
 GROUP BY r.reason
 ORDER BY requests DESC;`,
+  });
+
+
+  add({
+    id: 'activation_stage_lenders', view: 'activation', title: 'Lenders stuck before a stage',
+    question: 'Which lenders reached the step before this stage but not this one, and for how long?',
+    skills: ['CASE inside a function', 'filtering on a view'],
+    sql: `-- Lenders in the signup range whose furthest stage is the one before stage {{stage}}.
+SELECT c.id, c.name, c.plan, c.lender_type, s.signup_date,
+       CAST(julianday((SELECT value FROM meta WHERE key = 'as_of')) - julianday(CASE s.furthest_stage
+         WHEN 1 THEN s.signed_up_at WHEN 2 THEN s.sandbox_keys_at WHEN 3 THEN s.first_sandbox_call_at
+         WHEN 4 THEN s.kyc_approved_at WHEN 5 THEN s.production_keys_at ELSE s.first_live_call_at END) AS INTEGER) AS days_waiting
+FROM customer_stages s
+JOIN customers c ON c.id = s.customer_id
+WHERE s.signup_date BETWEEN '{{from}}' AND '{{to}}'
+  AND s.furthest_stage = {{stage}} - 1
+  AND c.cancelled_date IS NULL{{seg c}}
+ORDER BY days_waiting DESC;`,
   });
 
   /* ===== Accounts to act on ===== */
@@ -476,6 +566,14 @@ ORDER BY i.month DESC, i.invoice_number;`,
 FROM support_tickets
 WHERE customer_id = {{customer}}
 ORDER BY opened_at DESC;`,
+  });
+
+
+  add({
+    id: 'customer_list', view: 'customer', title: 'Customer list',
+    question: 'Which lenders can I open a Customer 360 for?',
+    skills: ['simple SELECT'],
+    sql: `SELECT id, name, lender_type, plan FROM customers ORDER BY name;`,
   });
 
   /* ===== Usage and spend ===== */
@@ -773,6 +871,27 @@ SELECT 'Invoice equals metered usage plus fee',
          WHERE ABS(inv.amount - COALESCE(cm.revenue_ngn, 0)) > 0.005);`,
   });
 
+
+  add({
+    id: 'integrity_monthly', view: 'integrity', title: 'Monthly reconciliation',
+    question: 'Each month, does the total we invoiced match the total Finance recorded?',
+    skills: ['USING join', 'monthly totals'],
+    sql: `WITH invoiced AS (
+  SELECT month, COUNT(DISTINCT customer_id) AS customers, COUNT(*) AS invoices, SUM(amount_ngn) AS invoiced_ngn
+  FROM invoices GROUP BY month
+), recorded AS (
+  SELECT month, SUM(amount_ngn) AS ledger_ngn FROM ledger GROUP BY month
+)
+SELECT i.month, i.customers, i.invoices,
+       ROUND(i.invoiced_ngn, 2) AS invoiced_ngn,
+       ROUND(COALESCE(r.ledger_ngn, 0), 2) AS ledger_ngn,
+       ROUND(i.invoiced_ngn - COALESCE(r.ledger_ngn, 0), 2) AS difference_ngn
+FROM invoiced i
+LEFT JOIN recorded r USING (month)
+WHERE i.month BETWEEN '{{from_month}}' AND '{{to_month}}'
+ORDER BY i.month;`,
+  });
+
   /* ===== Insights ===== */
   add({
     id: 'insights_problem', view: 'insights', title: 'The compliance problem in numbers',
@@ -941,6 +1060,7 @@ GROUP BY category ORDER BY median_hours_to_solve DESC;`,
     for (const k of Object.keys(ALLOWED)) out[k] = ALLOWED[k].includes(p[k]) ? p[k] : '';
     const id = parseInt(p.customer, 10); out.customer = id >= 1 && id <= 9999 ? id : DEFAULTS.customer;
     const up = Number(p.uplift); out.uplift = up >= 1 && up <= 50 ? Math.round(up) : DEFAULTS.uplift;
+    const st = parseInt(p.stage, 10); out.stage = st >= 2 && st <= 7 ? st : DEFAULTS.stage;
     return out;
   }
 
@@ -965,7 +1085,8 @@ GROUP BY category ORDER BY median_hours_to_solve DESC;`,
       .replace(/\{\{from_month\}\}/g, p.from_month)
       .replace(/\{\{to_month\}\}/g, p.to_month)
       .replace(/\{\{customer\}\}/g, String(p.customer))
-      .replace(/\{\{uplift\}\}/g, String(p.uplift));
+      .replace(/\{\{uplift\}\}/g, String(p.uplift))
+      .replace(/\{\{stage\}\}/g, String(p.stage));
   }
 
   function byId(id) { return Q.find((q) => q.id === id); }
