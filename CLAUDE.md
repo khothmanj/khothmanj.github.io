@@ -39,7 +39,7 @@ This file gives you the context for every task in this repository. Read it fully
 │   └── index.html
 ├── fintech-analytics/      # Project 2: Signal, lending API product analytics (own colour scheme)
 ├── velbourne/              # Project 3
-├── fraud-toolkit/          # Project 4
+├── sme-readiness/          # Project 4: Kinhold, cyber, fraud and AI readiness (own colour scheme)
 ├── food-security/          # Project 5
 ├── tenor/                  # Project 6: Tenor, project finance modeller (own colour scheme)
 ├── private/                # Git-ignored. CV and personal notes. Never publish.
@@ -174,11 +174,15 @@ Khadijat's own AI-enabled event planning platform, pre-launch.
 - Organiser workspace: events, vendor management, client status.
 - Discovery section: insights from 37 organiser and vendor sessions, personas, MVP scope and roadmap, early-access waitlist (~30 sign-ups).
 
-### 8.4 SME fraud detection and awareness toolkit (`/fraud-toolkit/`)
-- Self-assessment for small businesses (access controls, 2FA, payment approval steps, staff training) producing a risk score and prioritised fixes.
-- Suspicious payment request checker: paste an email, see it flagged against fraud patterns (bank detail changes, urgency, lookalike domains), with a human decision step.
-- Awareness guide for staff.
-**Based on:** Masumi fraud review and MSc dissertation (cybersecurity, payment fraud and AI-enabled controls in UK SMEs). Reference GDPR and data governance where relevant.
+### 8.4 Kinhold (`/sme-readiness/`): built, refine only
+Cyber, fraud and AI readiness for UK small businesses. Replaces the earlier "SME fraud detection and awareness toolkit" idea (working name Holdfast). Full brief: `private/briefs/sme-readiness.md` (not committed).
+- **Own look:** Kinhold uses its own brand, not the portfolio's violet and gold, including on its case study tab. Warm canvas (#F7F3EE) with clay (#A6492A, dark #EC9873) for actions and sage (#3F6B55) for progress, obvious frosted glass with soft shadows and no border lines, a faint clay, sage and sand wash behind the page. Inter for UI, Source Serif 4 for large headlines. Soft filled duotone SVG illustrations (no line art). Status is coloured text with a meaningful symbol, never a tinted pill with a dot. No accent stripes, no purple.
+- **Structure:** opens on `#home`. Views: Readiness check (`#check/start`, `#check/q/N`), Results, Action plan, Message checker (`#checker?ex=m1..m8`), Toolkit (`#toolkit?t=`), Staff training (`#training/<module>`), Adviser view (`#adviser/<client>`), How it works (`#method`), Case study (`#case-study`, last). Collapsible sidebar (remembered), Back button, everything saved in localStorage on the device only.
+- **Content:** all in `sme-readiness/data/*.json`: 43 questions in 14 areas, 43 recommendations, 26 sources (each opened and checked, with a checked date), 7 warning signs and 8 example messages, 4 training modules, 4 toolkit templates, DSIT Cyber Security Breaches Survey 2025/2026 benchmarks. `data/build-samples.js` builds the four fictional sample clients. Never add a source, figure or quote without opening it. Use Report Fraud (it replaced Action Fraud).
+- **Engines and tests:** `js/engine/scoring.js`, `recommend.js`, `checker.js` (no AI model, transparent rules shown on `#method`). Tests: `tests/run-node.js` and `tests/scoring.test.html` (83 shared tests), `tests/validate-content.js` (`--links` checks every source URL). Word files are built in the browser with docx 9.15.0.
+- **Rules:** never say a business is "compliant" or "certified"; the message checker never says "safe". No Masumi name, staff, systems or incident details anywhere; the case study says "based on a fraud review I carried out for a UK retailer".
+- **Results (CV only):** reviewed payment and access controls after a fraud incident, recommended tiered access, 2FA and GDPR-aligned data handling, and developed a fraud detection and awareness framework reusable by other UK SMEs. Kinhold itself has not been piloted, so no usage numbers.
+**Based on:** Masumi Headwear fraud review and MSc dissertation (cybersecurity, payment fraud and AI-enabled controls in UK SMEs).
 
 ### 8.5 Food security dashboard (`/food-security/`): optional
 State-level agricultural and food indicators for Nigeria using public or clearly sample data, with filters, drill-downs, reporting completeness and a plain-English summary per state.

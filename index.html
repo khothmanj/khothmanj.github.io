@@ -50,6 +50,17 @@
   .mf b { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
   .sql-line { font: 400 0.72rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; color: #2D3644; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sql-line b { color: #4A5BC4; font-weight: 500; }
+  /* Kinhold preview in its own look: warm clay and sage on frosted glass */
+  .project .shot.kinhold { background: radial-gradient(380px 240px at 92% 0%, rgba(214,120,82,0.28), transparent 70%), radial-gradient(340px 240px at 0% 100%, rgba(110,160,128,0.24), transparent 70%), radial-gradient(260px 200px at 50% 50%, rgba(226,196,150,0.24), transparent 70%), #F7F3EE; color: #1F1A17; }
+  .shot.kinhold .panel { background: rgba(255,253,251,0.5); border: 0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 10px 28px -14px rgba(46,31,20,0.24); }
+  .shot .brand-k { display: inline-flex; align-items: center; gap: 8px; font: 600 1.15rem/1 Geist, sans-serif; letter-spacing: -0.01em; }
+  .shot .brand-k svg { width: 24px; height: 24px; }
+  .k-msg { font-size: 0.76rem; line-height: 1.75; color: #3A322C; }
+  .k-msg mark { background: rgba(179,38,30,0.09); color: inherit; border-radius: 4px; padding: 1px 3px; box-shadow: inset 0 -2px 0 rgba(179,38,30,0.45); }
+  .k-msg sup { color: #B3261E; font-weight: 700; font-size: 0.6rem; margin-right: 1px; }
+  .k-verdict { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 0.78rem; color: #3A322C; }
+  .k-verdict b { color: #B3261E; display: inline-flex; align-items: center; gap: 5px; font-weight: 600; font-size: 0.86rem; }
+  .k-verdict svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .go { color: var(--violet); font-weight: 500; }
   .note { color: var(--muted); font-size: 0.9rem; margin-top: 18px; }
   footer { border-top: 1px solid var(--line); padding: 22px 0 40px; color: var(--muted); font-size: 0.9rem; }
@@ -94,6 +105,20 @@
         <ul class="tags" aria-label="Topics"><li>Fintech</li><li>Product analytics</li><li>SQL</li><li>APIs and integrations</li></ul>
         <p class="result">Based on my work as a Product Manager at a lending API company, where <strong>SQL analysis of inactive customers</strong> informed targeted activation and engagement with each account.</p>
         <span class="go">Open Signal and its case study</span>
+      </div>
+    </a>
+    <a class="project" href="sme-readiness/">
+      <div class="shot kinhold" aria-hidden="true">
+        <span class="brand-k"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#A6492A"/><path d="M16 6.5l8 3v6c0 5.3-3.4 9.4-8 10.9-4.6-1.5-8-5.6-8-10.9v-6z" fill="#F7E3D6"/><path d="M16 9.2l5.4 2v4.3c0 3.8-2.3 6.7-5.4 7.9z" fill="#E7A27F"/><circle cx="16" cy="15.4" r="2.4" fill="#A6492A"/></svg>Kinhold</span>
+        <div class="panel k-msg">From: accounts@<mark><sup>3</sup>harbourmi11foods.co.uk</mark><br>Please note our <mark><sup>1</sup>bank details have changed</mark>. Use the new account for Friday's payment. We need this updated <mark><sup>2</sup>before Friday's payment run</mark>.</div>
+        <div class="panel k-verdict"><span>3 warning signs found</span><b><svg viewBox="0 0 16 16"><path d="M8 2.5l6 10.5H2z"/><path d="M8 6.5v3M8 11.3v.2"/></svg>High concern</b></div>
+      </div>
+      <div class="text">
+        <h3>Kinhold</h3>
+        <p class="problem">Small businesses are targeted by invoice fraud and phishing but rarely have anyone looking after security, and staff use AI tools with no rules. Kinhold is a 15-minute cyber, fraud and AI check that ends in a ranked 90-day plan, ready-made templates, staff training and a message checker.</p>
+        <ul class="tags" aria-label="Topics"><li>Cybersecurity</li><li>Fraud prevention</li><li>AI governance</li><li>SME</li></ul>
+        <p class="result">Based on a fraud review I carried out for a UK retailer, recommending <strong>tiered access, 2FA and GDPR-aligned data handling</strong>, and on my MSc dissertation.</p>
+        <span class="go">Open Kinhold and its case study</span>
       </div>
     </a>
     <p class="note">More projects are being added. Every project is a working prototype with a fictional brand or public data, and a case study as its last tab.</p>
