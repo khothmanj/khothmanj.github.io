@@ -15,3 +15,7 @@ private/
 
 # Local preview server and Claude Code settings
 .claude/
+
+# Signal: uncompressed build outputs (only signal.sqlite.gz is published)
+fintech-analytics/data/signal.sqlite
+fintech-analytics/data/signal.sql
