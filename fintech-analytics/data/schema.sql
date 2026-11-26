@@ -132,3 +132,85 @@ CREATE TABLE events (
   title  TEXT NOT NULL,
   detail TEXT NOT NULL
 );
+
+-- ---------------------------------------------------------------------------
+-- Shared definitions. Every chart in Signal builds on these views, so a metric
+-- such as "revenue" or "active customer" means the same thing everywhere.
+-- ---------------------------------------------------------------------------
+
+-- Every month in the dataset, with its first and last day.
+CREATE VIEW months AS
+WITH RECURSIVE m(month) AS (
+  SELECT substr((SELECT value FROM meta WHERE key = 'history_from'), 1, 7)
+  UNION ALL
+  SELECT strftime('%Y-%m', month || '-01', '+1 month') FROM m
+  WHERE month < substr((SELECT value FROM meta WHERE key = 'as_of'), 1, 7)
+)
+SELECT month,
+       month || '-01' AS first_day,
+       date(month || '-01', '+1 month', '-1 day') AS last_day
+FROM m;
+
+-- Live usage, with each successful call charged at the price in force that day.
+CREATE VIEW usage_priced AS
+SELECT u.day,
+       substr(u.day, 1, 7) AS month,
+       u.customer_id,
+       u.endpoint_id,
+       u.calls,
+       u.successful,
+       u.calls - u.successful AS errors,
+       u.err_timeout, u.err_4xx, u.err_5xx, u.err_upstream,
+       u.p95_ms,
+       u.successful * p.price_ngn AS revenue_ngn
+FROM api_usage_daily u
+JOIN endpoint_prices p
+  ON p.endpoint_id = u.endpoint_id
+ AND u.day >= p.valid_from
+ AND (p.valid_to IS NULL OR u.day < p.valid_to)
+WHERE u.env = 'live';
+
+-- One row per customer per month from their first live call until they cancel.
+-- Revenue = platform fee + metered usage. Active = at least 100 successful live calls.
+CREATE VIEW customer_months AS
+WITH first_live AS (
+  SELECT customer_id, date(occurred_at) AS live_day
+  FROM onboarding_events WHERE stage = 'first_live_call'
+), monthly_usage AS (
+  SELECT customer_id, month,
+         SUM(successful) AS live_calls,
+         SUM(errors) AS errors,
+         SUM(revenue_ngn) AS usage_revenue_ngn
+  FROM usage_priced
+  GROUP BY customer_id, month
+)
+SELECT c.id AS customer_id,
+       m.month,
+       COALESCE(u.live_calls, 0) AS live_calls,
+       COALESCE(u.errors, 0) AS errors,
+       COALESCE(u.usage_revenue_ngn, 0) AS usage_revenue_ngn,
+       p.monthly_fee_ngn AS platform_fee_ngn,
+       COALESCE(u.usage_revenue_ngn, 0) + p.monthly_fee_ngn AS revenue_ngn,
+       CASE WHEN COALESCE(u.live_calls, 0) >= 100 THEN 1 ELSE 0 END AS is_active
+FROM customers c
+JOIN first_live f ON f.customer_id = c.id
+JOIN months m ON f.live_day <= m.last_day
+             AND (c.cancelled_date IS NULL OR c.cancelled_date > m.first_day)
+JOIN plans p ON p.plan = c.plan
+LEFT JOIN monthly_usage u ON u.customer_id = c.id AND u.month = m.month;
+
+-- One row per customer with the time each onboarding stage was reached (NULL if not yet).
+CREATE VIEW customer_stages AS
+SELECT c.id AS customer_id,
+       c.signup_date,
+       MAX(CASE WHEN e.stage = 'signed_up' THEN e.occurred_at END) AS signed_up_at,
+       MAX(CASE WHEN e.stage = 'sandbox_keys_issued' THEN e.occurred_at END) AS sandbox_keys_at,
+       MAX(CASE WHEN e.stage = 'first_sandbox_call' THEN e.occurred_at END) AS first_sandbox_call_at,
+       MAX(CASE WHEN e.stage = 'kyc_approved' THEN e.occurred_at END) AS kyc_approved_at,
+       MAX(CASE WHEN e.stage = 'production_keys_issued' THEN e.occurred_at END) AS production_keys_at,
+       MAX(CASE WHEN e.stage = 'first_live_call' THEN e.occurred_at END) AS first_live_call_at,
+       MAX(CASE WHEN e.stage = 'reached_1000_live_calls' THEN e.occurred_at END) AS reached_1000_at,
+       MAX(e.stage_order) AS furthest_stage
+FROM customers c
+LEFT JOIN onboarding_events e ON e.customer_id = c.id
+GROUP BY c.id, c.signup_date;

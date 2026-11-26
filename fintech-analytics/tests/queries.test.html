@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../">
+<title>Signal query tests</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/signal.css">
+<style>
+  body { padding: 24px 16px 60px; }
+  .wrap { max-width: 1100px; margin: 0 auto; display: grid; gap: 18px; }
+  .summary { font-size: 1.1rem; font-weight: 600; }
+  .pass { color: var(--up); } .fail { color: var(--down); }
+  table.t { width: 100%; border-collapse: collapse; font-size: 0.84rem; background: var(--surface); border: 1px solid var(--line); }
+  table.t th, table.t td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.t td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.t code { font-family: var(--mono); font-size: 0.8rem; }
+  .scroll { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Signal query tests</h1>
+  <p class="muted">Runs every saved query through sql.js, the same engine Signal uses, with four filter combinations. Also checks that metrics agree across views and that the planted stories are in the data.</p>
+  <p class="summary" id="summary" role="status">Running…</p>
+  <div class="scroll"><table class="t" id="checks"><thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead><tbody></tbody></table></div>
+  <h2 style="font-size:1.05rem">Saved queries</h2>
+  <div class="scroll"><table class="t" id="queries"><thead><tr><th>Query</th><th>Filters</th><th>Result</th><th class="num">Rows</th><th class="num">ms</th></tr></thead><tbody></tbody></table></div>
+</div>
+<script src="js/queries.js"></script>
+<script src="js/db.js"></script>
+<script>
+(async function () {
+  'use strict';
+  const Q = SignalQueries, DB = SignalDB;
+  const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const results = [];
+  const checksBody = document.querySelector('#checks tbody');
+  const queriesBody = document.querySelector('#queries tbody');
+  function check(name, ok, detail) {
+    results.push(ok);
+    checksBody.insertAdjacentHTML('beforeend', '<tr><td>' + esc(name) + '</td><td class="' + (ok ? 'pass' : 'fail') + '">' + (ok ? 'Pass' : 'Fail') + '</td><td>' + esc(detail || '') + '</td></tr>');
+  }
+  const one = async (sql) => DB.toObjects(await DB.query(sql, { fresh: true }));
+  const close = (a, b) => Math.abs(a - b) < 0.5;
+
+  try {
+    const info = await DB.ready();
+    check('Database opens', true, 'SQLite ' + info.sqliteVersion + ', ' + (info.compressedBytes / 1048576).toFixed(2) + ' MB download, unpacked and opened in ' + info.openMs + ' ms (' + info.totalMs + ' ms total)');
+  } catch (err) {
+    check('Database opens', false, err.sqlite || err.message);
+    document.getElementById('summary').textContent = 'Stopped: the database did not open.';
+    return;
+  }
+
+  /* ---------- every saved query, with four filter combinations ---------- */
+  const combos = [
+    ['defaults', {}],
+    ['microfinance banks, growth plan', { lender_type: 'microfinance_bank', plan: 'growth' }],
+    ['North, credit bureau, last 6 months', { region: 'North', endpoint: 'bureau', from_month: '2026-05', to_month: '2026-10' }],
+    ['all 24 months, customer 3', { from_month: '2024-11', to_month: '2026-10', customer: 3 }],
+  ];
+  let slowest = { ms: 0 };
+  for (const q of Q.list) {
+    for (const [label, params] of combos) {
+      const sql = Q.render(q.id, params);
+      let ok = true, rows = 0, ms = 0, detail = '';
+      try {
+        const res = await DB.query(sql, { fresh: true });
+        rows = res.rows.length; ms = res.ms;
+        if (label === 'defaults' && rows === 0) { ok = false; detail = 'Returned no rows with default filters'; }
+        if (ms > slowest.ms) slowest = { ms, id: q.id, label };
+      } catch (err) { ok = false; detail = err.sqlite || err.message; }
+      results.push(ok);
+      queriesBody.insertAdjacentHTML('beforeend', '<tr><td><code>' + q.id + '</code></td><td>' + esc(label) + '</td><td class="' + (ok ? 'pass' : 'fail') + '">' + (ok ? 'Pass' : 'Fail: ' + esc(detail)) + '</td><td class="num">' + rows + '</td><td class="num">' + ms + '</td></tr>');
+    }
+  }
+  check('Every saved query runs with every filter combination', results.every(Boolean), Q.list.length + ' queries, ' + combos.length + ' combinations. Slowest: ' + slowest.id + ' (' + slowest.label + ') in ' + slowest.ms + ' ms');
+  check('No query takes longer than 1.5 seconds', slowest.ms < 1500, 'Slowest ' + slowest.ms + ' ms');
+
+  /* ---------- metric consistency ---------- */
+  const p = { from_month: '2025-11', to_month: '2026-10' };
+  const overview = await one(Q.render('overview_monthly', p));
+  const overviewRevenue = overview.reduce((s, r) => s + r.revenue_ngn, 0);
+  const concentration = await one(Q.render('usage_concentration', p));
+  const usageRevenue = concentration.reduce((s, r) => s + r.revenue_ngn, 0);
+  check('Overview revenue equals Usage revenue (12 months)', close(overviewRevenue, usageRevenue) || Math.abs(overviewRevenue - usageRevenue) < overview.length,
+    'Overview NGN ' + Math.round(overviewRevenue).toLocaleString('en-GB') + ', Usage NGN ' + Math.round(usageRevenue).toLocaleString('en-GB') + ' (each row is rounded to the naira)');
+  const byEndpoint = await one(Q.render('usage_by_endpoint', p));
+  const fees = (await one("SELECT SUM(platform_fee_ngn) AS fees FROM customer_months WHERE month BETWEEN '2025-11' AND '2026-10'"))[0].fees;
+  const endpointRevenue = byEndpoint.reduce((s, r) => s + r.revenue_ngn, 0) + fees;
+  check('Endpoint revenue plus platform fees equals Overview revenue', Math.abs(endpointRevenue - overviewRevenue) < byEndpoint.length,
+    'Endpoints plus fees NGN ' + Math.round(endpointRevenue).toLocaleString('en-GB'));
+  const metered = await one(`SELECT COUNT(*) AS n FROM (SELECT customer_id, month, SUM(amount_ngn) AS a FROM invoices GROUP BY 1, 2) i
+    LEFT JOIN customer_months cm USING (customer_id, month) WHERE ABS(i.a - COALESCE(cm.revenue_ngn, 0)) > 0.005`);
+  check('Invoices match the revenue definition, apart from the planted billing errors', metered[0].n === 3, metered[0].n + ' customer-months differ (expected 3: one duplicate, two billed after cancelling)');
+  const active = await one("SELECT SUM(is_active) AS a, SUM(live_calls >= 100) AS b FROM customer_months WHERE month = '2026-10'");
+  check('Active customer definition is used consistently', active[0].a === active[0].b && active[0].a === overview[overview.length - 1].active_customers, active[0].a + ' active customers in October 2026');
+
+  /* ---------- planted stories ---------- */
+  const funnel = await one(Q.render('activation_funnel', { from_month: '2024-11', to_month: '2026-07' }));
+  const worst = funnel.filter((r) => r.pct_from_previous !== null).sort((a, b) => a.pct_from_previous - b.pct_from_previous)[0];
+  check('Story 1: compliance is the biggest drop-off', worst.stage === 'kyc_approved', 'Lowest step: ' + worst.stage + ' at ' + worst.pct_from_previous + '%, median ' + worst.median_days_from_previous + ' days');
+  const notLive = await one(Q.render('accounts_not_live', {}));
+  const statuses = [...new Set(notLive.map((r) => r.status))];
+  check('Story 3: never-live accounts each have a reason, action and owner', notLive.length > 50 && notLive.every((r) => r.reason && r.next_action && r.owner) && statuses.length >= 4, notLive.length + ' accounts, statuses: ' + statuses.join(', '));
+  const declining = await one(Q.render('accounts_declining', {}));
+  check('Story 4: twelve live customers with falling usage', declining.length === 12, declining.length + ' flagged, from ' + declining[0].change_pct + '% to ' + declining[declining.length - 1].change_pct + '%');
+  const outage = await one(Q.render('health_daily', { endpoint: 'bureau', from_month: '2026-08', to_month: '2026-08' }));
+  const peak = outage.reduce((a, b) => (b.error_rate_pct > a.error_rate_pct ? b : a));
+  check('Story 5: credit bureau outage in August 2026', peak.day >= '2026-08-10' && peak.day <= '2026-08-16' && peak.error_rate_pct > 15, 'Peak ' + peak.error_rate_pct + '% on ' + peak.day);
+  const pattern = await one(Q.render('health_by_pattern', { from_month: '2026-08', to_month: '2026-10' }));
+  const agg = pattern.find((r) => r.segment === 'partner_aggregator'), direct = pattern.find((r) => r.segment === 'direct_api');
+  check('Story 6: partner aggregators time out more', agg.timeout_pct > 2 * direct.timeout_pct, agg.timeout_pct + '% against ' + direct.timeout_pct + '% for direct API');
+  const recon = await one(Q.render('integrity_reconciliation', { from_month: '2024-11', to_month: '2026-10' }));
+  const kinds = [...new Set(recon.map((r) => r.check_name))].sort();
+  check('Story 7: four kinds of billing mismatch, and no others', kinds.length === 4 && recon.length === 7, recon.length + ' rows: ' + kinds.join(', '));
+  const conc = concentration.filter((r) => r.rank <= 10).reduce((s, r) => s + r.pct_of_revenue, 0);
+  check('Story 9: top 10 customers drive most revenue', conc > 50, Math.round(conc) + '% of revenue');
+
+  /* ---------- friendly errors ---------- */
+  try { await DB.query('SELECT nme FROM customers', { fresh: true }); check('Broken SQL gives a friendly error', false, 'No error raised'); }
+  catch (err) { check('Broken SQL gives a friendly error', /no column called "nme"/.test(err.friendly) && /no such column/.test(err.sqlite), err.friendly); }
+
+  const passed = results.filter(Boolean).length;
+  const s = document.getElementById('summary');
+  s.textContent = passed === results.length ? 'All ' + results.length + ' checks passed.' : (results.length - passed) + ' of ' + results.length + ' checks failed.';
+  s.className = 'summary ' + (passed === results.length ? 'pass' : 'fail');
+  window.__signalTests = { passed, total: results.length };
+})();
+</script>
+</body>
+</html>

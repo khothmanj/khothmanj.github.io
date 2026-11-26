@@ -229,6 +229,19 @@ Product and market events, used as annotations on time-series charts.
 | 2026-08-03 | ops | Compliance review backlog |
 | 2026-08-10 | incident | Credit bureau provider outage |
 
+## Shared definitions (views)
+
+Metrics are defined once, as SQL views in `schema.sql`, and every chart in Signal builds on them. That is how "revenue" or "active customer" means the same thing on every screen.
+
+| View | What it gives you |
+|---|---|
+| `months` | Every month in the data, with its first and last day (built with a recursive CTE) |
+| `usage_priced` | Live usage only, with `errors` and `revenue_ngn` (successful calls at the price in force that day) |
+| `customer_months` | One row per customer per month from their first live call until they cancel: `live_calls`, `errors`, `usage_revenue_ngn`, `platform_fee_ngn`, `revenue_ngn` and `is_active` (100 or more successful live calls) |
+| `customer_stages` | One row per customer with the time each onboarding stage was reached, and `furthest_stage` |
+
+`customer_months.revenue_ngn` matches the `invoices` table for every customer and month, except the planted billing errors, and the tests check this.
+
 ## Limits
 
 - 180 customers and about 8 signups a month is a small base, so monthly percentages swing. Signal shows counts next to rates.
