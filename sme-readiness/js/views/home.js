@@ -17,7 +17,7 @@
     el.innerHTML =
       '<section class="hero glass" aria-labelledby="home-h">' +
         '<div class="hero-text">' +
-          '<p class="kicker">For small UK businesses, 2 to 50 people</p>' +
+          '<p class="kicker">For small UK businesses and the people who advise them</p>' +
           '<h1 id="home-h" class="serif">See how well protected your business is, in about 15 minutes.</h1>' +
           '<p class="lede">Kinhold checks how exposed you are to scams, hacking and fraud, and whether your team uses AI tools safely. Then it gives you a short, plain-English plan, with free steps you can take today.</p>' +
           '<div class="hero-actions">' +

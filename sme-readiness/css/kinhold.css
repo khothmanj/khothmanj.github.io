@@ -521,8 +521,8 @@ mark.sig .tip { display: none; }
 .dl-status:empty { display: none; }
 .paper-wrap { min-width: 0; }
 .paper { background: #FFFFFF; color: #1F1A17; border-radius: 14px; padding: 48px 52px; box-shadow: var(--shadow-lg); font-size: 0.86rem; line-height: 1.6; }
-.paper h1 { font-family: var(--serif); font-size: 1.55rem; line-height: 1.2; margin-bottom: 6px; color: #1F1A17; }
-.paper h2 { font-size: 1rem; color: #A6492A; margin: 22px 0 6px; }
+.paper .doc-title { font-family: var(--serif); font-size: 1.55rem; line-height: 1.2; margin-bottom: 6px; color: #1F1A17; }
+.paper h3 { font-size: 1rem; color: #A6492A; margin: 22px 0 6px; }
 .paper p { margin: 0 0 8px; }
 .paper .meta { color: #6A5F57; font-size: 0.8rem; margin-bottom: 18px; }
 .paper ul, .paper ol { margin: 0 0 8px; padding-left: 20px; display: grid; gap: 4px; }

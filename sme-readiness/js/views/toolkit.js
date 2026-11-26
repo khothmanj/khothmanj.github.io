@@ -100,9 +100,9 @@
     const f = (s) => esc(fill(s, v));
     return tpl.blocks.filter((b) => shown(b, profile)).map((b) => {
       switch (b.t) {
-        case 'h': return '<h1>' + f(b.x) + '</h1>';
+        case 'h': return '<h2 class="doc-title">' + f(b.x) + '</h2>';
         case 'meta': return '<p class="meta">' + f(b.x) + '</p>';
-        case 'h2': return '<h2>' + f(b.x) + '</h2>';
+        case 'h2': return '<h3>' + f(b.x) + '</h3>';
         case 'p': return '<p>' + f(b.x) + '</p>';
         case 'ul': return '<ul>' + b.items.map((i) => '<li>' + f(i) + '</li>').join('') + '</ul>';
         case 'ol': return '<ol>' + b.items.map((i) => '<li>' + f(i) + '</li>').join('') + '</ol>';
