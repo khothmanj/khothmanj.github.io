@@ -973,8 +973,9 @@ WITH last_year AS (
   SELECT 1.0 * SUM(kyc_approved_at IS NOT NULL) / SUM(first_sandbox_call_at IS NOT NULL) AS compliance_rate,
          1.0 * SUM(first_live_call_at IS NOT NULL) / SUM(kyc_approved_at IS NOT NULL) AS approved_to_live_rate
   FROM customer_stages
+  -- Lenders who signed up at least three full months ago, so they have had time to finish.
   WHERE signup_date BETWEEN (SELECT value FROM meta WHERE key = 'history_from')
-                        AND date((SELECT value FROM meta WHERE key = 'as_of'), '-90 days')
+                        AND date((SELECT value FROM meta WHERE key = 'as_of'), 'start of month', '-2 months', '-1 day')
 ), first_year AS (
   -- Average revenue in a new lender's first 12 live months, scaled up for lenders with fewer months so far.
   SELECT AVG(revenue_12m) AS revenue_per_new_lender
@@ -1018,6 +1019,33 @@ SELECT COUNT(*) AS lenders_observed,
        (SELECT ROUND(COUNT(*) / 6.0, 1) FROM customer_stages
          WHERE first_sandbox_call_at > date((SELECT value FROM meta WHERE key = 'as_of'), '-6 months')) AS new_sandbox_lenders_per_month
 FROM eligible;`,
+  });
+
+  add({
+    id: 'insights_baselines', view: 'insights', title: 'Success metric baselines',
+    question: 'Where do the compliance metrics stand today, before any change?',
+    skills: ['CTEs', 'scalar subqueries', 'guardrail metrics'],
+    sql: `-- Lenders who signed up inside the data window and reached compliance.
+WITH in_compliance AS (
+  SELECT DISTINCT r.customer_id
+  FROM compliance_reviews r
+  JOIN customers c ON c.id = r.customer_id
+  WHERE c.signup_date >= (SELECT value FROM meta WHERE key = 'history_from')
+), decided_first_rounds AS (
+  SELECT r.outcome FROM compliance_reviews r JOIN in_compliance i ON i.customer_id = r.customer_id
+  WHERE r.round = 1 AND r.decided_at IS NOT NULL
+), approved AS (
+  SELECT r.customer_id, r.round FROM compliance_reviews r JOIN in_compliance i ON i.customer_id = r.customer_id
+  WHERE r.outcome = 'approved'
+)
+SELECT (SELECT COUNT(*) FROM in_compliance) AS lenders_in_compliance,
+       ROUND(100.0 * (SELECT COUNT(*) FROM decided_first_rounds WHERE outcome = 'approved')
+             / (SELECT COUNT(*) FROM decided_first_rounds), 1) AS approved_first_time_pct,
+       (SELECT ROUND(AVG(round), 2) FROM approved) AS avg_rounds_to_approval,
+       ROUND(100.0 * (SELECT COUNT(DISTINCT r.customer_id) FROM compliance_reviews r JOIN in_compliance i ON i.customer_id = r.customer_id WHERE r.outcome = 'rejected')
+             / (SELECT COUNT(*) FROM in_compliance), 1) AS rejected_pct,
+       ROUND(1.0 * (SELECT COUNT(*) FROM support_tickets t JOIN in_compliance i ON i.customer_id = t.customer_id WHERE t.category = 'compliance')
+             / (SELECT COUNT(*) FROM in_compliance), 2) AS compliance_tickets_per_lender;`,
   });
 
   /* ===== Extra examples for the SQL workspace ===== */

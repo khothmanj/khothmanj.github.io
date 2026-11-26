@@ -69,6 +69,8 @@
     const p = Object.assign(params(), patch);
     const keep = {};
     for (const [k, v] of query.entries()) if (!FILTER_KEYS.includes(k)) keep[k] = v;
+    // Values that are not shared filters (uplift, stage, tab) travel as extras.
+    for (const [k, v] of Object.entries(patch)) if (!FILTER_KEYS.includes(k) && !['from_month', 'to_month'].includes(k)) keep[k] = v;
     const hash = '#' + [name].concat(args).join('/') + filterQuery(Q.clean(p), opts.keepExtra === false ? null : keep);
     if (opts.replace) history.replaceState(null, '', hash); else location.hash = hash;
     if (opts.replace) render();
