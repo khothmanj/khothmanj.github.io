@@ -30,7 +30,7 @@
   /* ---------- data ---------- */
   const data = {};
   async function load() {
-    const files = ['questions', 'recommendations', 'sources', 'benchmarks', 'messages', 'training', 'sample-clients'];
+    const files = ['questions', 'recommendations', 'sources', 'benchmarks', 'messages', 'training', 'sample-clients', 'templates'];
     const got = await Promise.all(files.map((f) => fetch('data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f); return r.json(); })));
     files.forEach((f, i) => { data[f.replace('-', '_')] = got[i]; });
     data.sourceById = Object.fromEntries(data.sources.sources.map((s) => [s.id, s]));

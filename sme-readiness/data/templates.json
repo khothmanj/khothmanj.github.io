@@ -1,0 +1,188 @@
+{
+  "version": "2026-11-26",
+  "note": "Toolkit templates. {tokens} are filled from the fields below. Blocks with \"if\" only appear when that profile answer is yes. Every template is a starting point written from the cited guidance. It is not legal advice and does not make a business compliant or certified.",
+  "fields": [
+    { "id": "business", "label": "Business name", "default": "Your business" },
+    { "id": "lead", "label": "Person responsible", "hint": "Who owns this document and makes the call in an incident.", "default": "the owner" },
+    { "id": "deputy", "label": "Back-up person", "hint": "Who steps in if the person responsible isn't available.", "default": "the office manager" },
+    { "id": "aiTools", "label": "Approved AI tools", "hint": "Separate with commas.", "default": "[add the AI tools you have approved]", "templates": ["ai-policy"] },
+    { "id": "threshold", "label": "Two-person check above (£)", "hint": "Our suggestion. Pick an amount that suits your business.", "default": "1,000", "templates": ["payment-procedure"] },
+    { "id": "delay", "label": "Days before new bank details are used", "hint": "Stop! Think Fraud suggests periods such as 14 or 30 days.", "default": "14", "templates": ["payment-procedure"] },
+    { "id": "itContact", "label": "IT help (name and number)", "hint": "Your IT supplier, or a trusted person who helps with your systems.", "default": "[IT supplier name and number]", "templates": ["incident-one-pager", "staff-checklist"] }
+  ],
+  "templates": [
+    {
+      "id": "ai-policy",
+      "title": "AI acceptable use policy",
+      "summary": "Which AI tools staff can use, what must never go into them, and when a person must check the output.",
+      "illustration": "sparkle",
+      "pages": "2 pages",
+      "sources": ["ncsc-ai", "ico-ai", "ico-minimisation", "ncsc-ai-threat"],
+      "blocks": [
+        { "t": "h", "x": "{business}: AI acceptable use policy" },
+        { "t": "meta", "x": "Responsible: {lead}. Back-up: {deputy}. Last reviewed: {date}. Review again in six months." },
+        { "t": "h2", "x": "Why we have this policy" },
+        { "t": "p", "x": "AI tools can save us time, but they can get things wrong and state them as facts. They can also leak what we type into them. This policy sets out how we use them safely. It applies to everyone who works for {business}, including part-time staff and contractors." },
+        { "t": "h2", "x": "Tools we have approved" },
+        { "t": "p", "x": "You may use these tools for work: {aiTools}." },
+        { "t": "p", "x": "Ask {lead} before using any other AI tool for work, including free tools, browser extensions and AI features inside apps we already use. We check where the tool stores what you type and whether it uses it to train its models." },
+        { "t": "h2", "x": "Never put these into an AI tool" },
+        { "t": "ul", "items": [
+          "Customer names, contact details, addresses or order histories",
+          "Staff details, including pay, health, absence or performance",
+          "Bank details, card numbers, passwords, codes or login links",
+          "Contracts, prices or anything a client or supplier has asked us to keep private",
+          "Anything you wouldn't be happy to see on a public website"
+        ] },
+        { "t": "p", "x": "If you need help with a task that involves personal data, remove names and details first, or ask {lead}. Only use as much information as the task needs." },
+        { "t": "h2", "x": "A person checks before anything goes out" },
+        { "t": "ul", "items": [
+          "Read and check every AI-written email, quote, social post or document before it is sent or published.",
+          "Check facts, figures, prices and dates against our own records.",
+          "Never let an AI tool make a decision about a customer or member of staff on its own, such as a refund, a complaint outcome or a job application.",
+          "If you're not sure the output is right, don't use it."
+        ] },
+        { "t": "h2", "x": "Our customer-facing chatbot", "if": "chatbot" },
+        { "t": "ul", "if": "chatbot", "items": [
+          "The chatbot tells customers they are talking to an automated assistant.",
+          "It only answers from information we have approved, and hands over to a person for complaints, refunds and anything it isn't sure about.",
+          "We read a sample of its conversations every month and fix wrong answers.",
+          "It never asks customers for card details, passwords or codes."
+        ] },
+        { "t": "h2", "x": "AI makes scams more convincing" },
+        { "t": "p", "x": "Scam emails written with AI no longer have the spelling mistakes that used to give them away, and voices can be copied. Follow our payment verification procedure for every payment request, however genuine it sounds." },
+        { "t": "h2", "x": "If something goes wrong" },
+        { "t": "p", "x": "If you've put something into an AI tool that you shouldn't have, tell {lead} straight away. You won't be in trouble for reporting it. The sooner we know, the more we can do." },
+        { "t": "sign", "x": "I have read and understood this policy." }
+      ]
+    },
+    {
+      "id": "payment-procedure",
+      "title": "Payment verification procedure",
+      "summary": "How to check bank detail changes and approve payments, so one convincing email can't move your money.",
+      "illustration": "invoice",
+      "pages": "1 page",
+      "sources": ["stf-business", "ncsc-payfraud", "psr-app", "ncsc-phishing"],
+      "blocks": [
+        { "t": "h", "x": "{business}: payment verification procedure" },
+        { "t": "meta", "x": "Responsible: {lead}. Back-up: {deputy}. Last reviewed: {date}." },
+        { "t": "p", "x": "Criminals pretend to be our suppliers, our staff or our managers to get us to pay them. These steps apply to every payment, however urgent or genuine the request looks." },
+        { "t": "h2", "x": "When anyone asks to change bank details" },
+        { "t": "ol", "items": [
+          "Don't reply to the message and don't use any phone number or link in it.",
+          "Call the supplier or staff member on a number we already have on file, from a past invoice, contract or our own records.",
+          "Confirm both the old and the new account details with them.",
+          "Record who you spoke to, when, and the number you called.",
+          "Ask {lead} to approve the change before it is saved.",
+          "Wait {delay} days before the new details are used, unless {lead} has confirmed the change in person.",
+          "Send a small test payment first and check it arrived by phone."
+        ] },
+        { "t": "h2", "x": "Approving payments" },
+        { "t": "ul", "items": [
+          "The person who sets up a payment is never the person who approves it.",
+          "Payments over £{threshold} need a second person to check the payee, amount and invoice.",
+          "Check the Confirmation of Payee result. If the name doesn't match, stop and call the payee.",
+          "Turn on 2-step verification for online banking and accounting software."
+        ] },
+        { "t": "h2", "x": "Requests from managers" },
+        { "t": "p", "x": "{lead} will never ask you to make an urgent or secret payment by email, text, WhatsApp or voice note. If you get a request like this, even if it sounds exactly like them, call them back on their usual number before doing anything." },
+        { "t": "h2", "x": "Telling suppliers and customers", "if": "invoices" },
+        { "t": "p", "if": "invoices", "x": "Add this line to our invoices and email footer: \"{business} will never change its bank details by email. If you get a message saying we have, call us on a number you already have.\"" },
+        { "t": "h2", "x": "If you think money has gone to a fraudster" },
+        { "t": "ol", "items": [
+          "Call our bank straight away on the number from its official website or the back of the card. Speed matters.",
+          "Tell {lead}.",
+          "Report it to Report Fraud online at reportfraud.police.uk or on 0300 123 2040."
+        ] },
+        { "t": "sign", "x": "I have read and will follow this procedure." }
+      ]
+    },
+    {
+      "id": "incident-one-pager",
+      "title": "Incident response one-pager",
+      "summary": "What to do in the first hour, who to call and how to report. Print it and keep it by the till or on the office wall.",
+      "illustration": "lifebuoy",
+      "pages": "1 page",
+      "sources": ["ncsc-recovery", "report-fraud", "ico-breach", "ncsc-report-email", "ncsc-small-spotting"],
+      "blocks": [
+        { "t": "h", "x": "{business}: if something goes wrong" },
+        { "t": "meta", "x": "In charge: {lead}. Back-up: {deputy}. Last reviewed: {date}." },
+        { "t": "h2", "x": "Signs something is wrong" },
+        { "t": "ul", "items": [
+          "Customers get emails from us that we didn't send.",
+          "Login alerts or password reset emails nobody asked for.",
+          "Payments we don't recognise, or money that hasn't arrived.",
+          "Files that won't open, or a message demanding payment to unlock them.",
+          "Someone clicked a link or gave out a password and now feels unsure."
+        ] },
+        { "t": "h2", "x": "In the first hour" },
+        { "t": "ol", "items": [
+          "Tell {lead} now, or {deputy} if they can't be reached. Nobody gets blamed for reporting.",
+          "If money has been sent, call our bank first on the number from its official website.",
+          "Disconnect the affected computer or phone from the internet. Don't switch it off or delete anything.",
+          "From a different device, change the password on the affected account and turn on 2-step verification.",
+          "Write down what happened, when, and what you've done so far.",
+          "Call {itContact} for help."
+        ] },
+        { "t": "h2", "x": "Who to call" },
+        { "t": "table", "rows": [
+          ["Attack happening now, or fraud", "Report Fraud, 0300 123 2040, 24 hours a day, or reportfraud.police.uk"],
+          ["Money sent to a fraudster", "Our bank, using the number on its official website"],
+          ["IT help", "{itContact}"],
+          ["Scam email received", "Forward to report@phishing.gov.uk"],
+          ["Scam text received", "Forward to 7726"]
+        ] },
+        { "t": "h2", "x": "If personal data is involved" },
+        { "t": "p", "x": "If customer or staff data may have been lost, stolen or seen by someone who shouldn't have it, {lead} decides whether people are likely to be put at risk. If they are, report it to the ICO as soon as possible and, where feasible, within 72 hours. If the risk to people is high, tell them too. Report early and update later." },
+        { "t": "h2", "x": "Afterwards" },
+        { "t": "ul", "items": [
+          "Restore from backups and check they contain what you need.",
+          "Talk through what happened as a team and update this page.",
+          "Re-run the Kinhold check to see what to fix next."
+        ] }
+      ]
+    },
+    {
+      "id": "staff-checklist",
+      "title": "Staff security checklist",
+      "summary": "A one-page list for new starters and leavers, so accounts are set up safely and closed on time.",
+      "illustration": "badge",
+      "pages": "1 page",
+      "sources": ["ncsc-small-accounts", "ncsc-small-email", "ncsc-small-devices", "ncsc-2sv", "ncsc-phishing"],
+      "blocks": [
+        { "t": "h", "x": "{business}: staff security checklist" },
+        { "t": "meta", "x": "Responsible: {lead}. Last reviewed: {date}." },
+        { "t": "field", "x": "Name" },
+        { "t": "field", "x": "Role and start date" },
+        { "t": "h2", "x": "When someone joins" },
+        { "t": "check", "items": [
+          "Their own login for every system. No shared passwords.",
+          "Only the access their job needs. Admin access only if they need it.",
+          "2-step verification turned on for email and every important account.",
+          "A password manager set up, or the one built into their phone or browser.",
+          "Any work device locked with a 6-digit PIN, strong password, or face or fingerprint.",
+          "Automatic updates turned on for the device and apps.",
+          "Shown how payments are made here and given the payment verification procedure.",
+          "Read and signed the AI acceptable use policy.",
+          "Knows how to report a suspicious message, and that they won't be blamed for reporting.",
+          "Completed the Kinhold staff training modules."
+        ] },
+        { "t": "h2", "x": "When someone leaves" },
+        { "t": "check", "items": [
+          "Accounts disabled on their last day, including email, banking, accounting, till and social media.",
+          "Passwords changed for anything that was shared with them.",
+          "Removed from 2-step verification on shared accounts.",
+          "Keys, cards and work devices returned, and work data removed from personal devices.",
+          "Email forwarded to a colleague, or an out-of-office set.",
+          "Suppliers and the bank told if they were a named contact."
+        ] },
+        { "t": "h2", "x": "Every three months" },
+        { "t": "check", "items": [
+          "Review who has access to each system and remove anyone who no longer needs it."
+        ] },
+        { "t": "p", "x": "Questions? Ask {lead}, or {itContact} for help with systems." },
+        { "t": "field", "x": "Checked by and date" }
+      ]
+    }
+  ]
+}
