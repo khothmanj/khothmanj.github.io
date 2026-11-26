@@ -14,7 +14,7 @@
     customers: 'One row per lender that signed up',
     onboarding_events: 'When each lender reached each onboarding stage',
     compliance_reviews: 'Every compliance submission and decision',
-    endpoints: 'The eight APIs Lendwell sells',
+    endpoints: 'The eight APIs Ferrow sells',
     endpoint_prices: 'Price per call over time',
     api_usage_daily: 'Calls, errors and latency per customer, endpoint and day',
     invoices: 'What we billed each month',
@@ -44,7 +44,7 @@
 
     el.innerHTML =
       '<header class="view-head"><h1>SQL workspace</h1>' +
-        '<p class="lede">A real SQLite database of Lendwell\'s sample data runs in your browser. Every chart in Signal is one of the saved queries listed here. Open one, change it and run it.</p></header>' +
+        '<p class="lede">A real SQLite database of Ferrow\'s sample data runs in your browser. Every chart in Signal is one of the saved queries listed here. Open one, change it and run it.</p></header>' +
       '<div class="ws">' +
         '<aside class="ws-aside" aria-label="Saved queries and schema">' +
           '<div class="ws-tabs" role="tablist">' +

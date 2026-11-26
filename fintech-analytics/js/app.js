@@ -79,7 +79,35 @@
 
   function register(name, def) { views[name] = def; }
 
+  /* ---------- back button: shows once you have moved within Signal ---------- */
+  const trail = [];
+  function trackTrail() {
+    const h = location.hash || '#overview';
+    if (trail.length > 1 && trail[trail.length - 2] === h) trail.pop();
+    else if (trail[trail.length - 1] !== h) trail.push(h);
+    const b = $('#back-btn');
+    const prev = trail[trail.length - 2];
+    b.hidden = !prev;
+    if (prev) {
+      const name = prev.replace(/^#/, '').split(/[?/]/)[0];
+      const item = NAV.find((n) => n.id === name) || ({ customer: { label: 'Customer 360' } })[name];
+      b.setAttribute('aria-label', 'Back' + (item ? ' to ' + item.label : ''));
+      b.title = b.getAttribute('aria-label');
+    }
+  }
+
+  /* ---------- collapsible sidebar ---------- */
+  function setCollapsed(on, save) {
+    $('.app').classList.toggle('collapsed', on);
+    const b = $('#side-toggle');
+    b.setAttribute('aria-expanded', String(!on));
+    b.setAttribute('aria-label', on ? 'Expand sidebar' : 'Collapse sidebar');
+    b.title = b.getAttribute('aria-label');
+    if (save) { try { localStorage.setItem('signal.side', on ? 'collapsed' : 'open'); } catch (e) {} }
+  }
+
   async function render() {
+    trackTrail();
     const route = parseHash();
     const def = views[route.name] || views.__soon;
     const el = $('#view');
@@ -101,7 +129,7 @@
     const p = params();
     $('#nav').innerHTML = NAV.map((n) => n.group
       ? '<p class="nav-group">' + n.group + '</p>'
-      : '<a href="#' + n.id + filterQuery(p) + '"' + (n.id === active || (active === 'customer' && n.id === 'accounts') ? ' aria-current="page"' : '') + '>' + n.icon + '<span>' + n.label + '</span>' + (views[n.id] ? '' : '<span class="soon" title="Built in Phase 3"></span>') + '</a>').join('');
+      : '<a href="#' + n.id + filterQuery(p) + '" title="' + n.label + '"' + (n.id === active || (active === 'customer' && n.id === 'accounts') ? ' aria-current="page"' : '') + '>' + n.icon + '<span>' + n.label + '</span>' + (views[n.id] ? '' : '<span class="soon" title="Built in Phase 3"></span>') + '</a>').join('');
   }
 
   function openMenu() { $('#side').classList.add('open'); $('#scrim').hidden = false; $('#menu-btn').setAttribute('aria-expanded', 'true'); const first = $('#nav a'); if (first) first.focus(); }
@@ -192,6 +220,9 @@
 
   function start() {
     paintThemeButton();
+    setCollapsed(document.documentElement.classList.contains('side-collapsed'), false);
+    $('#side-toggle').addEventListener('click', () => setCollapsed(!$('.app').classList.contains('collapsed'), true));
+    $('#back-btn').addEventListener('click', () => history.back());
     $('#theme-btn').addEventListener('click', toggleTheme);
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { paintThemeButton(); window.dispatchEvent(new Event('signal:theme')); });
     $('#menu-btn').addEventListener('click', () => ($('#side').classList.contains('open') ? closeMenu() : openMenu()));

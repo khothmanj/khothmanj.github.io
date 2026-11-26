@@ -1,5 +1,5 @@
--- Signal: Lendwell product analytics database (SQLite).
--- Sample data for a portfolio prototype. Lendwell and every customer are fictional.
+-- Signal: Ferrow product analytics database (SQLite).
+-- Sample data for a portfolio prototype. Ferrow and every customer are fictional.
 -- Dates are ISO text: days as 'YYYY-MM-DD', timestamps as 'YYYY-MM-DD HH:MM' (UTC), months as 'YYYY-MM'.
 -- Money is in Nigerian naira (NGN).
 
@@ -78,8 +78,8 @@ CREATE TABLE api_usage_daily (
   successful   INTEGER NOT NULL,              -- calls minus all errors
   err_timeout  INTEGER NOT NULL,
   err_4xx      INTEGER NOT NULL,              -- the lender's request was wrong (keys, format, missing fields)
-  err_5xx      INTEGER NOT NULL,              -- Lendwell's own failures
-  err_upstream INTEGER NOT NULL,              -- a provider behind Lendwell was down (bureau, bank, identity service)
+  err_5xx      INTEGER NOT NULL,              -- Ferrow's own failures
+  err_upstream INTEGER NOT NULL,              -- a provider behind Ferrow was down (bureau, bank, identity service)
   p95_ms       INTEGER NOT NULL,              -- 95th percentile response time that day
   PRIMARY KEY (customer_id, endpoint_id, env, day)   -- stored per customer and endpoint, which compresses better
 ) WITHOUT ROWID;

@@ -40,7 +40,7 @@
     rules.body.innerHTML = '<ol class="rules">' + R.rows.map((r) => '<li class="' + (r.failed ? 'fail' : 'pass') + '">' +
       '<span class="rule-icon" aria-hidden="true">' + (r.failed ? '<svg viewBox="0 0 16 16"><path d="M8 4.5v4.2M8 11.3v.2"/></svg>' : '<svg viewBox="0 0 16 16"><path d="M4.5 8.3l2.3 2.3 4.7-5"/></svg>') + '</span>' +
       '<div><b>' + esc(r.rule) + '</b><p>' + esc(RULE_NOTES[r.rule] || '') + '</p></div>' +
-      '<span class="rule-result">' + (r.failed ? K.pill(K.plural(r.failed, 'failure'), 'bad') : K.pill('Passed', 'good')) + '</span></li>').join('') + '</ol>';
+      '<span class="rule-result">' + (r.failed ? '<span class="rule-count bad">' + K.plural(r.failed, 'failure') + '</span>' : '<span class="rule-count good">Passed</span>') + '</span></li>').join('') + '</ol>';
     rules.sowhat(failedRules.length ? 'Run these checks automatically after every billing run, and block the run from closing until each failure has an owner.' : 'Keep running the checks after every billing run.', 'Finance operations');
     rules.sql(R, p);
 

@@ -46,7 +46,7 @@
     const money = (v) => K.money(v);
     const doc = [
       { h: 'Compliance self-serve: product requirements', level: 1 },
-      { meta: [['Author', 'Product, Lendwell'], ['Status', 'Draft for review'], ['Data', 'Signal sample data, as of ' + K.month(p.to_month, true)], ['Owner of the decision', 'Head of Product, with Compliance']] },
+      { meta: [['Author', 'Product, Ferrow'], ['Status', 'Draft for review'], ['Data', 'Signal sample data, as of ' + K.month(p.to_month, true)], ['Owner of the decision', 'Head of Product, with Compliance']] },
 
       { h: '1. The problem', level: 2, sql: [Pr, Re] },
       { p: 'Lenders sign up and test happily in the sandbox, then stall at compliance. Of ' + pr.signups + ' lenders who signed up between ' + K.month('2024-11') + ' and ' + K.month(problemTo) + ', ' + pr.made_sandbox_call + ' made a sandbox call but only ' + pr.compliance_approved + ' were approved by compliance (' + K.pct(pr.sandbox_to_approved_pct, 0) + '). That is the biggest drop in the funnel.' },
@@ -148,7 +148,7 @@
     /* ---------- downloads ---------- */
     const status = tools.querySelector('.doc-status');
     tools.querySelector('[data-md]').addEventListener('click', () => {
-      UI.download('lendwell-compliance-prd.md', toMarkdown(doc), 'text/markdown;charset=utf-8');
+      UI.download('ferrow-compliance-prd.md', toMarkdown(doc), 'text/markdown;charset=utf-8');
       status.textContent = 'Markdown downloaded.';
     });
     tools.querySelector('[data-word]').addEventListener('click', async (e) => {
@@ -156,7 +156,7 @@
       try {
         const lib = await loadDocx();
         const blob = await lib.Packer.toBlob(toDocx(doc, lib));
-        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'lendwell-compliance-prd.docx';
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'ferrow-compliance-prd.docx';
         document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
         status.textContent = 'Word file downloaded.';
       } catch (err) {

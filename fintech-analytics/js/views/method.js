@@ -66,7 +66,7 @@
           '<li>Metrics are defined once, as SQL views, and reused everywhere.</li>' +
           '<li>Insight headlines and the PRD numbers are written from query results, not typed in.</li></ul></div>' +
         '<div><h3 class="mini-h">Simulated</h3><ul class="plain-list">' +
-          '<li>Lendwell, its 180 customers, staff names and every figure are fictional sample data.</li>' +
+          '<li>Ferrow, its 180 customers, staff names and every figure are fictional sample data.</li>' +
           '<li>The data covers November 2024 to October 2026 and never changes. "Refreshed" is part of the sample.</li>' +
           '<li>There is no server and nothing you type leaves your browser.</li>' +
           '<li>Signal is based on my work as a Product Manager at a lending API company. No real customer, system or data from that work is used.</li></ul></div></div></section>');

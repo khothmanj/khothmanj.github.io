@@ -56,7 +56,7 @@ latest_review AS (
 SELECT CASE
          WHEN f.stage_order <= 2 THEN 'No sandbox calls'
          WHEN f.stage_order = 3 AND lr.outcome IS NULL THEN 'Sandbox only, never applied for compliance'
-         WHEN f.stage_order = 3 AND lr.outcome = 'pending' THEN 'Waiting on Lendwell compliance review'
+         WHEN f.stage_order = 3 AND lr.outcome = 'pending' THEN 'Waiting on Ferrow compliance review'
          WHEN f.stage_order = 3 AND lr.outcome = 'info_requested' THEN 'Compliance asked for documents'
          WHEN f.stage_order = 3 AND lr.outcome = 'rejected' THEN 'Compliance rejected'
          WHEN f.stage_order = 5 THEN 'Production keys, live calls failing'

@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Signal · Product analytics for a lending API</title>
-<meta name="description" content="Signal is a product analytics workspace for Lendwell, a fictional lending API company. Every chart runs real SQL in your browser. A portfolio prototype by Khadijat Othman.">
+<meta name="description" content="Signal is a product analytics workspace for Ferrow, a fictional lending API company. Every chart runs real SQL in your browser. A portfolio prototype by Khadijat Othman.">
 <meta name="theme-color" content="#F6F7F9">
 <script>
-  // Apply a saved theme before first paint. Otherwise follow the system setting.
+  // Apply a saved theme and sidebar state before first paint.
+  (function () { try { if (localStorage.getItem('signal.side') === 'collapsed') document.documentElement.classList.add('side-collapsed'); } catch (e) {} })(); Otherwise follow the system setting.
   (function () { try { var t = localStorage.getItem('signal.theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {} })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,15 +29,17 @@
     <nav class="nav" id="nav" aria-label="Views"></nav>
     <div class="side-foot">
       <p>Prototype with a fictional brand and sample data.</p>
-      <a href="../">Back to portfolio</a>
+      <a class="foot-link" href="../" title="Back to portfolio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg><span>Back to portfolio</span></a>
     </div>
   </aside>
   <div class="main">
     <header class="topbar">
       <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-controls="side" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="icon-btn side-toggle" id="side-toggle" type="button" aria-controls="side" aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M9.5 4.5v15"/></svg></button>
+      <button class="icon-btn back-btn" id="back-btn" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg>Back</button>
       <div class="workspace">
-        <span class="ws-avatar" aria-hidden="true">L</span>
-        <span class="ws-name">Lendwell</span>
+        <span class="ws-avatar" aria-hidden="true">F</span>
+        <span class="ws-name">Ferrow</span>
         <span class="ws-sep" aria-hidden="true">/</span>
         <span class="ws-view" id="ws-view">Product analytics</span>
       </div>

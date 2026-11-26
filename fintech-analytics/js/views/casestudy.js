@@ -30,9 +30,9 @@
     page.insertAdjacentHTML('beforeend',
       '<header class="cs-hero sec"><p class="sec-kicker">Case study</p>' +
         '<h1 class="cs-title">Product analytics where every chart is backed by SQL you can run.</h1>' +
-        '<p class="cs-lede">Signal is an analytics workspace for Lendwell, a fictional company that sells lending APIs. It shows where lenders get stuck, who to call this week, which integrations are failing and whether billing can be trusted. Then it turns that into a product decision.</p>' +
-        '<p class="cs-note">' + K.pill('Prototype with a fictional brand and sample data', 'info') + '</p>' +
-        '<div class="cs-actions"><a class="btn btn-primary" href="' + A.hrefFor('overview') + '">Open the product</a><a class="btn" href="' + A.hrefFor('insights') + '">Read the PRD</a></div>' +
+        '<p class="cs-lede">Signal is an analytics workspace for Ferrow, a fictional company that sells lending APIs. It shows where lenders get stuck, who to call this week, which integrations are failing and whether billing can be trusted. Then it turns that into a product decision.</p>' +
+        '<p class="cs-note">Prototype with a fictional brand and sample data.</p>' +
+        '<div class="cs-actions"><a class="btn btn-primary" href="' + A.hrefFor('overview') + '">Open the product</a></div>' +
         '<div class="try cs-try"><p>Try these</p><a href="' + A.hrefFor('activation') + '">See where lenders drop off</a><a href="' + A.hrefFor('sql', { q: 'activation_funnel' }) + '">Open the SQL behind a chart</a><a href="' + A.hrefFor('insights') + '">Read the PRD</a></div>' +
       '</header>');
 

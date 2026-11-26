@@ -1,6 +1,6 @@
 # Signal data dictionary
 
-Signal runs on a small SQLite database for **Lendwell**, a fictional company that sells lending APIs to lenders in Nigeria. Lendwell, its customers, staff and every number here are invented sample data for a portfolio prototype.
+Signal runs on a small SQLite database for **Ferrow**, a fictional company that sells lending APIs to lenders in Nigeria. Ferrow, its customers, staff and every number here are invented sample data for a portfolio prototype.
 
 | | |
 |---|---|
@@ -116,7 +116,7 @@ A lender whose latest round is `info_requested` and who has no later round is wa
 | 5 | mandate | Direct debit mandate | Payments | yes |
 | 6 | disbursement | Disbursement | Payments | yes |
 | 7 | collection | Repayment collection | Payments | yes |
-| 8 | webhook | Webhook delivery (Lendwell calling the lender) | Platform | no |
+| 8 | webhook | Webhook delivery (Ferrow calling the lender) | Platform | no |
 
 `launched_on` holds each launch date.
 
@@ -155,8 +155,8 @@ Daily totals per customer, endpoint and environment. This holds most of the data
 | successful | integer | Requests that succeeded: calls minus all four error columns |
 | err_timeout | integer | Timed out |
 | err_4xx | integer | Rejected because the lender's request was wrong (keys, format, missing fields) |
-| err_5xx | integer | Lendwell's own failures |
-| err_upstream | integer | A provider behind Lendwell (bureau, bank, identity service) failed |
+| err_5xx | integer | Ferrow's own failures |
+| err_upstream | integer | A provider behind Ferrow (bureau, bank, identity service) failed |
 | p95_ms | integer | 95th percentile response time that day, in milliseconds |
 
 The primary key is `(customer_id, endpoint_id, env, day)`, because storing each customer's history together compresses better.

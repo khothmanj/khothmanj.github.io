@@ -11,7 +11,7 @@
     const charts = [];
     this.cleanup = () => charts.forEach((c) => c.destroy());
     el.innerHTML = '';
-    K.header(el, { title: 'Product health', lede: 'Lendwell\'s lending API business in ' + K.month(p.to_month, true) + ', compared with the month before. Pick another month with the date range above.' });
+    K.header(el, { title: 'Product health', lede: 'Ferrow\'s lending API business in ' + K.month(p.to_month, true) + ', compared with the month before. Pick another month with the date range above.' });
 
     let hidden = false;
     try { hidden = localStorage.getItem(TRY_KEY) === '1'; } catch (e) {}

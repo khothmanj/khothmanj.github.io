@@ -88,7 +88,7 @@
       const f = filtered();
       const keys = tab === 'not_live' ? ['id', 'name', 'lender_type', 'plan', 'account_manager', 'signup_date', 'status', 'reason', 'days_in_stage', 'errors_last_7_days', 'owner', 'next_action']
         : ['id', 'name', 'plan', 'size_band', 'account_manager', 'calls_3_months_before', 'calls_latest_month', 'change_pct', 'revenue_latest_month', 'last_ticket', 'owner', 'next_action'];
-      UI.download('lendwell-' + (tab === 'not_live' ? 'never-live' : 'usage-falling') + '-' + p.to_month + '.csv', UI.toCSV({ columns: keys, rows: f.map((r) => keys.map((k) => r[k])) }));
+      UI.download('ferrow-' + (tab === 'not_live' ? 'never-live' : 'usage-falling') + '-' + p.to_month + '.csv', UI.toCSV({ columns: keys, rows: f.map((r) => keys.map((k) => r[k])) }));
     });
 
     if (tab === 'not_live') sec.sowhat('Customer Success works the sandbox and document cases; Compliance clears its own queue first, because those lenders are waiting on us.', null);

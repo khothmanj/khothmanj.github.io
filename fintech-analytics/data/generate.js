@@ -2,7 +2,7 @@
 /*
  * Signal sample data generator.
  *
- * Builds the Lendwell database used by Signal: 180 fictional lender customers,
+ * Builds the Ferrow database used by Signal: 180 fictional lender customers,
  * 24 months of history (Nov 2024 to Oct 2026), daily API usage per customer
  * per endpoint, onboarding, compliance reviews, billing, ledger, support
  * tickets and product events.
@@ -482,7 +482,7 @@ function main() {
   out.push('BEGIN;');
   insert('meta', ['key', 'value'], [
     ['as_of', F(END)], ['refreshed_at', '2026-11-01 06:00'], ['currency', 'NGN'], ['seed', String(SEED)],
-    ['history_from', F(START)], ['note', 'Sample data for a portfolio prototype. Lendwell and all customers are fictional.'],
+    ['history_from', F(START)], ['note', 'Sample data for a portfolio prototype. Ferrow and all customers are fictional.'],
   ]);
   insert('plans', ['plan', 'name', 'monthly_fee_ngn'], PLANS);
   insert('endpoints', ['id', 'code', 'name', 'category', 'launched_on', 'billable'], ENDPOINTS);

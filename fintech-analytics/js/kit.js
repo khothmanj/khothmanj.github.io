@@ -66,7 +66,28 @@
     return '<span class="delta ' + tone + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + arrow + '</svg>' + text + (opts.suffix ? '<span class="delta-suffix">' + opts.suffix + '</span>' : '') + '</span>';
   }
 
-  function pill(text, tone) { return '<span class="pill ' + (tone || 'neutral') + '">' + esc(text) + '</span>'; }
+  // Status labels: coloured text with a symbol that means something (no tinted capsule, no dot).
+  const GLYPH = {
+    check: '<path d="M3.5 8.5l3 3 6-7"/>',
+    alert: '<path d="M8 2.5l6 10.5H2z"/><path d="M8 6.5v3M8 11.3v.2"/>',
+    clock: '<circle cx="8" cy="8" r="5.5"/><path d="M8 5v3.2l2 1.3"/>',
+    down: '<path d="M4 4.5l7.5 7.5M11.5 6.5V12H6"/>',
+    up: '<path d="M4 12l7.5-7.5M6 4.5h5.5V10"/>',
+    dashed: '<circle cx="8" cy="8" r="5.5" stroke-dasharray="2.2 2.2"/>',
+    sandbox: '<rect x="2.8" y="3.5" width="10.4" height="9" rx="1.6"/><path d="M5.2 7l1.8 1.5-1.8 1.5M8.6 10h2.2"/>',
+    moon: '<path d="M12.8 10.2A5.3 5.3 0 0 1 5.8 3.2a5.3 5.3 0 1 0 7 7z"/>',
+    x: '<path d="M4.5 4.5l7 7M11.5 4.5l-7 7"/>',
+    minus: '<path d="M4 8h8"/>',
+  };
+  const GLYPH_FOR = { 'usage falling': 'down', growing: 'up', 'in compliance': 'clock', pending: 'clock', investigating: 'clock', watch: 'clock',
+    healthy: 'check', passed: 'check', matches: 'check', solved: 'check', resolved: 'check', 'not started': 'dashed', 'sandbox only': 'sandbox',
+    dormant: 'moon', cancelled: 'x', 'no traffic': 'minus' };
+  function pill(text, tone, icon) {
+    tone = tone || 'neutral';
+    const key = String(text).toLowerCase();
+    const g = icon || GLYPH_FOR[key] || (tone === 'bad' ? 'alert' : tone === 'good' ? 'check' : tone === 'warn' ? 'clock' : 'minus');
+    return '<span class="status ' + tone + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + GLYPH[g] + '</svg>' + esc(text) + '</span>';
+  }
   function avatar(name, id) {
     const hue = [174, 22, 210, 70, 340, 150, 35, 200][id % 8];
     return '<span class="avatar" style="--h:' + hue + '" aria-hidden="true">' + esc(initials(name)) + '</span>';
