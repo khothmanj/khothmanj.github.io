@@ -665,6 +665,52 @@ code { font-family: var(--mono); font-size: 0.86em; }
 }
 
 
+
+/* ---------- case study ---------- */
+.cs { display: grid; gap: 16px; max-width: 1080px; }
+.cs-hero { padding: clamp(24px, 4vw, 44px) !important; }
+.cs-title { font-family: var(--serif); font-weight: 600; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.12; letter-spacing: -0.015em; max-width: 22ch; margin-top: 4px; }
+.cs-lede { margin-top: 14px; font-size: 1.04rem; color: var(--ink-2); max-width: 64ch; }
+.cs-note { margin-top: 14px; }
+.cs-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.cs-try { margin-top: 20px; }
+.cs-demo .seg { margin-top: 14px; }
+.cs-demo-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px; margin-top: 6px; align-items: start; }
+.mini-funnel { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.mini-funnel li { display: grid; grid-template-columns: 140px minmax(0, 1fr) 34px; gap: 10px; align-items: center; font-size: 0.86rem; }
+.mf-bar { height: 16px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
+.mf-bar span { display: block; height: 100%; border-radius: 4px; background: var(--c-muted); transition: width 0.4s ease; }
+.mini-funnel li.worst .mf-bar span { background: var(--accent); }
+.mini-funnel li.worst span:first-child { font-weight: 600; }
+.mini-funnel b { text-align: right; font-variant-numeric: tabular-nums; }
+.mf-note { margin-top: 12px; font-size: 0.88rem; color: var(--ink-2); }
+.cs-sql { display: grid; gap: 8px; min-width: 0; }
+.cs-sql-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.cs-run { font-size: 0.84rem; color: var(--accent); font-weight: 550; }
+.cs-sql .code { max-height: 340px; font-size: 0.78rem; }
+.cs-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 14px 0 0; }
+.cs-facts div { padding: 14px 16px; border-radius: 12px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--hair); }
+.cs-facts dt { font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
+.cs-facts dd { margin: 0; color: var(--ink-2); }
+.cs-points, .cs-next { margin: 14px 0 0; padding-left: 20px; display: grid; gap: 10px; color: var(--ink-2); max-width: 80ch; }
+.cs-points b, .cs-next b { color: var(--ink); }
+.cs-modules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.cs-modules a { display: grid; gap: 4px; padding: 14px 16px; border-radius: 12px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--hair); color: var(--ink); text-decoration: none; transition: box-shadow 0.15s ease, transform 0.15s ease; }
+.cs-modules a:hover { box-shadow: var(--shadow), inset 0 0 0 1px var(--accent-line); }
+.cs-modules b { font-weight: 600; }
+.cs-modules span { font-size: 0.86rem; color: var(--muted); }
+.cs-decisions { list-style: none; margin: 14px 0 0; padding: 0; counter-reset: d; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.cs-decisions li { counter-increment: d; padding: 16px 18px; border-radius: 12px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--hair); display: grid; gap: 6px; align-content: start; }
+.cs-decisions li:first-child { grid-column: 1 / -1; background: var(--accent-soft); box-shadow: none; }
+.cs-decisions h3 { font-size: 1rem; line-height: 1.35; }
+.cs-decisions h3::before { content: counter(d) ". "; color: var(--accent); }
+.cs-decisions p { color: var(--ink-2); font-size: 0.92rem; }
+.cs-results { margin: 14px 0 10px; padding-left: 20px; display: grid; gap: 10px; color: var(--ink-2); max-width: 82ch; }
+.cs-end { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px 0 10px; }
+@media (max-width: 900px) { .cs-demo-grid, .cs-decisions { grid-template-columns: minmax(0, 1fr); } .cs-modules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .cs-facts, .cs-modules { grid-template-columns: minmax(0, 1fr); } .mini-funnel li { grid-template-columns: minmax(0, 1fr) 34px; } .mf-bar { grid-column: 1 / -1; grid-row: 2; } }
+@media (prefers-reduced-motion: reduce) { .mf-bar span { transition: none; } }
+
 /* ==========================================================================
    Glass layer: frosted surfaces, soft shadows instead of border lines,
    bento cards. Loaded last so it wins over the earlier component rules.
