@@ -1010,7 +1010,7 @@ _Lesson:_ The address is genuine and there's no rush, which is what makes this c
 > Thanks so much,
 > Priya
 
-**Expected:** Asks to change bank details, Pretends to be the boss, a colleague or a supplier. **Level:** High concern.
+**Expected:** Asks to change bank details, Pretends to be the boss, a colleague or a supplier, Urgency or pressure. **Level:** High concern.
 
 _Lesson:_ Salary diversion fraud looks like a routine request. It comes from a personal address, not the work one. Check with Priya in person or on her known number.
 

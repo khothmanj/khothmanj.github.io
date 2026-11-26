@@ -110,7 +110,7 @@
       "knownSenders": ["okaforstudio.co.uk"],
       "subject": "Bank change before payroll",
       "body": "Hi,\n\nI've switched banks this month, could you update my salary details before payroll runs? New details below.\n\nAccount name: P Shah\nSort code: 00-33-44\nAccount number: 00067890\n\nThanks so much,\nPriya",
-      "expected": ["bank_change", "impersonation"], "expectedLevel": "high",
+      "expected": ["bank_change", "impersonation", "urgency"], "expectedLevel": "high",
       "lesson": "Salary diversion fraud looks like a routine request. It comes from a personal address, not the work one. Check with Priya in person or on her known number."
     },
     {

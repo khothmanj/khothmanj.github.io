@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kinhold engine tests</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #F7F3EE; --card: rgba(255, 255, 255, 0.7); --ink: #1F1A17; --muted: #6A5F57; --good: #2E6B45; --bad: #B3261E; --warn: #8A5300; --hair: rgba(31, 26, 23, 0.08); color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #16130F; --card: rgba(255, 255, 255, 0.05); --ink: #F1ECE6; --muted: #B3A89E; --good: #8FD3A6; --bad: #F59A8F; --warn: #E8B866; --hair: rgba(255, 255, 255, 0.08); color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 28px 16px 60px; background: var(--bg); color: var(--ink); font: 400 13.5px/1.5 Inter, system-ui, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; display: grid; gap: 16px; }
+  h1 { font-size: 1.3rem; margin: 0; } h2 { font-size: 1rem; margin: 0 0 8px; }
+  p { margin: 0; } .muted { color: var(--muted); }
+  .card { background: var(--card); border-radius: 16px; padding: 16px 18px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 8px 24px -14px rgba(0, 0, 0, 0.18); }
+  .summary { font-weight: 600; font-size: 1rem; }
+  .pass { color: var(--good); } .fail { color: var(--bad); }
+  ol.tests { margin: 0; padding: 0; list-style: none; display: grid; }
+  ol.tests li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--hair); }
+  ol.tests li:last-child { border-bottom: 0; }
+  ol.tests svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px; }
+  ol.tests small { display: block; color: var(--muted); overflow-wrap: anywhere; }
+  .msg { display: grid; gap: 6px; padding: 12px 0; border-bottom: 1px solid var(--hair); }
+  .msg:last-child { border-bottom: 0; }
+  .msg pre { margin: 0; white-space: pre-wrap; font: inherit; color: var(--ink); }
+  mark { background: rgba(166, 73, 42, 0.16); color: inherit; border-radius: 4px; padding: 0 2px; box-shadow: inset 0 -2px 0 rgba(166, 73, 42, 0.5); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .level { font-weight: 600; } .level.high { color: var(--bad); } .level.medium { color: var(--warn); } .level.none, .level.low { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Kinhold engine tests</h1>
+  <p class="muted">Runs the scoring, recommendation and message checker tests in the browser, using the same files as the app and the Node test runner.</p>
+  <p class="summary" id="summary" role="status">Running…</p>
+  <section class="card" aria-labelledby="t-h"><h2 id="t-h">Tests</h2><ol class="tests" id="tests"></ol></section>
+  <section class="card" aria-labelledby="m-h"><h2 id="m-h">Message checker on the example messages</h2><div id="messages"></div></section>
+</main>
+<script src="../js/engine/scoring.js"></script>
+<script src="../js/engine/recommend.js"></script>
+<script src="../js/engine/checker.js"></script>
+<script src="engine.tests.js"></script>
+<script>
+(async function () {
+  'use strict';
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const get = (f) => fetch('../data/' + f).then((r) => r.json());
+  const [questions, recommendations, sources, messages, benchmarks] = await Promise.all(['questions.json', 'recommendations.json', 'sources.json', 'messages.json', 'benchmarks.json'].map(get));
+  const ctx = { S: KinholdScoring, R: KinholdRecommend, C: KinholdChecker, data: { questions, recommendations, sources, messages, benchmarks } };
+  const list = document.getElementById('tests');
+  let pass = 0, fail = 0;
+  KinholdTests((name, fn) => {
+    let ok, detail;
+    try { [ok, detail] = fn(); } catch (e) { ok = false; detail = e.message; }
+    ok ? pass++ : fail++;
+    list.insertAdjacentHTML('beforeend', '<li class="' + (ok ? 'pass' : 'fail') + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + (ok ? '<path d="M3.5 8.5l3 3 6-7"/>' : '<path d="M4.5 4.5l7 7M11.5 4.5l-7 7"/>') + '</svg><span><span class="visually-hidden">' + (ok ? 'Passed: ' : 'Failed: ') + '</span>' + esc(name) + (detail ? '<small>' + esc(detail) + '</small>' : '') + '</span></li>');
+  }, ctx);
+  const s = document.getElementById('summary');
+  s.textContent = fail ? fail + ' failed, ' + pass + ' passed' : 'All ' + pass + ' tests passed.';
+  s.className = 'summary ' + (fail ? 'fail' : 'pass');
+  window.__kinholdTests = { pass, fail };
+
+  // Show each example with its warning signs highlighted, as the app will.
+  const box = document.getElementById('messages');
+  messages.examples.forEach((e) => {
+    const r = KinholdChecker.analyse(e);
+    const spans = r.matches.filter((m) => m.field === 'body' && !m.overlap).sort((a, b) => a.start - b.start);
+    let html = '', at = 0;
+    spans.forEach((m) => { html += esc(e.body.slice(at, m.start)) + '<mark title="' + esc(m.reason) + '">' + esc(e.body.slice(m.start, m.end)) + '</mark>'; at = m.end; });
+    html += esc(e.body.slice(at));
+    const labels = r.signals.map((id) => messages.signals.find((x) => x.id === id).label);
+    box.insertAdjacentHTML('beforeend', '<div class="msg"><p><b>' + esc(e.title) + '</b> <span class="muted">' + esc(e.from) + '</span></p><pre>' + html + '</pre>' +
+      '<p><span class="level ' + r.level + '">' + esc(messages.levels[r.level].label) + '</span> <span class="muted">' + esc(labels.join(', ') || messages.noSignsText) + '</span></p></div>');
+  });
+})();
+</script>
+</body>
+</html>
