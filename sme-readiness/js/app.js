@@ -9,7 +9,7 @@
 
   /* ---------- saved progress ---------- */
   const KEY = 'kinhold.v1';
-  const blank = () => ({ business: '', profile: null, answers: {}, step: 0, checks: [], done: [], certificates: {}, sample: false });
+  const blank = () => ({ business: '', profile: null, answers: {}, step: 0, checks: [], done: [], certificates: [], sample: false });
   let memory = null;
   const store = {
     get() {
