@@ -1,0 +1,289 @@
+{
+  "lastChecked": "2026-11-26",
+  "note": "Every source below was opened and read on the date shown. 'claims' lists what Kinhold relies on from each page, in our own words. Guidance changes, so the Method page shows the date each source was last checked.",
+  "sources": [
+    {
+      "id": "ncsc-small-guide",
+      "publisher": "NCSC",
+      "title": "Small organisations guide to cyber security",
+      "url": "https://www.ncsc.gov.uk/collection/small-organisations-guide-to-cyber-security",
+      "checked": "2026-11-26",
+      "note": "Replaces the NCSC Small Business Guide. Old Small Business Guide links redirect here.",
+      "claims": ["Covers backups, protecting devices, securing email and important accounts, and spotting attacks, for small organisations."]
+    },
+    {
+      "id": "ncsc-small-email",
+      "publisher": "NCSC",
+      "title": "Small organisations guide: Secure your email",
+      "url": "https://www.ncsc.gov.uk/collection/small-organisations-guide-to-cyber-security/secure-your-email",
+      "checked": "2026-11-26",
+      "claims": [
+        "A hacked email account lets criminals pretend to be you and reset passwords for your other accounts.",
+        "Use passkeys where your email provider supports them.",
+        "Otherwise use a strong password you don't use anywhere else, plus 2-step verification. Any type of 2-step verification is better than none.",
+        "Use a password manager, or the one built into your phone or browser, so you don't have to remember every password."
+      ]
+    },
+    {
+      "id": "ncsc-small-accounts",
+      "publisher": "NCSC",
+      "title": "Small organisations guide: Secure your important online accounts",
+      "url": "https://www.ncsc.gov.uk/collection/small-organisations-guide-to-cyber-security/secure-your-important-online-accounts",
+      "checked": "2026-11-26",
+      "claims": [
+        "Important accounts include banking and finance, social media, online storage, your website and domain hosting, and point of sale software.",
+        "Use passkeys where available, otherwise strong unique passwords and 2-step verification.",
+        "Remove or disable accounts for people who have left or no longer need access, and review who has access every few months.",
+        "Use a standard user account for day-to-day work and keep the administrator account for when it is needed."
+      ]
+    },
+    {
+      "id": "ncsc-small-devices",
+      "publisher": "NCSC",
+      "title": "Small organisations guide: Protecting your devices",
+      "url": "https://www.ncsc.gov.uk/collection/small-organisations-guide-to-cyber-security/protecting-your-devices",
+      "checked": "2026-11-26",
+      "claims": [
+        "Lock every device, including personal devices used for work, with a 6-digit PIN, a strong password, or face or fingerprint recognition.",
+        "Keep devices, apps and web browsers up to date, and set apps to update automatically.",
+        "Replace devices that no longer receive updates. You don't need the latest model, just one that is still supported.",
+        "Delete apps you no longer use and only install apps from official stores."
+      ]
+    },
+    {
+      "id": "ncsc-small-backup",
+      "publisher": "NCSC",
+      "title": "Small organisations guide: Backing up your data",
+      "url": "https://www.ncsc.gov.uk/collection/small-organisations-guide-to-cyber-security/backing-up-your-data",
+      "checked": "2026-11-26",
+      "claims": [
+        "Back up all the data your business needs to operate, such as your website, emails, invoicing, documents and customer information.",
+        "Backups can be online or on an external drive. Don't leave the drive connected when you're not using it.",
+        "Consider two backups, online and on a drive, and protect online backups with 2-step verification.",
+        "Know how to restore your backup and check it contains your important data."
+      ]
+    },
+    {
+      "id": "ncsc-small-spotting",
+      "publisher": "NCSC",
+      "title": "Small organisations guide: Spotting cyber attacks",
+      "url": "https://www.ncsc.gov.uk/collection/small-organisations-guide-to-cyber-security/spotting-cyber-attacks",
+      "checked": "2026-11-26",
+      "claims": [
+        "Early signs of an attack include customers receiving emails you didn't send, login alerts you don't recognise, and unexpected payments.",
+        "If you doubt a message, contact the organisation using details from its official website, not the message.",
+        "Review what your website and social media reveal, because criminals use it to make scams convincing."
+      ]
+    },
+    {
+      "id": "ncsc-2sv",
+      "publisher": "NCSC",
+      "title": "Turn on 2-step verification (2SV)",
+      "url": "https://www.ncsc.gov.uk/collection/top-tips-for-staying-secure-online/activate-2-step-verification-on-your-email",
+      "checked": "2026-11-26",
+      "claims": ["2-step verification adds a second check, such as a code or an app prompt, so a stolen password alone is not enough."]
+    },
+    {
+      "id": "ncsc-phishing",
+      "publisher": "NCSC",
+      "title": "Phishing attacks: defending your organisation",
+      "url": "https://www.ncsc.gov.uk/guidance/phishing",
+      "checked": "2026-11-26",
+      "claims": [
+        "Use several layers of defence rather than relying only on staff spotting phishing.",
+        "Set up the anti-spoofing controls DMARC, SPF and DKIM on your email domain.",
+        "Make reporting easy and don't reprimand staff who report mistakes, or they will stop reporting.",
+        "Make sure staff know the normal way key tasks such as payments are done, and verify important email requests through a second channel such as a phone call.",
+        "Tell suppliers and customers what to look out for, for example that your bank details will not change."
+      ]
+    },
+    {
+      "id": "ncsc-report-email",
+      "publisher": "NCSC",
+      "title": "Report a scam email",
+      "url": "https://www.ncsc.gov.uk/collection/phishing-scams/report-scam-email",
+      "checked": "2026-11-26",
+      "claims": ["Forward suspicious emails to report@phishing.gov.uk. It is free and the NCSC can remove scam sites and addresses."]
+    },
+    {
+      "id": "ncsc-payfraud",
+      "publisher": "NCSC",
+      "title": "Business payment fraud",
+      "url": "https://www.ncsc.gov.uk/section/respond-recover/ml-business-payment-fraud",
+      "checked": "2026-11-26",
+      "note": "This replaces NCSC's earlier business email compromise guidance page, which now returns a 404.",
+      "claims": [
+        "Criminals send emails that impersonate people you deal with, and may ask you to pay into a different bank account.",
+        "If you think you've paid a fraudster, contact your bank straight away using its official phone number or website, and report it."
+      ]
+    },
+    {
+      "id": "ncsc-recovery",
+      "publisher": "NCSC",
+      "title": "Small Business Guide: Response and Recovery",
+      "url": "https://www.ncsc.gov.uk/collection/small-business-guidance--response-and-recovery",
+      "checked": "2026-11-26",
+      "claims": [
+        "Prepare your response to a cyber incident before it happens.",
+        "If a cyber attack is happening now, call 0300 123 2040, 24 hours a day. Calls are passed to Report Fraud."
+      ]
+    },
+    {
+      "id": "ncsc-ce",
+      "publisher": "NCSC",
+      "title": "Cyber Essentials",
+      "url": "https://www.ncsc.gov.uk/cyberessentials/overview",
+      "checked": "2026-11-26",
+      "claims": [
+        "Cyber Essentials is the government-recommended minimum standard, built on five controls: firewalls, secure configuration, security update management, user access control and malware protection.",
+        "Control who can access your data and services, and what level of access they have."
+      ]
+    },
+    {
+      "id": "ncsc-ce-req",
+      "publisher": "NCSC",
+      "title": "Cyber Essentials: Requirements for IT infrastructure v3.3",
+      "url": "https://www.ncsc.gov.uk/sites/default/files/2026-11/Cyber-Essentials-Requirements-for-IT-Infrastructure-v3-3.pdf",
+      "checked": "2026-11-26",
+      "claims": [
+        "Software must be supported, and removed when it becomes unsupported.",
+        "Updates, including security fixes, are applied within 14 days of release.",
+        "Cloud services are always in scope."
+      ]
+    },
+    {
+      "id": "ncsc-ai",
+      "publisher": "NCSC",
+      "title": "AI and cyber security: what you need to know",
+      "url": "https://www.ncsc.gov.uk/guidance/ai-and-cyber-security-what-you-need-to-know",
+      "checked": "2026-11-26",
+      "claims": [
+        "AI tools can get things wrong and present incorrect statements as facts.",
+        "AI tools can be tricked by prompt injection into revealing confidential information.",
+        "Managers should understand the risks well enough to decide where accountability for AI sits."
+      ]
+    },
+    {
+      "id": "ncsc-ai-threat",
+      "publisher": "NCSC",
+      "title": "The near-term impact of AI on the cyber threat (24 January 2024)",
+      "url": "https://www.ncsc.gov.uk/report/impact-of-ai-on-cyber-threat",
+      "checked": "2026-11-26",
+      "claims": ["Generative AI already helps criminals write convincing phishing without the spelling and grammar mistakes that used to give it away."]
+    },
+    {
+      "id": "ico-breach",
+      "publisher": "ICO",
+      "title": "UK GDPR data breach reporting",
+      "url": "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/",
+      "checked": "2026-11-26",
+      "note": "The ICO says this guidance is under review after the Data (Use and Access) Act 2025.",
+      "claims": [
+        "If a personal data breach is likely to put people at risk, tell the ICO as soon as possible and, where feasible, within 72 hours.",
+        "If the risk to people is high, tell those people too, without undue delay.",
+        "Report early and update later. The online form takes about 30 minutes."
+      ]
+    },
+    {
+      "id": "ico-minimisation",
+      "publisher": "ICO",
+      "title": "Principle (c): Data minimisation",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/data-minimisation/",
+      "checked": "2026-11-26",
+      "note": "Under review after the Data (Use and Access) Act 2025.",
+      "claims": ["Personal data should be adequate, relevant and limited to what you need for your purpose."]
+    },
+    {
+      "id": "ico-storage",
+      "publisher": "ICO",
+      "title": "Principle (e): Storage limitation",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/storage-limitation/",
+      "checked": "2026-11-26",
+      "note": "Under review after the Data (Use and Access) Act 2025.",
+      "claims": ["Don't keep personal data longer than you need it, and set standard retention periods where you can."]
+    },
+    {
+      "id": "ico-ai",
+      "publisher": "ICO",
+      "title": "Guidance on AI and data protection",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/",
+      "checked": "2026-11-26",
+      "note": "Under review after the Data (Use and Access) Act 2025.",
+      "claims": ["Data protection law applies when personal data is used with AI, including accountability, fairness and accuracy."]
+    },
+    {
+      "id": "ico-small",
+      "publisher": "ICO",
+      "title": "Advice for small and medium organisations",
+      "url": "https://ico.org.uk/for-organisations/advice-for-small-organisations/",
+      "checked": "2026-11-26",
+      "claims": ["The ICO's starting point for small organisations, including information security and personal data breaches."]
+    },
+    {
+      "id": "report-fraud",
+      "publisher": "City of London Police",
+      "title": "Report Fraud (replaced Action Fraud)",
+      "url": "https://www.reportfraud.police.uk/",
+      "checked": "2026-11-26",
+      "evidence": "https://www.techuk.org/resource/report-fraud-service-replaces-action-fraud-as-uk-s-official-fraud-reporting-portal.html",
+      "note": "Report Fraud replaced Action Fraud on 4 December 2025, with a full public launch in January 2026. The police site blocks automated checks, so the change was confirmed through techUK and the NCSC's recovery guidance.",
+      "claims": ["Report fraud and cyber crime online at reportfraud.police.uk or by calling 0300 123 2040."]
+    },
+    {
+      "id": "stf-business",
+      "publisher": "Stop! Think Fraud (UK Government)",
+      "title": "Protect your business",
+      "url": "https://stopthinkfraud.campaign.gov.uk/protecting-your-business",
+      "checked": "2026-11-26",
+      "claims": [
+        "Payment diversion fraud is one of the most damaging scams facing UK businesses.",
+        "In CEO fraud, criminals impersonate senior people, sometimes using deepfake audio or video, to push staff into urgent payments.",
+        "In invoice fraud, criminals use hacked supplier email or lookalike domains to send invoices with new bank details. Salary diversion targets payroll the same way.",
+        "It is rare for businesses to change bank accounts. Confirm both old and new details using a phone number you already have.",
+        "Use sign-off steps and delay periods, such as 14 or 30 days, before new bank details are used.",
+        "No one person should both approve and pay invoices. Use 2-step verification on financial systems.",
+        "Tell staff if senior people will never ask for urgent payments, and what to do if they get such a request.",
+        "Never share passcodes or give remote access to someone who contacted you. Be careful with QR codes in emails."
+      ]
+    },
+    {
+      "id": "psr-app",
+      "publisher": "Payment Systems Regulator",
+      "title": "APP scams",
+      "url": "https://www.psr.org.uk/our-work/app-scams/",
+      "checked": "2026-11-26",
+      "note": "Used only for what APP fraud is, Confirmation of Payee and contacting your bank first. The page still mentions Action Fraud, which has been replaced.",
+      "claims": [
+        "An authorised push payment (APP) scam is when someone is tricked into sending money to a fraudster posing as a genuine payee.",
+        "Confirmation of Payee checks the name on the account you are paying.",
+        "If you've been scammed, contact your bank first."
+      ]
+    },
+    {
+      "id": "dsit-csbs",
+      "publisher": "DSIT and Home Office",
+      "title": "Cyber Security Breaches Survey 2025/2026 (published 30 April 2026)",
+      "url": "https://www.gov.uk/government/statistics/cyber-security-breaches-survey-20252026",
+      "checked": "2026-11-26",
+      "claims": ["Statistics on how many UK businesses had breaches and which controls they use. See benchmarks.json for each figure used."]
+    },
+    {
+      "id": "nist-csf",
+      "publisher": "NIST",
+      "title": "Cybersecurity Framework 2.0",
+      "url": "https://www.nist.gov/cyberframework",
+      "checked": "2026-11-26",
+      "use": "method-only",
+      "claims": ["Used on the Method page only, to show how the 14 areas map to the framework's functions (govern, identify, protect, detect, respond, recover)."]
+    },
+    {
+      "id": "nist-ai-rmf",
+      "publisher": "NIST",
+      "title": "AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "checked": "2026-11-26",
+      "use": "method-only",
+      "claims": ["Used on the Method page only, as background for the AI areas."]
+    }
+  ]
+}

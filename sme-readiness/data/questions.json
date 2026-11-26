@@ -1,0 +1,421 @@
+{
+  "version": 1,
+  "answers": {
+    "yes": { "label": "Yes", "value": 1 },
+    "partly": { "label": "Partly", "value": 0.5 },
+    "no": { "label": "No", "value": 0 },
+    "unsure": { "label": "Not sure", "value": 0, "note": "That's fine. Not knowing is common, and it's worth checking. We've counted it as something to look at, and the steps below show how." }
+  },
+  "profile": [
+    {
+      "id": "sector",
+      "text": "What kind of business is it?",
+      "options": [
+        { "value": "shop", "label": "Shop or café" },
+        { "value": "salon", "label": "Salon, beauty or wellness" },
+        { "value": "office", "label": "Agency, consultancy or office" },
+        { "value": "clinic", "label": "Clinic or health practice" },
+        { "value": "trades", "label": "Trades or construction" },
+        { "value": "ecommerce", "label": "Online shop" },
+        { "value": "other", "label": "Something else" }
+      ]
+    },
+    {
+      "id": "size",
+      "text": "How many people work in the business, including you?",
+      "options": [
+        { "value": "solo", "label": "Just me" },
+        { "value": "micro", "label": "2 to 9" },
+        { "value": "small", "label": "10 to 49" },
+        { "value": "medium", "label": "50 or more" }
+      ]
+    },
+    {
+      "id": "online",
+      "text": "Do you sell or take bookings online?",
+      "options": [{ "value": "yes", "label": "Yes" }, { "value": "no", "label": "No" }]
+    },
+    {
+      "id": "domain",
+      "text": "Does your email address end in your own business name, like hello@yourbusiness.co.uk?",
+      "options": [{ "value": "yes", "label": "Yes" }, { "value": "no", "label": "No, we use Gmail, Outlook or similar" }, { "value": "unsure", "label": "Not sure" }]
+    },
+    {
+      "id": "invoices",
+      "text": "Do you send invoices to customers for them to pay by bank transfer?",
+      "options": [{ "value": "yes", "label": "Yes" }, { "value": "no", "label": "No" }]
+    },
+    {
+      "id": "ai",
+      "text": "Does anyone in the business use AI tools such as ChatGPT, Copilot or Gemini for work?",
+      "options": [{ "value": "yes", "label": "Yes" }, { "value": "no", "label": "No" }, { "value": "unsure", "label": "Not sure" }]
+    },
+    {
+      "id": "chatbot",
+      "text": "Do you have an AI chatbot on your website or social media that answers customers?",
+      "options": [{ "value": "yes", "label": "Yes" }, { "value": "no", "label": "No" }]
+    }
+  ],
+  "areas": [
+    { "id": "passwords", "group": "cyber", "title": "Passwords and sign-in", "short": "How people log in to email, banking and key accounts.", "illustration": "key" },
+    { "id": "access", "group": "cyber", "title": "Who has access to what", "short": "Who can get into which accounts, and what happens when people leave.", "illustration": "badge" },
+    { "id": "devices", "group": "cyber", "title": "Devices and updates", "short": "Phones, laptops and tablets used for work.", "illustration": "laptop" },
+    { "id": "backups", "group": "cyber", "title": "Backups", "short": "A spare copy of what you need to keep trading.", "illustration": "cloud" },
+    { "id": "email", "group": "cyber", "title": "Email and phishing", "short": "Spotting, reporting and blocking scam emails.", "illustration": "envelope" },
+    { "id": "payments", "group": "cyber", "title": "Payments and invoice fraud", "short": "How money leaves the business, and how scammers try to redirect it.", "illustration": "invoice" },
+    { "id": "data", "group": "cyber", "title": "Customer data and UK GDPR", "short": "The personal information you hold, and what to do if it's lost.", "illustration": "padlock" },
+    { "id": "suppliers", "group": "cyber", "title": "Suppliers and online services", "short": "The websites, tools and providers you rely on.", "illustration": "storefront" },
+    { "id": "incident", "group": "cyber", "title": "If something goes wrong", "short": "Knowing what to do in the first hour.", "illustration": "lifebuoy" },
+    { "id": "ai-tools", "group": "ai", "title": "Which AI tools are used", "short": "Knowing what AI your team uses, including free personal accounts.", "illustration": "speech" },
+    { "id": "ai-data", "group": "ai", "title": "What goes into AI tools", "short": "Keeping customer, staff and confidential details out.", "illustration": "speech-lock" },
+    { "id": "ai-review", "group": "ai", "title": "Checking AI output", "short": "A person checks before anything reaches a customer.", "illustration": "speech-check" },
+    { "id": "ai-policy", "group": "ai", "title": "AI rules and guidance", "short": "Simple written rules and a little training.", "illustration": "document" },
+    { "id": "ai-scams", "group": "ai", "title": "AI-powered scams", "short": "Fake voices, fake videos and well-written scam emails.", "illustration": "shield" }
+  ],
+  "questions": [
+    {
+      "id": "pw1", "area": "passwords", "weight": 3, "critical": true,
+      "text": "When you log in to your business email, do you have to confirm it's you with your phone, a code or a passkey?",
+      "help": "This second step is called 2-step verification. A passkey lets you sign in with your face, fingerprint or phone PIN instead of a password.",
+      "why": "Your email is the key to everything else. With it, a criminal can reset your other passwords and send invoices that look like they came from you.",
+      "example": "A florist's email password is guessed. The criminal quietly reads invoices for a week, then emails a regular customer asking them to pay into a 'new' account.",
+      "sources": ["ncsc-small-email", "ncsc-2sv"], "recommendation": "rec-2sv-email"
+    },
+    {
+      "id": "pw2", "area": "passwords", "weight": 3,
+      "text": "Is that second check also on for your business bank, social media, website, online storage and till or booking system?",
+      "help": "Most of these services have it in their security or account settings, often called '2-step verification', 'two-factor' or 'login approvals'.",
+      "why": "These accounts hold your money, your customers and your reputation. A stolen password alone shouldn't be enough to get in.",
+      "example": "A salon's Instagram is taken over and used to message clients a fake 'deposit' link.",
+      "sources": ["ncsc-small-accounts", "stf-business"], "recommendation": "rec-2sv-accounts"
+    },
+    {
+      "id": "pw3", "area": "passwords", "weight": 2,
+      "text": "Does everyone use a different password for each work account, saved in a password manager or their phone's or browser's built-in one?",
+      "help": "A password manager remembers your passwords for you, so each one can be long and different.",
+      "why": "When one website is breached, criminals try the same email and password everywhere else. Different passwords stop one leak becoming many.",
+      "example": "A staff member reuses their gym password for the business email. The gym's site is breached, and the email is next.",
+      "sources": ["ncsc-small-email"], "recommendation": "rec-password-manager"
+    },
+    {
+      "id": "pw4", "area": "passwords", "weight": 1,
+      "text": "Where your email or other accounts offer passkeys, have you turned them on?",
+      "help": "A passkey signs you in with your face, fingerprint or phone PIN. There's nothing to type, so there's nothing for a scammer to trick you into sharing.",
+      "why": "The NCSC now recommends passkeys first, because they can't be phished or reused like passwords.",
+      "example": "A fake login page asks for a password. With a passkey there is no password to hand over.",
+      "sources": ["ncsc-small-email", "ncsc-small-accounts"], "recommendation": "rec-passkeys"
+    },
+    {
+      "id": "ac1", "area": "access", "weight": 3, "notFor": { "size": ["solo"] },
+      "text": "When someone leaves, do you remove their access to email, banking and other accounts on their last day?",
+      "help": "This includes shared passwords they knew, and any accounts set up for contractors or temps.",
+      "why": "Old accounts are easy to forget and often have old passwords. They're a common way in.",
+      "example": "A former employee's email is never closed. Months later it's used to send a fake invoice to a long-standing client.",
+      "sources": ["ncsc-small-accounts"], "recommendation": "rec-leavers"
+    },
+    {
+      "id": "ac2", "area": "access", "weight": 2, "notFor": { "size": ["solo"] },
+      "text": "Does each person have their own login, rather than several people sharing one?",
+      "help": "Shared logins are things like one 'office@' account or one till login everybody uses.",
+      "why": "With shared logins you can't remove one person's access without changing it for everyone, and you can't see who did what.",
+      "example": "The whole team knows the bookings password. When someone leaves on bad terms, nobody changes it.",
+      "sources": ["ncsc-ce", "ncsc-small-accounts"], "recommendation": "rec-own-logins"
+    },
+    {
+      "id": "ac3", "area": "access", "weight": 2, "notFor": { "size": ["solo"] },
+      "text": "Do only the people who need it have access to the bank account, payroll and customer records?",
+      "help": "This is sometimes called tiered access: people get what their job needs, and no more.",
+      "why": "The fewer people who can move money or see customer details, the fewer accounts a criminal can use to do damage.",
+      "example": "A part-time assistant's account can approve payments it never needs to. When it's hacked, so is the bank.",
+      "sources": ["ncsc-ce", "stf-business"], "recommendation": "rec-tiered-access"
+    },
+    {
+      "id": "ac4", "area": "access", "weight": 1,
+      "text": "Do you check who has access to your important accounts every few months?",
+      "help": "Look at the list of users on your email, bank, website and cloud storage, and remove anyone who shouldn't be there.",
+      "why": "People change roles and suppliers come and go. A quick review catches the accounts nobody remembers.",
+      "example": "A web designer from three years ago still has admin access to the shop's website.",
+      "sources": ["ncsc-small-accounts"], "recommendation": "rec-access-review"
+    },
+    {
+      "id": "dv1", "area": "devices", "weight": 3,
+      "text": "Are updates set to install automatically on your work computers, phones and tablets?",
+      "help": "Updates fix weaknesses that criminals know about. 'Automatic updates' is usually in the device's settings.",
+      "why": "Most attacks use weaknesses that already have a fix. Keeping up to date closes the door. Cyber Essentials expects security updates within 14 days.",
+      "example": "A shop laptop hasn't been updated in a year. A known weakness lets ransomware lock every file.",
+      "sources": ["ncsc-small-devices", "ncsc-ce-req"], "recommendation": "rec-auto-updates"
+    },
+    {
+      "id": "dv2", "area": "devices", "weight": 2,
+      "text": "Are all your work devices new enough to still get updates from the maker?",
+      "help": "Older phones and laptops stop getting updates after a few years. Your device's settings usually say if it's up to date.",
+      "why": "A device that no longer gets updates can't be fixed when a new weakness is found. You don't need the latest model, just a supported one.",
+      "example": "The till computer runs an old version of Windows that stopped getting security fixes years ago.",
+      "sources": ["ncsc-small-devices", "ncsc-ce-req"], "recommendation": "rec-replace-unsupported"
+    },
+    {
+      "id": "dv3", "area": "devices", "weight": 2,
+      "text": "Does every phone, tablet and laptop used for work lock with a PIN, password, face or fingerprint?",
+      "help": "This includes staff's own phones if they read work email or messages on them.",
+      "why": "Phones and tablets leave the building and get lost. A screen lock keeps customer details and accounts private if that happens.",
+      "example": "A tablet used for bookings is left in a café, unlocked, with every client's phone number on it.",
+      "sources": ["ncsc-small-devices"], "recommendation": "rec-device-lock"
+    },
+    {
+      "id": "dv4", "area": "devices", "weight": 1,
+      "text": "On work laptops and computers, do people use a standard account day to day, rather than the administrator account?",
+      "help": "The administrator account can install anything and change any setting. A standard account can't.",
+      "why": "If something nasty gets in while you're using a standard account, it can do far less damage.",
+      "example": "A fake 'invoice' attachment installs itself because it was opened on the administrator account.",
+      "sources": ["ncsc-small-accounts", "ncsc-ce"], "recommendation": "rec-standard-accounts"
+    },
+    {
+      "id": "bk1", "area": "backups", "weight": 3,
+      "text": "Do you back up the things your business needs to keep trading, such as customer records, invoices, emails and your website?",
+      "help": "A backup is a spare copy, either online (like OneDrive, Google Drive or iCloud) or on an external drive.",
+      "why": "If a device is lost or ransomware locks your files, a backup means you can carry on instead of starting from nothing.",
+      "example": "A builder's laptop is stolen from a van with two years of quotes and invoices on it, and no copy anywhere else.",
+      "sources": ["ncsc-small-backup"], "recommendation": "rec-backup-setup"
+    },
+    {
+      "id": "bk2", "area": "backups", "weight": 2,
+      "text": "Is there a second copy kept apart, such as a drive you unplug after use, or an online backup protected with 2-step verification?",
+      "help": "Ransomware can reach a backup drive that stays plugged in. Unplugging it keeps the copy out of reach.",
+      "why": "Two copies kept in different ways mean one problem can't take out both.",
+      "example": "Ransomware locks the office computer and the backup drive that was left plugged into it.",
+      "sources": ["ncsc-small-backup"], "recommendation": "rec-second-backup"
+    },
+    {
+      "id": "bk3", "area": "backups", "weight": 2,
+      "text": "Have you tried restoring something from your backup to check it works?",
+      "help": "Pick one file or folder and get it back from the backup. It takes a few minutes.",
+      "why": "Many people find out their backup was incomplete only when they need it.",
+      "example": "A clinic's backup had been failing quietly for months. Nobody had checked.",
+      "sources": ["ncsc-small-backup"], "recommendation": "rec-test-restore"
+    },
+    {
+      "id": "em1", "area": "email", "weight": 2,
+      "text": "Do staff know how to report a suspicious email, and would they feel able to say so even if they'd already clicked the link?",
+      "help": "Reporting can be as simple as 'forward it to me and don't click anything'.",
+      "why": "The NCSC warns that blaming staff makes them hide mistakes. The sooner you hear about a click, the less damage it does.",
+      "example": "A new starter clicks a fake delivery link, feels embarrassed and says nothing for a week.",
+      "sources": ["ncsc-phishing", "ncsc-report-email"], "recommendation": "rec-report-process"
+    },
+    {
+      "id": "em2", "area": "email", "weight": 1,
+      "text": "Do you forward scam emails to the NCSC's free reporting service at report@phishing.gov.uk?",
+      "help": "It takes a minute. The NCSC checks the email and can take down the scam website.",
+      "why": "Reporting gets scam sites removed and protects other businesses too.",
+      "example": "A fake 'HMRC refund' email is forwarded, and the site behind it is taken down.",
+      "sources": ["ncsc-report-email"], "recommendation": "rec-report-phishing"
+    },
+    {
+      "id": "em3", "area": "email", "weight": 1, "onlyFor": { "domain": ["yes", "unsure"] },
+      "text": "Has your email or website provider set up the anti-spoofing records for your email address (called SPF, DKIM and DMARC)?",
+      "help": "These settings tell other email services which senders are really you, so scammers find it harder to fake your address.",
+      "why": "Without them, a criminal can send email that appears to come from your exact address to your customers and suppliers.",
+      "example": "Customers receive an email 'from' a café's own address asking them to update payment details.",
+      "sources": ["ncsc-phishing"], "recommendation": "rec-dmarc"
+    },
+    {
+      "id": "em4", "area": "email", "weight": 1,
+      "text": "Have you checked what your website and social media reveal, such as staff names, roles and who your suppliers are?",
+      "help": "Criminals use these details to make scam emails sound like they come from someone you know.",
+      "why": "The less a scammer can learn about who pays whom, the harder it is to write a convincing fake.",
+      "example": "A 'Meet the team' page names the finance assistant. A week later she gets an email 'from the director' asking for an urgent payment.",
+      "sources": ["ncsc-small-spotting"], "recommendation": "rec-reduce-exposure"
+    },
+    {
+      "id": "pay1", "area": "payments", "weight": 3, "critical": true,
+      "text": "If a supplier asks to change their bank details, do you phone them on a number you already have, not one in the message, before paying?",
+      "help": "Use the number from an old invoice, your contacts or their official website. Never the one in the email or letter asking for the change.",
+      "why": "This one check stops most invoice fraud. It's rare for businesses to change bank accounts, so treat every request with care.",
+      "example": "A 'supplier' emails a new account number with their usual invoice. It's a lookalike email address, and the money is gone the same day.",
+      "sources": ["stf-business", "ncsc-phishing", "psr-app"], "recommendation": "rec-verify-bank-changes"
+    },
+    {
+      "id": "pay2", "area": "payments", "weight": 3, "notFor": { "size": ["solo"] },
+      "text": "Do payments over a set amount need a second person to approve them?",
+      "help": "For example: one person sets up the payment and another checks and approves it.",
+      "why": "Government fraud guidance says no one person should both approve and pay. A second pair of eyes catches pressure and mistakes.",
+      "example": "An office manager, rushed by an 'urgent' email from the director, pays £8,400 with nobody else checking.",
+      "sources": ["stf-business"], "recommendation": "rec-two-person"
+    },
+    {
+      "id": "pay3", "area": "payments", "weight": 2,
+      "text": "Do new or changed bank details wait a few days before you pay them, so there's time to check?",
+      "help": "Some businesses wait 14 or 30 days before using new supplier bank details for the first time.",
+      "why": "Scammers rely on urgency. A built-in pause gives you time to confirm the change is real.",
+      "example": "A fake bank change arrives the day before a big payment run. The pause gives time for the real supplier to say 'that wasn't us'.",
+      "sources": ["stf-business"], "recommendation": "rec-delay-period"
+    },
+    {
+      "id": "pay4", "area": "payments", "weight": 2, "notFor": { "size": ["solo"] },
+      "text": "Have you told staff that you, and anyone senior, will never ask for an urgent payment by email, text or phone call?",
+      "help": "A simple rule everyone knows makes a fake 'boss' request easy to spot.",
+      "why": "CEO fraud works by using authority and urgency. A known rule takes away both.",
+      "example": "'I'm in a meeting, just pay this now and I'll explain later.' Staff who know the rule stop and check.",
+      "sources": ["stf-business"], "recommendation": "rec-no-urgent-policy"
+    },
+    {
+      "id": "pay5", "area": "payments", "weight": 1, "onlyFor": { "invoices": ["yes"] },
+      "text": "Do your own invoices tell customers that your bank details won't change by email, and how to check if they're ever unsure?",
+      "help": "One line on your invoices, like 'Our bank details will never change by email. If in doubt, call us on our usual number.'",
+      "why": "Criminals also pretend to be you to your customers. Telling them what to expect gives them a chance to spot it.",
+      "example": "A customer receives a 'new bank details' email from a lookalike of your address, remembers the note on your invoices and calls you.",
+      "sources": ["ncsc-phishing", "stf-business"], "recommendation": "rec-tell-customers"
+    },
+    {
+      "id": "dt1", "area": "data", "weight": 2,
+      "text": "Do you know what customer and staff information you hold, and where it's kept, such as email, spreadsheets, booking systems or paper?",
+      "help": "Personal information is anything that identifies someone: names, phone numbers, addresses, health notes, bank details.",
+      "why": "You can only protect what you know you have. It's also the first thing you'll need if information is ever lost.",
+      "example": "A salon keeps client allergy notes in a booking app, a spreadsheet and a paper diary, and only remembers two of them.",
+      "sources": ["ico-small", "ico-minimisation"], "recommendation": "rec-data-map"
+    },
+    {
+      "id": "dt2", "area": "data", "weight": 1,
+      "text": "Do you only collect the information you actually need?",
+      "help": "For example, a booking form that asks for a date of birth when you don't need it.",
+      "why": "UK GDPR says personal data should be limited to what you need. Less information held means less to lose.",
+      "example": "An online shop asks every customer for their date of birth and never uses it, until it's leaked.",
+      "sources": ["ico-minimisation"], "recommendation": "rec-minimise"
+    },
+    {
+      "id": "dt3", "area": "data", "weight": 1,
+      "text": "Do you delete customer information when you no longer need it, on a regular timetable?",
+      "help": "This is called a retention period: how long you keep each kind of record before deleting it.",
+      "why": "UK GDPR says not to keep personal data longer than you need it, and old records are a risk with no benefit.",
+      "example": "A breach exposes ten years of old customer records that nobody needed any more.",
+      "sources": ["ico-storage"], "recommendation": "rec-retention"
+    },
+    {
+      "id": "dt4", "area": "data", "weight": 2,
+      "text": "If personal information was lost or stolen, would you know that you may need to tell the ICO within 72 hours, and how?",
+      "help": "The ICO is the UK's data protection regulator. Not every breach needs reporting, and the ICO has a tool to help you decide.",
+      "why": "If a breach is likely to put people at risk, the law expects you to report it, where feasible within 72 hours. Knowing in advance saves panic.",
+      "example": "A laptop with client records is stolen on Friday. On Monday the owner realises the 72 hours are nearly up.",
+      "sources": ["ico-breach"], "recommendation": "rec-breach-plan"
+    },
+    {
+      "id": "sp1", "area": "suppliers", "weight": 1,
+      "text": "Do you have a list of the online services you rely on, such as your website, domain, payment provider, booking or till system and cloud storage?",
+      "help": "Just a simple list: the service, who has the login, and how to contact them.",
+      "why": "These accounts keep you trading. Knowing what they are is the first step to protecting them and recovering fast.",
+      "example": "The website goes down, and nobody knows which company hosts it or who has the login.",
+      "sources": ["ncsc-small-accounts", "ncsc-ce-req"], "recommendation": "rec-service-list"
+    },
+    {
+      "id": "sp2", "area": "suppliers", "weight": 1,
+      "text": "When you choose an IT provider or an important supplier, do you ask about their security, for example whether they hold Cyber Essentials?",
+      "help": "Cyber Essentials is a government-backed scheme that shows an organisation has the basic protections in place.",
+      "why": "A supplier with weak security can become the way in to your business, or the source of a fake invoice.",
+      "example": "A supplier's email is hacked and used to send their customers invoices with new bank details.",
+      "sources": ["stf-business", "ncsc-ce"], "recommendation": "rec-supplier-checks"
+    },
+    {
+      "id": "ir1", "area": "incident", "weight": 2,
+      "text": "Is there a short written note of what to do in the first hour if you're hacked or scammed, with the numbers to call?",
+      "help": "One page is enough: who to call, what to switch off, and where to report it.",
+      "why": "In a crisis people freeze. A note on the wall means the right calls happen in the right order.",
+      "example": "A payment goes to a scammer at 4pm. Because the bank's fraud line is on the note, they call within minutes.",
+      "sources": ["ncsc-recovery", "ncsc-payfraud"], "recommendation": "rec-incident-plan"
+    },
+    {
+      "id": "ir2", "area": "incident", "weight": 2,
+      "text": "Do you know where to report fraud or a cyber attack: your bank straight away, then Report Fraud on 0300 123 2040?",
+      "help": "Report Fraud replaced Action Fraud in December 2025. It's the police service for reporting fraud and cyber crime.",
+      "why": "Calling your bank fast gives the best chance of stopping a payment. Reporting helps the police and gets you support.",
+      "example": "A business realises it paid a fake invoice. Calling the bank within the hour, the payment is frozen before it leaves.",
+      "sources": ["report-fraud", "ncsc-payfraud", "ncsc-recovery"], "recommendation": "rec-know-who-to-call"
+    },
+    {
+      "id": "ir3", "area": "incident", "weight": 1, "notFor": { "size": ["solo"] },
+      "text": "Is one person named to take charge if something goes wrong, with a backup if they're away?",
+      "help": "It doesn't need to be an IT person. It just needs to be someone who will make the calls.",
+      "why": "When everyone assumes someone else is dealing with it, nobody is.",
+      "example": "The owner is on holiday when the email is hacked. Nobody knows who should decide what to do.",
+      "sources": ["ncsc-recovery"], "recommendation": "rec-name-a-lead"
+    },
+    {
+      "id": "ai1", "area": "ai-tools", "weight": 2,
+      "text": "Do you know which AI tools your team uses for work, including free personal accounts?",
+      "help": "AI tools include chatbots like ChatGPT, Copilot or Gemini, and AI features inside apps you already use.",
+      "why": "You can't set sensible rules for tools you don't know about. Staff often use free AI tools on their own.",
+      "example": "A receptionist uses a free AI app on her phone to tidy up replies to clients, pasting in their messages.",
+      "sources": ["ncsc-ai", "ico-ai"], "recommendation": "rec-ai-inventory"
+    },
+    {
+      "id": "ai2", "area": "ai-tools", "weight": 2, "onlyFor": { "ai": ["yes", "unsure"] },
+      "text": "Have you chosen which AI tools are approved for work, and checked how each one uses what you type into it?",
+      "help": "Some AI services may keep or use what you type. Their settings or terms explain how.",
+      "why": "Picking approved tools, and setting them up properly, means work information goes to places you've checked.",
+      "example": "Two staff use five different AI apps between them. Nobody has read how any of them handle what's typed in.",
+      "sources": ["ico-ai", "ncsc-ai"], "recommendation": "rec-approve-ai-tools"
+    },
+    {
+      "id": "ai3", "area": "ai-data", "weight": 3,
+      "text": "Have you told everyone never to paste customer details, staff records, passwords or bank details into AI tools?",
+      "help": "This includes copying in whole emails or documents that contain these details.",
+      "why": "Once typed into an AI tool, the information has left your business. AI tools can also be tricked into revealing what they've been given.",
+      "example": "A staff member pastes a customer's complaint, with their address and order history, into a free AI tool to draft a reply.",
+      "sources": ["ico-ai", "ncsc-ai"], "recommendation": "rec-ai-data-rules"
+    },
+    {
+      "id": "ai4", "area": "ai-data", "weight": 2, "onlyFor": { "ai": ["yes", "unsure"] },
+      "text": "When staff ask an AI tool for help with a real case, do they remove names and other identifying details first?",
+      "help": "For example, writing 'a customer' instead of a name, and leaving out addresses and order numbers.",
+      "why": "You usually get just as good an answer without the personal details. UK GDPR expects you to use only what you need.",
+      "example": "'Help me reply to Sarah Jones at 12 Mill Lane about her refund' becomes 'Help me reply to a customer about a late refund'.",
+      "sources": ["ico-minimisation", "ico-ai"], "recommendation": "rec-ai-anonymise"
+    },
+    {
+      "id": "ai5", "area": "ai-review", "weight": 3, "onlyFor": { "ai": ["yes", "unsure"] },
+      "text": "Does a person check anything written by AI, such as emails, quotes or social posts, before customers see it?",
+      "help": "A quick read for facts, prices, promises and tone is enough.",
+      "why": "AI can state wrong things confidently. A wrong price, promise or fact sent to a customer is still your business's word.",
+      "example": "An AI-drafted reply promises a full refund the shop's policy doesn't offer, and the customer holds them to it.",
+      "sources": ["ncsc-ai"], "recommendation": "rec-ai-human-review"
+    },
+    {
+      "id": "ai6", "area": "ai-review", "weight": 2, "onlyFor": { "chatbot": ["yes"] },
+      "text": "Does your chatbot hand over to a person for refunds, complaints and anything it isn't sure about?",
+      "help": "A handover can be as simple as 'I'll pass this to the team, who'll reply by email'.",
+      "why": "Chatbots can give confident wrong answers, and can be tricked by cleverly worded messages. Some topics need a person.",
+      "example": "A customer talks a chatbot into 'confirming' a discount that doesn't exist.",
+      "sources": ["ncsc-ai"], "recommendation": "rec-chatbot-handover"
+    },
+    {
+      "id": "ai7", "area": "ai-policy", "weight": 2, "onlyFor": { "ai": ["yes", "unsure"] },
+      "text": "Do you have a short written policy on using AI at work?",
+      "help": "One page covering which tools are approved, what never goes into them, and when a person must check the output.",
+      "why": "A clear policy turns good intentions into a habit, and gives new staff the rules from day one.",
+      "example": "A new starter assumes it's fine to use their personal AI account for client work, because nobody said otherwise.",
+      "sources": ["ncsc-ai", "ico-ai"], "recommendation": "rec-ai-policy"
+    },
+    {
+      "id": "ai8", "area": "ai-policy", "weight": 1, "onlyFor": { "ai": ["yes", "unsure"] },
+      "text": "Have staff been shown real examples of what's fine to put into AI tools and what isn't?",
+      "help": "A 3-minute example session works better than a long policy nobody reads.",
+      "why": "People follow examples more easily than rules. Seeing what 'too much detail' looks like makes it stick.",
+      "example": "After a short session, staff start asking 'is this OK to paste?' before using AI.",
+      "sources": ["ncsc-ai"], "recommendation": "rec-ai-training"
+    },
+    {
+      "id": "ai9", "area": "ai-scams", "weight": 3,
+      "text": "If 'the boss' called, sent a voice note or appeared on video asking for an urgent payment, would staff hang up and call back on a number they already have?",
+      "help": "AI can now copy someone's voice or face from a few online clips.",
+      "why": "Government fraud guidance warns that criminals impersonate senior people, sometimes with deepfake audio or video, to push urgent payments.",
+      "example": "A voice that sounds exactly like the owner calls the shop asking for £3,000 to be sent 'before the bank closes'.",
+      "sources": ["stf-business"], "recommendation": "rec-callback-rule"
+    },
+    {
+      "id": "ai10", "area": "ai-scams", "weight": 1,
+      "text": "Do staff know that AI now writes scam emails with perfect spelling, so a well-written message isn't proof it's genuine?",
+      "help": "The old advice to look for spelling mistakes isn't enough any more.",
+      "why": "The NCSC says AI helps criminals write convincing phishing without the mistakes that used to give it away.",
+      "example": "A flawless, friendly email 'from the accountant' asks for staff payroll details.",
+      "sources": ["ncsc-ai-threat"], "recommendation": "rec-ai-phishing-awareness"
+    }
+  ]
+}

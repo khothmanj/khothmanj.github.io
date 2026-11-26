@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "note": "All people, businesses, phone numbers, account numbers and web addresses in these examples are invented. The checker uses transparent rules, defined in Phase 2, and never says a message is safe.",
+  "noSignsText": "No common warning signs found. That doesn't prove the message is genuine, so always check payment requests by phone on a number you already have.",
+  "levels": {
+    "none": { "label": "No common warning signs found" },
+    "low": { "label": "Low concern", "advice": "Probably fine, but check anything that involves money or logins." },
+    "medium": { "label": "Medium concern", "advice": "Don't act on it yet. Check it with the sender using a number or address you already have." },
+    "high": { "label": "High concern", "advice": "Treat this as a likely scam. Don't reply, click or pay. Check with the real person or company directly, and report it." }
+  },
+  "signals": [
+    {
+      "id": "bank_change", "label": "Asks to change bank details",
+      "explain": "It's rare for businesses or staff to change bank accounts. This is the heart of invoice and payroll fraud.",
+      "action": "Don't pay or update anything until you've called the sender on a number you already have and confirmed the old and new details.",
+      "sources": ["stf-business", "psr-app"]
+    },
+    {
+      "id": "urgency", "label": "Urgency or pressure",
+      "explain": "Deadlines, threats and 'do it now' are used to stop you thinking or checking with anyone.",
+      "action": "Slow down. A genuine request can wait the few minutes it takes to check.",
+      "sources": ["stf-business", "ncsc-small-spotting"]
+    },
+    {
+      "id": "lookalike_domain", "label": "Sender address looks like one you know, but isn't",
+      "explain": "Scammers register addresses that differ by a letter or two, swap letters for numbers, or add extra words.",
+      "action": "Compare the address character by character with one you've used before. Reply to the address you already have, not this one.",
+      "sources": ["stf-business", "ncsc-phishing"]
+    },
+    {
+      "id": "unusual_payment", "label": "Unusual payment",
+      "explain": "Gift cards, cryptocurrency, a new account, an odd amount or a request to keep it quiet are all signs of fraud.",
+      "action": "Follow your normal payment process, including a second approver. Never pay by gift card or crypto because someone asked.",
+      "sources": ["stf-business", "psr-app"]
+    },
+    {
+      "id": "credentials", "label": "Asks for codes, passwords or remote access",
+      "explain": "No genuine bank, supplier or IT provider needs you to read out a code, share a password or install remote access because they contacted you.",
+      "action": "Never share codes or passwords. Only allow remote access if you started the request with a provider you trust.",
+      "sources": ["stf-business", "ncsc-phishing"]
+    },
+    {
+      "id": "impersonation", "label": "Pretends to be the boss, a colleague or a supplier",
+      "explain": "Scammers borrow authority and trust. Watch for a familiar name on an unfamiliar address or number, or a request to keep it secret.",
+      "action": "Contact the real person using details you already have, not the ones in the message.",
+      "sources": ["stf-business", "ncsc-payfraud"]
+    },
+    {
+      "id": "voice_deepfake", "label": "Signs of a fake voice or video",
+      "explain": "AI can copy a voice or face from a few online clips. A new number, a voice note instead of a call, or 'I can't talk' are warning signs.",
+      "action": "Hang up and call back on a number you already have. Don't rely on recognising the voice or face.",
+      "sources": ["stf-business", "ncsc-ai-threat"]
+    }
+  ],
+  "examples": [
+    {
+      "id": "m1", "difficulty": "obvious", "channel": "Email", "title": "Your password expires today",
+      "from": "Microsoft 365 Admin <alerts@m365-account-verify.net>",
+      "subject": "Action required: your password expires in 2 hours",
+      "body": "Dear user,\n\nYour Microsoft 365 password expires in 2 hours. To keep access to your mailbox, verify your account now using the secure link below.\n\nVerify now: http://m365-account-verify.net/login\n\nIf you do not verify within 2 hours your mailbox will be suspended and emails may be lost.\n\nMicrosoft 365 Support Team",
+      "expected": ["credentials", "urgency"], "expectedLevel": "high",
+      "lesson": "A login link plus a deadline is the classic phishing pattern. Go to your email account the way you normally do, never through the link."
+    },
+    {
+      "id": "m2", "difficulty": "obvious", "channel": "Email", "title": "Supplier's new bank details",
+      "from": "Accounts, Harbour Mill Foods <accounts@harbourmi11foods.co.uk>",
+      "knownSenders": ["harbourmillfoods.co.uk"],
+      "subject": "Updated bank details for this week's payment",
+      "body": "Hi there,\n\nPlease note our bank details have changed following a move to a new bank. Please use the details below for Friday's payment and all future invoices.\n\nAccount name: Harbour Mill Foods Ltd\nSort code: 00-11-22\nAccount number: 00012345\n\nWe need this updated before Friday's payment run to avoid any delay to your next delivery.\n\nKind regards,\nAccounts Team",
+      "expected": ["bank_change", "lookalike_domain", "urgency"], "expectedLevel": "high",
+      "lesson": "Look closely at the address: 'harbourmi11foods' uses the number 1 instead of the letter l. Call the supplier on the number from an old invoice."
+    },
+    {
+      "id": "m3", "difficulty": "medium", "channel": "Email", "title": "A quick favour from the director",
+      "from": "Dan Okafor <dan.okafor.director@gmail.com>",
+      "knownSenders": ["okaforstudio.co.uk"],
+      "subject": "Are you at your desk?",
+      "body": "Hi, are you at your desk? I'm in back-to-back meetings and need a quick favour. I need 6 Amazon gift cards of £200 each for a client thank-you today. Please keep this between us for now, it's a surprise. Buy them and send me the codes by email, I'll sort the expenses later.\n\nDan\nSent from my phone",
+      "expected": ["impersonation", "unusual_payment", "urgency", "credentials"], "expectedLevel": "high",
+      "lesson": "Gift cards, secrecy and a personal email address are a well-known CEO fraud pattern. Ask the real director using the number you already have."
+    },
+    {
+      "id": "m4", "difficulty": "medium", "channel": "Voice note (transcript)", "title": "Voice note from 'the boss'",
+      "from": "WhatsApp voice note from +44 7700 900461 (new number)",
+      "subject": "",
+      "body": "Hi, it's me, my phone's broken so I'm on this number for now. Listen, I need you to send £4,750 to a new supplier straight away, the account details are in my next message. I can't talk, I'm about to go into a meeting, just get it done before 3 and I'll explain later. Thanks.",
+      "expected": ["voice_deepfake", "impersonation", "urgency", "unusual_payment"], "expectedLevel": "high",
+      "lesson": "A new number, a voice note instead of a call and 'I can't talk' are classic signs of a fake voice. Call the boss back on the number you already have."
+    },
+    {
+      "id": "m5", "difficulty": "medium", "channel": "Text message", "title": "IT support needs a code",
+      "from": "SMS from +44 7700 900218",
+      "subject": "",
+      "body": "Hi, it's Jordan from your IT support company. We've spotted unusual sign-ins on your business email and need to secure it urgently. You'll get a 6-digit code in a moment, please text it back to me straight away, or install AnyDesk so I can fix it remotely.",
+      "expected": ["credentials", "urgency", "impersonation"], "expectedLevel": "high",
+      "lesson": "Real IT support never asks you to read out a code. Call your IT provider on its usual number to check."
+    },
+    {
+      "id": "m6", "difficulty": "subtle", "channel": "Email", "title": "A normal-looking invoice with a twist",
+      "from": "Sam Reid, Northfield Packaging <accounts@northfieldpackaging.co.uk>",
+      "knownSenders": ["northfieldpackaging.co.uk"],
+      "subject": "Invoice NP-4418 for November",
+      "body": "Hi,\n\nPlease find attached invoice NP-4418 for November's order, payable within 30 days as usual.\n\nJust to let you know, following our annual audit our account has moved to a new bank, so please use the updated details printed on this invoice going forward.\n\nMany thanks,\nSam Reid\nNorthfield Packaging",
+      "expected": ["bank_change"], "expectedLevel": "medium",
+      "lesson": "The address is genuine and there's no rush, which is what makes this convincing. A supplier's real email account can be hacked. A bank change is still a reason to phone."
+    },
+    {
+      "id": "m7", "difficulty": "subtle", "channel": "Email", "title": "A colleague's new salary account",
+      "from": "Priya Shah <priya.s.work@outlook.com>",
+      "knownSenders": ["okaforstudio.co.uk"],
+      "subject": "Bank change before payroll",
+      "body": "Hi,\n\nI've switched banks this month, could you update my salary details before payroll runs? New details below.\n\nAccount name: P Shah\nSort code: 00-33-44\nAccount number: 00067890\n\nThanks so much,\nPriya",
+      "expected": ["bank_change", "impersonation"], "expectedLevel": "high",
+      "lesson": "Salary diversion fraud looks like a routine request. It comes from a personal address, not the work one. Check with Priya in person or on her known number."
+    },
+    {
+      "id": "m8", "difficulty": "subtle", "channel": "Email", "title": "A delivery confirmation",
+      "from": "Harbour Mill Foods <orders@harbourmillfoods.co.uk>",
+      "knownSenders": ["harbourmillfoods.co.uk"],
+      "subject": "Delivery confirmed for Tuesday",
+      "body": "Hello,\n\nYour order is confirmed for delivery on Tuesday morning. Invoice HMF-2207 is attached and is payable to our usual account within 30 days.\n\nAny questions, just reply to this email or call the office.\n\nBest wishes,\nThe Harbour Mill team",
+      "expected": [], "expectedLevel": "none",
+      "lesson": "Nothing here matches a common warning sign. That still isn't proof. If an invoice ever asks you to pay somewhere new, phone first."
+    }
+  ]
+}

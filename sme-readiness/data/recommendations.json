@@ -1,0 +1,498 @@
+{
+  "version": 1,
+  "effortScale": { "1": "Under an hour, no cost", "2": "A few hours, or a small cost", "3": "A project, or a noticeable cost" },
+  "owners": ["Owner", "Office manager", "All staff"],
+  "recommendations": [
+    {
+      "id": "rec-2sv-email", "question": "pw1", "title": "Turn on 2-step verification for your business email",
+      "summary": "Add a second check, such as a phone prompt, a code or a passkey, to every business email account. A stolen password alone then won't get anyone in. Start with your own account and anyone who handles money.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Open your email account's security settings (in Microsoft 365, Google Workspace or your provider's account page).",
+        "If you see 'Passkeys', set one up. Otherwise turn on '2-step verification'.",
+        "Choose an authenticator app or phone prompt if offered. A text message code is fine if that's the only choice.",
+        "Save the backup codes somewhere safe, such as your password manager, in case you lose your phone.",
+        "Repeat for every staff email account, starting with anyone who handles payments."
+      ],
+      "sources": ["ncsc-small-email", "ncsc-2sv"]
+    },
+    {
+      "id": "rec-2sv-accounts", "question": "pw2", "title": "Add 2-step verification to your bank, social media and key accounts",
+      "summary": "Your bank, social media, website, online storage and till or booking system all need the same second check as your email. These accounts hold your money and your customers.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "List your key accounts: business bank, social media, website and domain, online storage, till or booking system.",
+        "In each one, open the security or account settings and turn on 2-step verification or passkeys.",
+        "For online banking, check your bank's app or website for login approvals on every user.",
+        "Tick each account off your list as you go."
+      ],
+      "sources": ["ncsc-small-accounts", "stf-business"]
+    },
+    {
+      "id": "rec-password-manager", "question": "pw3", "title": "Use a password manager so every password can be different",
+      "summary": "A password manager remembers passwords for you, so each account can have its own strong one. If everyone uses the same kind of phone, the one built into the phone or browser works well.",
+      "minutes": 60, "cost": "Free or low cost", "effort": 2, "owner": "All staff", "quickWin": false,
+      "steps": [
+        "Choose one: the manager built into your phones or browser, or a password manager app if you use mixed devices.",
+        "Protect it with a strong main password made of three random words, plus 2-step verification.",
+        "Change any password that's used on more than one work account, starting with email and banking.",
+        "Let the manager create and save new passwords from now on."
+      ],
+      "sources": ["ncsc-small-email", "ncsc-small-devices"]
+    },
+    {
+      "id": "rec-passkeys", "question": "pw4", "title": "Switch to passkeys where your accounts offer them",
+      "summary": "Passkeys let you sign in with your face, fingerprint or phone PIN. There's no password to steal or be tricked into sharing, which is why the NCSC now recommends them first.",
+      "minutes": 20, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "In your email account's security settings, look for 'Passkeys' and follow the steps.",
+        "Do the same for other key accounts that offer passkeys.",
+        "Keep 2-step verification on for any account that still has a password set."
+      ],
+      "sources": ["ncsc-small-email", "ncsc-small-accounts"]
+    },
+    {
+      "id": "rec-leavers", "question": "ac1", "title": "Remove leavers' access on their last day",
+      "summary": "Make removing access part of every leaver's last day: email, bank, cloud storage, social media and any shared passwords they knew. Old accounts are an easy way in.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Office manager", "quickWin": true,
+      "steps": [
+        "Use the staff security checklist in the toolkit for every leaver.",
+        "Disable their email and other accounts at the end of their last day.",
+        "Change any shared passwords they knew, such as the Wi-Fi or a shared login.",
+        "Check today for anyone who has already left but still has an account, and remove them."
+      ],
+      "sources": ["ncsc-small-accounts"], "toolkit": "staff-checklist"
+    },
+    {
+      "id": "rec-own-logins", "question": "ac2", "title": "Give everyone their own login",
+      "summary": "Replace shared logins with one account per person where the service allows it. You can then remove one person's access without changing it for everyone, and see who did what.",
+      "minutes": 120, "cost": "Free or low cost", "effort": 2, "owner": "Office manager", "quickWin": false,
+      "steps": [
+        "List the logins that more than one person uses.",
+        "For each service, check whether you can add separate users. Most email, booking and till systems allow it.",
+        "Create individual accounts with 2-step verification and retire the shared one.",
+        "Where a shared login can't be avoided, keep it in a password manager and change it when anyone leaves."
+      ],
+      "sources": ["ncsc-ce", "ncsc-small-accounts"]
+    },
+    {
+      "id": "rec-tiered-access", "question": "ac3", "title": "Limit who can see money and customer records",
+      "summary": "Give each person access to what their job needs, and no more. Fewer people who can move money or see customer details means fewer accounts a criminal can misuse.",
+      "minutes": 60, "cost": "Free", "effort": 2, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "List who can access the bank, payroll and customer records today.",
+        "Remove access for anyone who doesn't need it for their job.",
+        "In online banking, set users to 'view only' or 'create but not approve' where that fits their role.",
+        "Write the list down so it's easy to review."
+      ],
+      "sources": ["ncsc-ce", "stf-business"]
+    },
+    {
+      "id": "rec-access-review", "question": "ac4", "title": "Review who has access every three months",
+      "summary": "Put a 15-minute review in the diary every three months. Check the users on email, bank, website and cloud storage, and remove anyone who shouldn't be there.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "Office manager", "quickWin": true,
+      "steps": [
+        "Add a repeating calendar reminder every three months.",
+        "Open the user list in each key account and compare it with who works with you now.",
+        "Remove old staff, past contractors and suppliers who no longer need access."
+      ],
+      "sources": ["ncsc-small-accounts"]
+    },
+    {
+      "id": "rec-auto-updates", "question": "dv1", "title": "Turn on automatic updates everywhere",
+      "summary": "Set every work computer, phone and tablet, and their apps and browsers, to update automatically. Most attacks use weaknesses that already have a fix.",
+      "minutes": 20, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "On each device, open Settings and find 'Software update' or 'Windows Update'.",
+        "Turn on automatic updates, including for apps.",
+        "Restart devices and browsers when asked, so updates actually install.",
+        "Check once a month that each device says it's up to date."
+      ],
+      "sources": ["ncsc-small-devices", "ncsc-ce-req"]
+    },
+    {
+      "id": "rec-replace-unsupported", "question": "dv2", "title": "Replace devices that no longer get updates",
+      "summary": "Find any computer, phone or tablet that's too old for updates and plan to replace it. You don't need the latest model, just one the maker still supports.",
+      "minutes": 60, "cost": "Some cost", "effort": 3, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "Check each device's settings to see if updates are still available.",
+        "List any that are no longer supported, and what they're used for.",
+        "Replace the ones that handle email, payments or customer data first.",
+        "Wipe old devices properly before selling or recycling them."
+      ],
+      "sources": ["ncsc-small-devices", "ncsc-ce-req"]
+    },
+    {
+      "id": "rec-device-lock", "question": "dv3", "title": "Lock every work device with a PIN or fingerprint",
+      "summary": "Every phone, tablet and laptop used for work should need a 6-digit PIN, a strong password, a face or a fingerprint to open. That includes staff's own phones if they read work email.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Open each device's settings and set a 6-digit PIN or strong password.",
+        "Add face or fingerprint unlock if available.",
+        "Avoid easy PINs like 123456 or birthdays.",
+        "Ask staff to do the same on personal phones used for work."
+      ],
+      "sources": ["ncsc-small-devices"]
+    },
+    {
+      "id": "rec-standard-accounts", "question": "dv4", "title": "Use a standard account for everyday work",
+      "summary": "Create a standard user account on each computer for daily work, and keep the administrator account for installing software. Anything that sneaks in can then do much less harm.",
+      "minutes": 30, "cost": "Free", "effort": 2, "owner": "Office manager", "quickWin": false,
+      "steps": [
+        "Sign in with the administrator account and add a new standard user.",
+        "Move everyday work to the standard account.",
+        "Only sign in as administrator when you need to install or change something."
+      ],
+      "sources": ["ncsc-small-accounts", "ncsc-ce"]
+    },
+    {
+      "id": "rec-backup-setup", "question": "bk1", "title": "Back up what you need to keep trading",
+      "summary": "Make sure customer records, invoices, emails, documents and your website are copied somewhere else, automatically. If a device is lost or locked by ransomware, you can carry on.",
+      "minutes": 60, "cost": "Free or low cost", "effort": 2, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "List what you'd need to keep trading if your main computer disappeared.",
+        "Turn on automatic online backup (for example OneDrive, Google Drive or iCloud) for those files.",
+        "Check your website and booking or till system providers keep backups, and how you'd get them.",
+        "Protect the backup account with 2-step verification."
+      ],
+      "sources": ["ncsc-small-backup"]
+    },
+    {
+      "id": "rec-second-backup", "question": "bk2", "title": "Keep a second copy apart from the first",
+      "summary": "Add a second backup kept in a different way, such as an external drive you unplug after use. Then one problem can't take out both copies.",
+      "minutes": 30, "cost": "Low cost", "effort": 2, "owner": "Office manager", "quickWin": false,
+      "steps": [
+        "Buy an external drive large enough for your important files.",
+        "Copy your important files to it, for example once a week.",
+        "Unplug it after each backup and keep it somewhere safe.",
+        "Put a weekly reminder in the diary."
+      ],
+      "sources": ["ncsc-small-backup"]
+    },
+    {
+      "id": "rec-test-restore", "question": "bk3", "title": "Test that your backup actually works",
+      "summary": "Restore one file or folder from your backup and check it opens. Many businesses only discover a broken backup when they need it.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "Office manager", "quickWin": true,
+      "steps": [
+        "Pick a recent, important file.",
+        "Restore it from the backup to a different folder.",
+        "Open it and check it's complete and up to date.",
+        "Repeat every few months."
+      ],
+      "sources": ["ncsc-small-backup"]
+    },
+    {
+      "id": "rec-report-process", "question": "em1", "title": "Make reporting a suspicious email easy and blame-free",
+      "summary": "Tell everyone exactly how to report a suspicious email, and that they'll be thanked even if they've already clicked. Early reports limit the damage.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Agree one simple rule, for example 'forward it to the owner and don't click anything'.",
+        "Tell everyone, and add it to the staff security checklist.",
+        "When someone reports a click, thank them and act quickly. Never tell them off."
+      ],
+      "sources": ["ncsc-phishing", "ncsc-report-email"]
+    },
+    {
+      "id": "rec-report-phishing", "question": "em2", "title": "Forward scam emails to report@phishing.gov.uk",
+      "summary": "Forward scam emails to the NCSC's free service. It takes a minute, and the NCSC can take down the scam sites behind them.",
+      "minutes": 5, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Save report@phishing.gov.uk as a contact.",
+        "Forward suspicious emails to it, then delete them.",
+        "Don't click links in the email while you do it."
+      ],
+      "sources": ["ncsc-report-email"]
+    },
+    {
+      "id": "rec-dmarc", "question": "em3", "title": "Ask your provider to set up email anti-spoofing",
+      "summary": "Ask whoever runs your email or website to set up SPF, DKIM and DMARC for your domain. These make it much harder for scammers to send email that appears to come from your exact address.",
+      "minutes": 30, "cost": "Free or low cost", "effort": 2, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "Find out who manages your domain and email, such as your web designer or IT provider.",
+        "Ask them to set up SPF, DKIM and DMARC for your domain.",
+        "Ask them to confirm when it's done and what DMARC policy they've set."
+      ],
+      "sources": ["ncsc-phishing"]
+    },
+    {
+      "id": "rec-reduce-exposure", "question": "em4", "title": "Trim what your website and social media give away",
+      "summary": "Check your website and social pages for details a scammer could use, such as who handles payments or which suppliers you use. Remove anything customers don't need.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Read your website's team, about and news pages as if you were a scammer.",
+        "Remove details about who handles payments, and named suppliers or banks.",
+        "Check social media privacy settings, and who can post for the business."
+      ],
+      "sources": ["ncsc-small-spotting"]
+    },
+    {
+      "id": "rec-verify-bank-changes", "question": "pay1", "title": "Always phone to check a change of bank details",
+      "summary": "Before paying new bank details, phone the supplier on a number you already have, never one in the message. Confirm both the old and new details. This single check stops most invoice fraud.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Make it a rule: no change of bank details is paid until it's been confirmed by phone.",
+        "Use the number from an old invoice, your contacts or the supplier's official website.",
+        "Ask them to confirm the old and new account details.",
+        "Use your bank's Confirmation of Payee check when you set up the payment, and stop if the name doesn't match.",
+        "Write it into the payment verification procedure in the toolkit."
+      ],
+      "sources": ["stf-business", "ncsc-phishing", "psr-app"], "toolkit": "payment-procedure"
+    },
+    {
+      "id": "rec-two-person", "question": "pay2", "title": "Have a second person approve larger payments",
+      "summary": "Set an amount above which one person sets up a payment and another approves it. No one person should both approve and pay.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Choose the amount, for example £1,000.",
+        "In online banking, set up a second approver for payments over that amount, if your bank offers it.",
+        "If it doesn't, agree that a second person checks the invoice and details before paying.",
+        "Write it into the payment verification procedure."
+      ],
+      "sources": ["stf-business"], "toolkit": "payment-procedure"
+    },
+    {
+      "id": "rec-delay-period", "question": "pay3", "title": "Add a waiting period for new bank details",
+      "summary": "Agree that new or changed bank details aren't used for a set time, such as 14 days, unless they've been confirmed by phone. Scammers rely on urgency.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Pick a waiting period that suits your cash flow, such as 14 days.",
+        "Note the date any bank details change, and when they can first be used.",
+        "Add it to the payment verification procedure."
+      ],
+      "sources": ["stf-business"], "toolkit": "payment-procedure"
+    },
+    {
+      "id": "rec-no-urgent-policy", "question": "pay4", "title": "Tell staff the boss will never ask for an urgent payment",
+      "summary": "Agree and announce one rule: nobody senior will ever ask for an urgent payment by email, text or call. Any such request is checked by calling back on a known number.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Say it at the next team meeting, or by email.",
+        "Add it to the staff security checklist and the payment procedure.",
+        "Praise anyone who stops to check, even when the request turns out to be real."
+      ],
+      "sources": ["stf-business"]
+    },
+    {
+      "id": "rec-tell-customers", "question": "pay5", "title": "Tell customers your bank details won't change by email",
+      "summary": "Add one line to your invoices and email footer saying your bank details won't change by email, and to call your usual number if in doubt. It helps customers spot fakes of you.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "Office manager", "quickWin": true,
+      "steps": [
+        "Add to your invoice template: 'Our bank details will never change by email. If in doubt, call us on our usual number.'",
+        "Add the same line to your email signature."
+      ],
+      "sources": ["ncsc-phishing", "stf-business"]
+    },
+    {
+      "id": "rec-data-map", "question": "dt1", "title": "List what personal information you hold, and where",
+      "summary": "Make a simple list of the customer and staff information you hold and where it lives: email, spreadsheets, apps, paper. You can only protect what you know about.",
+      "minutes": 60, "cost": "Free", "effort": 2, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "Write down each kind of information you collect, such as names, contact details, health notes or bank details.",
+        "Next to each, note where it's kept and who can see it.",
+        "Mark anything sensitive, such as health information, for extra care."
+      ],
+      "sources": ["ico-small", "ico-minimisation"]
+    },
+    {
+      "id": "rec-minimise", "question": "dt2", "title": "Stop collecting information you don't need",
+      "summary": "Check your forms and processes for details you never use, and stop asking for them. Less information held means less to lose.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Look at your booking, order and sign-up forms.",
+        "Remove fields you don't use, such as date of birth if you don't need it.",
+        "Delete old information you collected but never needed."
+      ],
+      "sources": ["ico-minimisation"]
+    },
+    {
+      "id": "rec-retention", "question": "dt3", "title": "Set how long you keep customer records",
+      "summary": "Decide how long you keep each kind of record, then delete it after that. Don't keep personal data longer than you need it.",
+      "minutes": 60, "cost": "Free", "effort": 2, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "For each kind of record, decide how long you need it, considering any legal or accounting rules that apply to you.",
+        "Write the periods down in one place.",
+        "Put a yearly reminder in the diary to delete what's past its date."
+      ],
+      "sources": ["ico-storage"]
+    },
+    {
+      "id": "rec-breach-plan", "question": "dt4", "title": "Know how to report a data breach to the ICO",
+      "summary": "If personal information is lost or stolen and that's likely to put people at risk, you may need to tell the ICO within 72 hours where feasible. Know the steps before you need them.",
+      "minutes": 20, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Bookmark the ICO's data breach reporting page.",
+        "Add 'decide whether to report to the ICO within 72 hours' to your incident one-pager.",
+        "Note what the ICO will ask: what happened, who's affected and what you're doing about it.",
+        "If unsure whether to report, use the ICO's self-assessment tool."
+      ],
+      "sources": ["ico-breach"], "toolkit": "incident-one-pager"
+    },
+    {
+      "id": "rec-service-list", "question": "sp1", "title": "Write a list of the online services you rely on",
+      "summary": "Make a one-page list of your website, domain, payment provider, booking or till system and cloud storage, who holds each login, and how to contact the provider. When something breaks or is hacked, you'll know exactly who to call.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Office manager", "quickWin": true,
+      "steps": [
+        "List each online service the business relies on.",
+        "Note who has the login, whether 2-step verification is on, and the provider's support contact.",
+        "Keep the list with your incident one-pager."
+      ],
+      "sources": ["ncsc-small-accounts", "ncsc-ce-req"]
+    },
+    {
+      "id": "rec-supplier-checks", "question": "sp2", "title": "Ask key suppliers about their security",
+      "summary": "When you choose or renew an IT provider or important supplier, ask how they protect your data and whether they hold Cyber Essentials. Government fraud guidance suggests asking for it in contracts.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "List suppliers who hold your data or can reach your systems, such as IT support or your web host.",
+        "Ask whether they hold Cyber Essentials, and how they'd tell you about a problem.",
+        "For new contracts, consider asking for Cyber Essentials."
+      ],
+      "sources": ["stf-business", "ncsc-ce"]
+    },
+    {
+      "id": "rec-incident-plan", "question": "ir1", "title": "Put a one-page 'first hour' plan on the wall",
+      "summary": "Write down what to do in the first hour if you're hacked or scammed: who to call, what to switch off and where to report. In a crisis, people follow a list.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Download the incident response one-pager from the toolkit.",
+        "Fill in your bank's fraud line, your IT contact and who takes charge.",
+        "Print it and keep a copy somewhere everyone knows, plus one on your phone."
+      ],
+      "sources": ["ncsc-recovery", "ncsc-payfraud"], "toolkit": "incident-one-pager"
+    },
+    {
+      "id": "rec-know-who-to-call", "question": "ir2", "title": "Save your bank's fraud line and Report Fraud's number",
+      "summary": "If money goes to a scammer, call your bank straight away on its official number, then report it to Report Fraud on 0300 123 2040. Speed gives the best chance of stopping the payment.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Find your bank's fraud phone number on its official website or the back of your card.",
+        "Save it, and Report Fraud's number (0300 123 2040), in your phone.",
+        "Add both to your incident one-pager."
+      ],
+      "sources": ["report-fraud", "ncsc-payfraud", "ncsc-recovery"]
+    },
+    {
+      "id": "rec-name-a-lead", "question": "ir3", "title": "Name who takes charge if something goes wrong",
+      "summary": "Choose one person to lead if there's an incident, and a backup for when they're away. It doesn't need to be an IT person.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Choose a lead and a backup.",
+        "Write both names on the incident one-pager.",
+        "Tell everyone who they are."
+      ],
+      "sources": ["ncsc-recovery"], "toolkit": "incident-one-pager"
+    },
+    {
+      "id": "rec-ai-inventory", "question": "ai1", "title": "Find out which AI tools your team uses",
+      "summary": "Ask everyone, without blame, which AI tools they use for work and what for. You can only set sensible rules once you know.",
+      "minutes": 20, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Ask the team: which AI tools do you use, on which device, and for what tasks?",
+        "Include AI features inside apps you already use, and free personal accounts.",
+        "Write the answers down. They're the starting point for your AI policy."
+      ],
+      "sources": ["ncsc-ai", "ico-ai"]
+    },
+    {
+      "id": "rec-approve-ai-tools", "question": "ai2", "title": "Choose approved AI tools and check their settings",
+      "summary": "Pick one or two AI tools for work, read how each handles what you type in, and set them up for business use. Ask staff to use only those for work.",
+      "minutes": 60, "cost": "Free or low cost", "effort": 2, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "From your list, choose the tools that cover what the team needs.",
+        "Read each tool's data and privacy settings, and how it may keep or use what's typed in.",
+        "Set them up with business accounts where available, and record them in your AI policy.",
+        "Ask staff to stop using other AI tools for work."
+      ],
+      "sources": ["ico-ai", "ncsc-ai"], "toolkit": "ai-policy"
+    },
+    {
+      "id": "rec-ai-data-rules", "question": "ai3", "title": "Agree what must never go into AI tools",
+      "summary": "Tell everyone: no customer details, staff records, passwords, bank details or confidential documents in AI tools. Once it's typed in, it has left the business.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Share the 'never put this into AI' list from the AI use policy.",
+        "Give two or three real examples from your own work.",
+        "Run the 'safe and unsafe prompts' training module with the team."
+      ],
+      "sources": ["ico-ai", "ncsc-ai"], "toolkit": "ai-policy"
+    },
+    {
+      "id": "rec-ai-anonymise", "question": "ai4", "title": "Take out names and details before asking AI",
+      "summary": "Teach staff to describe the situation without identifying anyone: 'a customer' rather than a name, with no addresses or order numbers. The answer is usually just as good.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Show a before and after example of a prompt with the personal details removed.",
+        "Add 'remove names and identifying details' to the AI policy.",
+        "Practise with the training module."
+      ],
+      "sources": ["ico-minimisation", "ico-ai"]
+    },
+    {
+      "id": "rec-ai-human-review", "question": "ai5", "title": "Check anything AI writes before customers see it",
+      "summary": "Make it a rule that a person reads AI-written emails, quotes and posts before they go out, checking facts, prices and promises. AI can be confidently wrong.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Agree the rule: nothing AI-written goes to a customer without a person reading it.",
+        "Check prices, dates, promises and anything that sounds too certain.",
+        "Add the rule to the AI policy."
+      ],
+      "sources": ["ncsc-ai"], "toolkit": "ai-policy"
+    },
+    {
+      "id": "rec-chatbot-handover", "question": "ai6", "title": "Make your chatbot hand over to a person",
+      "summary": "Set your chatbot to pass refunds, complaints and anything it's unsure about to a person, and to avoid making promises. Chatbots can be confidently wrong or talked into things.",
+      "minutes": 60, "cost": "Free or low cost", "effort": 2, "owner": "Owner", "quickWin": false,
+      "steps": [
+        "List the topics a person must handle, such as refunds, complaints, discounts and anything about health or money.",
+        "In the chatbot's settings, set those topics to hand over to your team.",
+        "Test it by asking for a refund and a made-up discount.",
+        "Review a sample of chats each month."
+      ],
+      "sources": ["ncsc-ai"]
+    },
+    {
+      "id": "rec-ai-policy", "question": "ai7", "title": "Write a one-page AI use policy",
+      "summary": "Use the toolkit template to set out approved tools, what never goes into them, and when a person must check the output. One page is enough for a small business.",
+      "minutes": 30, "cost": "Free", "effort": 1, "owner": "Owner", "quickWin": true,
+      "steps": [
+        "Download the AI acceptable use policy from the toolkit.",
+        "Fill in your approved tools and any rules specific to your work.",
+        "Share it with the team and include it in new starter packs."
+      ],
+      "sources": ["ncsc-ai", "ico-ai"], "toolkit": "ai-policy"
+    },
+    {
+      "id": "rec-ai-training", "question": "ai8", "title": "Show staff real examples of safe and unsafe AI use",
+      "summary": "Spend three minutes going through examples of what's fine to put into AI and what isn't. Examples stick better than rules.",
+      "minutes": 15, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Run the 'safe and unsafe AI prompts' module with the team.",
+        "Talk through any examples people weren't sure about.",
+        "Repeat for new starters."
+      ],
+      "sources": ["ncsc-ai"]
+    },
+    {
+      "id": "rec-callback-rule", "question": "ai9", "title": "Hang up and call back on a known number",
+      "summary": "If anyone, even 'the boss', calls, sends a voice note or video asking for an urgent payment, staff hang up and call back on a number they already have. AI can now fake voices and faces.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Agree the rule: urgent payment requests by phone or video are always checked by calling back on a known number.",
+        "Make sure staff have the real numbers for senior people saved.",
+        "Run the 'urgent call from the boss' training module."
+      ],
+      "sources": ["stf-business"]
+    },
+    {
+      "id": "rec-ai-phishing-awareness", "question": "ai10", "title": "Update how staff spot scam emails",
+      "summary": "Explain that spelling mistakes are no longer a reliable clue, because AI writes clean scam emails. Focus instead on what's being asked: money, passwords, urgency or a change of details.",
+      "minutes": 10, "cost": "Free", "effort": 1, "owner": "All staff", "quickWin": true,
+      "steps": [
+        "Share this rule: judge an email by what it asks you to do, not how well it's written.",
+        "Run the 'spot the phishing email' training module.",
+        "Remind staff to check unusual requests through a second channel."
+      ],
+      "sources": ["ncsc-ai-threat", "ncsc-phishing"]
+    }
+  ]
+}

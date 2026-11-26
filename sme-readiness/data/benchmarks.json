@@ -1,0 +1,26 @@
+{
+  "source": "dsit-csbs",
+  "edition": "Cyber Security Breaches Survey 2025/2026, published 30 April 2026",
+  "note": "Figures are quoted exactly from the gov.uk release. 'Micro' means 1 to 9 staff and 'small' 10 to 49, as the survey defines them. Where the survey gives no figure for a control, Kinhold says so rather than estimate.",
+  "context": [
+    { "id": "breach-all", "value": 43, "unit": "%", "text": "of UK businesses reported a cyber breach or attack in the last 12 months." },
+    { "id": "breach-micro", "value": 42, "unit": "%", "text": "of micro businesses reported a breach or attack in the last 12 months." },
+    { "id": "breach-small", "value": 46, "unit": "%", "text": "of small businesses reported a breach or attack in the last 12 months." },
+    { "id": "phishing-all", "value": 38, "unit": "%", "text": "of businesses experienced phishing, by far the most common type of attack." },
+    { "id": "it-role-micro", "value": 3, "unit": "%", "text": "of micro businesses have someone in an IT role looking after cyber security." }
+  ],
+  "controls": [
+    { "id": "twofa-micro", "value": 43, "unit": "%", "text": "of micro businesses require two-factor authentication, up from 35% the year before.", "questions": ["pw1", "pw2"], "size": "micro" },
+    { "id": "twofa-all", "value": 47, "unit": "%", "text": "of all businesses require two-factor authentication.", "questions": ["pw1", "pw2"], "size": "all" },
+    { "id": "malware-all", "value": 81, "unit": "%", "text": "of businesses have up-to-date malware protection.", "questions": ["dv1"], "size": "all" },
+    { "id": "backup-all", "value": 74, "unit": "%", "text": "of businesses back up data securely using a cloud service.", "questions": ["bk1"], "size": "all" },
+    { "id": "password-policy-all", "value": 74, "unit": "%", "text": "of businesses have password policies.", "questions": ["pw3"], "size": "all" },
+    { "id": "admin-rights-all", "value": 73, "unit": "%", "text": "of businesses restrict admin rights.", "questions": ["dv4", "ac3"], "size": "all" },
+    { "id": "ir-plan-micro", "value": 21, "unit": "%", "text": "of micro businesses have a written incident response plan.", "questions": ["ir1"], "size": "micro" },
+    { "id": "ir-plan-all", "value": 25, "unit": "%", "text": "of all businesses have a formal incident response plan.", "questions": ["ir1"], "size": "all" },
+    { "id": "ir-roles-all", "value": 39, "unit": "%", "text": "of businesses have assigned roles or responsibilities for incidents.", "questions": ["ir3"], "size": "all" },
+    { "id": "supplier-review-all", "value": 15, "unit": "%", "text": "of businesses review the cyber risks posed by their immediate suppliers.", "questions": ["sp2"], "size": "all" },
+    { "id": "ai-adopting-all", "value": 31, "unit": "%", "text": "of businesses are using, adopting or considering AI.", "questions": ["ai1"], "size": "all" },
+    { "id": "ai-practices-all", "value": 24, "unit": "%", "text": "of businesses using or considering AI have cyber security practices to manage its risks.", "questions": ["ai7"], "size": "all" }
+  ]
+}

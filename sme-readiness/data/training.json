@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "note": "Each module takes about 3 minutes: a short intro, one hands-on activity and a 3-question quiz. Passing (2 of 3 or better) unlocks a certificate with the staff member's name. All examples are invented.",
+  "modules": [
+    {
+      "id": "fake-invoice", "title": "Spot the fake invoice", "minutes": 3,
+      "intro": "Invoice fraud is when a criminal sends an invoice, or a 'bank details have changed' note, so that a real payment goes to their account instead. It works because it looks like normal paperwork.",
+      "activity": {
+        "type": "hotspots",
+        "prompt": "Tap the four things on this invoice email that should make you stop and check.",
+        "item": {
+          "from": "Kestrel Print Co <billing@kestrelprint-co.uk>",
+          "knownSender": "kestrelprint.co.uk",
+          "subject": "Overdue: invoice KP-0931",
+          "lines": [
+            { "text": "From: billing@kestrelprint-co.uk", "hotspot": "h1" },
+            { "text": "Hello, please find invoice KP-0931 attached for £2,365.40." },
+            { "text": "Our bank has changed, so please pay to the new account below.", "hotspot": "h2" },
+            { "text": "Sort code 00-55-66, account 00024680." },
+            { "text": "This invoice is now overdue. Please pay today to avoid a late fee.", "hotspot": "h3" },
+            { "text": "Please reply to this email to confirm once paid, rather than calling, as our phones are down.", "hotspot": "h4" }
+          ],
+          "hotspots": {
+            "h1": "The address is 'kestrelprint-co.uk', not the 'kestrelprint.co.uk' you've used before. One extra hyphen.",
+            "h2": "A change of bank details. Always phone on a number you already have before paying.",
+            "h3": "Pressure to pay today. Real suppliers can wait for you to check.",
+            "h4": "Trying to stop you phoning. That's exactly the check that would catch it."
+          }
+        }
+      },
+      "quiz": [
+        {
+          "q": "A regular supplier emails to say their bank details have changed. What should you do first?",
+          "options": ["Update the details and pay as normal", "Reply to the email to confirm", "Phone the supplier on a number you already have", "Wait for a second email"],
+          "answer": 2,
+          "explain": "Phoning on a number you already have is the one check that reliably catches invoice fraud. Replying goes straight back to the scammer.",
+          "sources": ["stf-business"]
+        },
+        {
+          "q": "Which of these is a sign of a lookalike email address?",
+          "options": ["The email has your supplier's logo", "The address is accounts@harbourmi11foods.co.uk instead of harbourmillfoods.co.uk", "The email arrived on a Monday", "The invoice number is new"],
+          "answer": 1,
+          "explain": "Swapping a letter for a number is a common trick. Logos are easy to copy, so they prove nothing.",
+          "sources": ["stf-business"]
+        },
+        {
+          "q": "Why do scammers often say an invoice is overdue?",
+          "options": ["To be polite", "To rush you so you don't check", "Because it's a legal requirement", "To get a discount"],
+          "answer": 1,
+          "explain": "Urgency is designed to stop you thinking or checking with anyone.",
+          "sources": ["stf-business"]
+        }
+      ]
+    },
+    {
+      "id": "phishing-email", "title": "Spot the phishing email", "minutes": 3,
+      "intro": "Phishing is a fake message designed to make you click a link, enter a password or open a harmful file. AI now writes these without spelling mistakes, so judge an email by what it asks you to do, not how well it's written.",
+      "activity": {
+        "type": "hotspots",
+        "prompt": "Tap the four warning signs in this email.",
+        "item": {
+          "from": "Parcel Delivery <notice@delivery-reschedule-uk.com>",
+          "subject": "We tried to deliver your parcel",
+          "lines": [
+            { "text": "Dear customer,", "hotspot": "h1" },
+            { "text": "We were unable to deliver your parcel today because of an unpaid fee of £1.99." },
+            { "text": "Pay within 24 hours or your parcel will be returned to the sender.", "hotspot": "h2" },
+            { "text": "Reschedule here: delivery-reschedule-uk.com/pay", "hotspot": "h3" },
+            { "text": "You will need to enter your card details and email password to confirm your identity.", "hotspot": "h4" }
+          ],
+          "hotspots": {
+            "h1": "A generic greeting. Companies you deal with usually use your name.",
+            "h2": "A deadline and a threat, to rush you.",
+            "h3": "A link to a website you don't recognise. Go to the courier's site yourself instead.",
+            "h4": "No delivery company needs your email password. This is the real goal."
+          }
+        }
+      },
+      "quiz": [
+        {
+          "q": "An email is perfectly written, with no spelling mistakes. Does that mean it's genuine?",
+          "options": ["Yes, scam emails always have mistakes", "No, AI now writes scam emails without mistakes", "Only if it has a logo", "Only if it's from a big company"],
+          "answer": 1,
+          "explain": "The NCSC says AI helps criminals write convincing phishing without the mistakes that used to give it away.",
+          "sources": ["ncsc-ai-threat"]
+        },
+        {
+          "q": "You clicked a link in an email and then realised it was fake. What should you do?",
+          "options": ["Say nothing and hope for the best", "Tell the person who handles IT straight away", "Delete the email and carry on", "Forward it to everyone as a warning"],
+          "answer": 1,
+          "explain": "The sooner someone knows, the less damage it does. You won't be in trouble for reporting it.",
+          "sources": ["ncsc-phishing"]
+        },
+        {
+          "q": "Where can you forward a suspicious email in the UK?",
+          "options": ["report@phishing.gov.uk", "The sender, to ask if it's real", "Your bank's general email", "Nowhere, just delete it"],
+          "answer": 0,
+          "explain": "The NCSC's free reporting service checks the email and can take down the scam website.",
+          "sources": ["ncsc-report-email"]
+        }
+      ]
+    },
+    {
+      "id": "ai-prompts", "title": "Safe and unsafe AI prompts", "minutes": 3,
+      "intro": "AI tools can save time, but whatever you type in has left the business. The simple rule: describe the situation, not the person. Never paste customer details, staff records, passwords or bank details.",
+      "activity": {
+        "type": "sort",
+        "prompt": "Sort each prompt into 'Fine' or 'Never put this into an AI tool'.",
+        "bins": [{ "id": "fine", "label": "Fine" }, { "id": "never", "label": "Never put this into an AI tool" }],
+        "items": [
+          { "text": "Write a friendly reply to a customer whose order arrived late, offering a 10% discount.", "bin": "fine", "why": "No personal details, just the situation." },
+          { "text": "Here's Sarah Jones's complaint email with her address and order history. Write a reply.", "bin": "never", "why": "It contains a named customer's personal details. Describe the situation instead." },
+          { "text": "Suggest five Instagram captions for our new spring menu.", "bin": "fine", "why": "Public marketing content with nothing confidential." },
+          { "text": "Here is our staff spreadsheet with salaries and home addresses. Make it into a nice table.", "bin": "never", "why": "Staff personal and pay details should never go into an AI tool." },
+          { "text": "Check the grammar of this paragraph from our website's About page.", "bin": "fine", "why": "It's already public." },
+          { "text": "Our bank login keeps failing. Here's the username and password, what's wrong?", "bin": "never", "why": "Never share passwords with anyone, including AI tools." },
+          { "text": "Explain in plain English what 'data minimisation' means for a small salon.", "bin": "fine", "why": "A general question with no personal or confidential data." },
+          { "text": "Summarise this client's medical history so I can prepare for their appointment.", "bin": "never", "why": "Health information is especially sensitive personal data." },
+          { "text": "Draft a polite payment reminder for an invoice that's 14 days overdue.", "bin": "fine", "why": "A template with no names or account details." },
+          { "text": "Here's our supplier contract, which is marked confidential. Find any risks.", "bin": "never", "why": "Confidential business documents shouldn't leave the business without approval." }
+        ]
+      },
+      "quiz": [
+        {
+          "q": "What's the simplest rule for using AI tools safely at work?",
+          "options": ["Only use AI on Fridays", "Describe the situation, not the person", "Always paste the full email for context", "Use any free tool you like"],
+          "answer": 1,
+          "explain": "Leaving out names and identifying details usually gives just as good an answer, and keeps personal data in the business.",
+          "sources": ["ico-minimisation", "ico-ai"]
+        },
+        {
+          "q": "An AI tool writes a reply promising a customer a full refund. What should you do?",
+          "options": ["Send it, the AI knows best", "Check it against your refund policy before sending", "Ask the AI if it's sure", "Send it and correct it later if needed"],
+          "answer": 1,
+          "explain": "AI can state wrong things confidently. A person checks anything before it reaches a customer.",
+          "sources": ["ncsc-ai"]
+        },
+        {
+          "q": "Which of these should never go into an AI tool?",
+          "options": ["A question about grammar", "Ideas for a social media post", "A customer's name, address and order history", "A general question about the law"],
+          "answer": 2,
+          "explain": "Customer details are personal data and shouldn't be pasted into AI tools.",
+          "sources": ["ico-ai"]
+        }
+      ]
+    },
+    {
+      "id": "urgent-call", "title": "The urgent call from the boss", "minutes": 3,
+      "intro": "Criminals now use AI to copy a person's voice or face from a few online clips. They pretend to be the boss or a supplier and ask for an urgent payment. The fix is simple: hang up and call back on a number you already have.",
+      "activity": {
+        "type": "scenario",
+        "prompt": "Choose what you'd do at each step.",
+        "steps": [
+          {
+            "situation": "At 4.40pm your phone rings from an unknown number. It sounds exactly like the owner: 'My phone's died, I'm on a borrowed one. I need you to pay a new supplier £3,200 before the bank closes.'",
+            "choices": [
+              { "text": "Make the payment, it's definitely their voice", "good": false, "feedback": "A voice can be copied with AI. Recognising it isn't proof." },
+              { "text": "Say you'll call them straight back, then hang up", "good": true, "feedback": "Right. Ending the call puts you back in control." },
+              { "text": "Ask them a few questions to check it's really them", "good": false, "feedback": "Better than paying, but a scammer may know the answers from social media. Calling back is stronger." }
+            ]
+          },
+          {
+            "situation": "You hang up. Which number do you call?",
+            "choices": [
+              { "text": "The number they just called from", "good": false, "feedback": "That goes straight back to the caller." },
+              { "text": "The owner's usual number saved in your phone", "good": true, "feedback": "Yes. Only a number you already have reaches the real person." },
+              { "text": "A number they texted you afterwards", "good": false, "feedback": "Any number sent by the caller could be theirs." }
+            ]
+          },
+          {
+            "situation": "The owner doesn't answer their usual number. The 'supplier' emails asking why the money hasn't arrived.",
+            "choices": [
+              { "text": "Pay it, they're clearly waiting", "good": false, "feedback": "Pressure from the 'supplier' is another warning sign." },
+              { "text": "Wait, and keep trying the owner or another senior person you trust", "good": true, "feedback": "Correct. A genuine payment can wait. A scam can't." },
+              { "text": "Pay half to keep them happy", "good": false, "feedback": "Any payment to an unchecked account is at risk." }
+            ]
+          }
+        ]
+      },
+      "quiz": [
+        {
+          "q": "Can criminals copy someone's voice with AI?",
+          "options": ["No, voices can't be faked", "Yes, from short clips found online", "Only famous people's voices", "Only on video calls"],
+          "answer": 1,
+          "explain": "Government fraud guidance warns that criminals use deepfake audio or video to impersonate senior people.",
+          "sources": ["stf-business"]
+        },
+        {
+          "q": "The 'boss' asks for an urgent payment by voice note from a new number. What do you do?",
+          "options": ["Pay quickly so they're not kept waiting", "Reply to the voice note asking if it's real", "Call the boss back on the number you already have", "Forward it to a colleague to pay"],
+          "answer": 2,
+          "explain": "Call back on a known number. Never use contact details from the message itself.",
+          "sources": ["stf-business"]
+        },
+        {
+          "q": "If money has already been sent to a scammer, who should you call first?",
+          "options": ["Your bank, straight away", "The scammer, to ask for it back", "Nobody, it's too late", "Your accountant at the end of the month"],
+          "answer": 0,
+          "explain": "Calling your bank quickly gives the best chance of stopping the payment. Then report it to Report Fraud on 0300 123 2040.",
+          "sources": ["ncsc-payfraud", "report-fraud"]
+        }
+      ]
+    }
+  ]
+}
