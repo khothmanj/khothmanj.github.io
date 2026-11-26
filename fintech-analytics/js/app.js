@@ -83,7 +83,7 @@
     const el = $('#view');
     if (current && current.cleanup) { try { current.cleanup(); } catch (e) {} }
     current = def;
-    const navItem = NAV.find((n) => n.id === route.name);
+    const navItem = NAV.find((n) => n.id === route.name) || ({ customer: { label: 'Customer 360' } })[route.name];
     $('#ws-view').textContent = navItem ? navItem.label : 'Product analytics';
     document.title = (navItem ? navItem.label + ' · ' : '') + 'Signal';
     renderNav(route.name);

@@ -362,6 +362,7 @@ ORDER BY days_waiting DESC;`,
     skills: ['correlated subquery', 'CASE', 'LEFT JOIN', 'string building'],
     sql: `-- Lenders who signed up at least 14 days ago, have no successful live call and have not cancelled.
 -- The reason and next action are inferred from how far they got and what they did last.
+-- Anyone idle for over 180 days is Dormant: a re-engagement email, not a call.
 WITH as_of AS (
   SELECT value AS day FROM meta WHERE key = 'as_of'
 ), latest_review AS (
@@ -395,6 +396,7 @@ WITH as_of AS (
 )
 SELECT id, name, lender_type, plan, account_manager, signup_date, days_in_stage, errors_last_7_days,
        CASE
+         WHEN days_in_stage > 180 AND COALESCE(review_outcome, '') <> 'pending' THEN 'Dormant'
          WHEN furthest_stage <= 2 THEN 'Not started'
          WHEN furthest_stage = 3 AND review_outcome IS NULL THEN 'Sandbox only'
          WHEN furthest_stage = 3 THEN 'In compliance'
@@ -410,6 +412,7 @@ SELECT id, name, lender_type, plan, account_manager, signup_date, days_in_stage,
          ELSE 'Live keys for ' || days_in_stage || ' days, no successful live call, ' || errors_last_7_days || ' errors last week'
        END AS reason,
        CASE
+         WHEN days_in_stage > 180 AND COALESCE(review_outcome, '') <> 'pending' THEN 'Add to the quarterly re-engagement email'
          WHEN furthest_stage <= 2 THEN 'Send the sandbox quickstart and offer a setup call'
          WHEN furthest_stage = 3 AND review_outcome IS NULL THEN 'Book an integration call and share the compliance checklist'
          WHEN review_outcome = 'pending' THEN 'Move the review up the compliance queue'
@@ -418,12 +421,22 @@ SELECT id, name, lender_type, plan, account_manager, signup_date, days_in_stage,
          ELSE 'Review their request logs with the lender'
        END AS next_action,
        CASE
+         WHEN days_in_stage > 180 AND COALESCE(review_outcome, '') <> 'pending' THEN 'Marketing'
          WHEN review_outcome IN ('pending', 'rejected') THEN 'Compliance'
          WHEN furthest_stage = 5 THEN 'Solutions engineering'
          ELSE 'Customer Success'
-       END AS owner
+       END AS owner,
+       -- Priority: lenders waiting on us first, dormant accounts last.
+       CASE
+         WHEN review_outcome = 'pending' THEN 1
+         WHEN days_in_stage > 180 THEN 6
+         WHEN furthest_stage = 5 THEN 2
+         WHEN review_outcome = 'info_requested' THEN 3
+         WHEN furthest_stage = 3 THEN 4
+         ELSE 5
+       END AS priority
 FROM stuck
-ORDER BY days_in_stage DESC;`,
+ORDER BY priority, days_in_stage DESC;`,
   });
 
   add({
@@ -431,7 +444,7 @@ ORDER BY days_in_stage DESC;`,
     question: 'Which live customers are using us less than three months ago, and is there a clue why?',
     skills: ['LAG with an offset', 'GROUP_CONCAT', 'correlated subquery'],
     sql: `-- Successful live calls in the latest month against three months earlier.
--- Flags live customers down 30% or more, with their latest support ticket as a clue.
+-- Flags live customers down 30% or more, with their latest pricing or error ticket as a clue.
 WITH monthly AS (
   SELECT cm.customer_id, cm.month, cm.live_calls, cm.revenue_ngn,
          LAG(cm.live_calls, 3) OVER (PARTITION BY cm.customer_id ORDER BY cm.month) AS calls_3_months_before
@@ -450,10 +463,10 @@ SELECT c.id, c.name, c.plan, c.size_band, c.account_manager,
        ROUND(100.0 * (l.live_calls - l.calls_3_months_before) / l.calls_3_months_before, 1) AS change_pct,
        ROUND(l.revenue_ngn) AS revenue_latest_month,
        t.last_12_months,
-       (SELECT st.category FROM support_tickets st WHERE st.customer_id = c.id ORDER BY st.opened_at DESC LIMIT 1) AS last_ticket_category,
-       (SELECT st.subject FROM support_tickets st WHERE st.customer_id = c.id ORDER BY st.opened_at DESC LIMIT 1) AS last_ticket,
+       clue.category AS last_ticket_category,
+       clue.subject AS last_ticket,
        'Usage down ' || CAST(ROUND(100.0 * (l.calls_3_months_before - l.live_calls) / l.calls_3_months_before) AS INTEGER) || '% over 3 months' AS reason,
-       CASE (SELECT st.category FROM support_tickets st WHERE st.customer_id = c.id ORDER BY st.opened_at DESC LIMIT 1)
+       CASE clue.category
          WHEN 'billing' THEN 'Review pricing and offer a volume tier'
          WHEN 'api_errors' THEN 'Go through their error logs with Engineering'
          ELSE 'Check in on their lending plans'
@@ -462,6 +475,12 @@ SELECT c.id, c.name, c.plan, c.size_band, c.account_manager,
 FROM latest l
 JOIN customers c ON c.id = l.customer_id
 JOIN trend t ON t.customer_id = c.id
+-- The clue: their latest pricing or error ticket in the last six months.
+LEFT JOIN support_tickets clue ON clue.id = (
+  SELECT st.id FROM support_tickets st
+  WHERE st.customer_id = c.id AND st.category IN ('billing', 'api_errors')
+    AND st.opened_at > date('{{to}}', '-6 months') AND st.opened_at <= '{{to}} 23:59'
+  ORDER BY st.opened_at DESC LIMIT 1)
 WHERE l.calls_3_months_before > 0
   AND l.live_calls <= 0.7 * l.calls_3_months_before{{seg c}}
 ORDER BY change_pct;`,
@@ -594,6 +613,20 @@ ORDER BY u.month, e.id;`,
   });
 
   add({
+    id: 'usage_fees', view: 'usage', title: 'Platform fees by month',
+    question: 'How much revenue comes from monthly platform fees rather than calls?',
+    skills: ['GROUP BY', 'shared definitions'],
+    sql: `-- Fees are not tied to an endpoint, so they are a separate layer in the usage chart.
+SELECT cm.month,
+       ROUND(SUM(cm.platform_fee_ngn)) AS platform_fees_ngn
+FROM customer_months cm
+JOIN customers c ON c.id = cm.customer_id
+WHERE cm.month BETWEEN '{{from_month}}' AND '{{to_month}}'{{seg c}}
+GROUP BY cm.month
+ORDER BY cm.month;`,
+  });
+
+  add({
     id: 'usage_concentration', view: 'usage', title: 'Revenue concentration',
     question: 'How much of our revenue depends on our biggest customers?',
     skills: ['RANK', 'running total', 'share of total'],
@@ -623,8 +656,9 @@ ORDER BY rank;`,
     skills: ['conditional aggregation', 'ranking both ends'],
     sql: `WITH periods AS (
   SELECT cm.customer_id,
-         SUM(CASE WHEN cm.month > strftime('%Y-%m', '{{to_month}}-01', '-3 months') THEN cm.revenue_ngn END) AS last_3_months,
-         SUM(CASE WHEN cm.month <= strftime('%Y-%m', '{{to_month}}-01', '-3 months') THEN cm.revenue_ngn END) AS previous_3_months
+         -- A customer who cancelled has no recent months, so count those as zero.
+         COALESCE(SUM(CASE WHEN cm.month > strftime('%Y-%m', '{{to_month}}-01', '-3 months') THEN cm.revenue_ngn END), 0) AS last_3_months,
+         COALESCE(SUM(CASE WHEN cm.month <= strftime('%Y-%m', '{{to_month}}-01', '-3 months') THEN cm.revenue_ngn END), 0) AS previous_3_months
   FROM customer_months cm
   WHERE cm.month > strftime('%Y-%m', '{{to_month}}-01', '-6 months')
     AND cm.month <= '{{to_month}}'
@@ -635,7 +669,7 @@ ORDER BY rank;`,
   WHERE previous_3_months >= 300000
 )
 SELECT CASE WHEN ch.change_pct >= 0 THEN 'Growing' ELSE 'Declining' END AS direction,
-       c.name, c.plan,
+       c.id, c.name, c.plan,
        ROUND(ch.previous_3_months) AS previous_3_months_ngn,
        ROUND(ch.last_3_months) AS last_3_months_ngn,
        ROUND(ch.change_pct, 1) AS change_pct
