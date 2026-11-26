@@ -84,7 +84,8 @@
   // Area names contain 'and', so use a final comma when any item does, for clarity.
   const list = (items) => items.length <= 1 ? items.join('') : items.slice(0, -1).join(', ') + (items.some((i) => / and /.test(i)) ? ', and ' : ' and ') + items[items.length - 1];
   const ESSENTIAL = { pw1: '2-step verification on your business email', pay1: 'phoning to check any change of bank details' };
-  const lowerFirst = (s) => s.charAt(0).toLowerCase() + s.slice(1);
+  // Lowercase the first letter for use mid-sentence, but leave acronyms such as 'AI' alone.
+  const lowerFirst = (s) => /^[A-Z]{2}/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1);
 
   function summary(content, result, actions, businessName) {
     if (result.level === null) return { headline: 'Answer a few questions to see where you stand.', paragraphs: [] };

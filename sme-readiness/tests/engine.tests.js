@@ -155,6 +155,12 @@
       const s = R.summary(Q, r, R.rank(Q, REC, fullProfile, a));
       return [s.paragraphs.some((p) => /held at Building until one essential is in place: 2-step verification on your business email/.test(p)), s.paragraphs.join(' ')];
     });
+    test('Summaries keep acronyms such as AI in capitals', () => {
+      const a = answerAll(fullProfile, 'no'); ['ai7', 'ai8', 'ai1', 'ai2'].forEach((id) => { a[id] = 'yes'; });
+      const r = S.score(Q, fullProfile, a);
+      const t = R.summary(Q, r, R.rank(Q, REC, fullProfile, a)).paragraphs.join(' ');
+      return [!/\baI\b/.test(t) && /AI rules/.test(t), t];
+    });
     test('Summaries never claim compliance, certification or safety', () => {
       const texts = ['yes', 'no', 'partly', 'unsure'].map((v) => { const a = answerAll(fullProfile, v); const r = S.score(Q, fullProfile, a); const s = R.summary(Q, r, R.rank(Q, REC, fullProfile, a)); return s.headline + ' ' + s.paragraphs.join(' '); });
       const bad = texts.filter((t) => BANNED.some((re) => re.test(t)));
