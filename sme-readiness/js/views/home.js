@@ -27,7 +27,7 @@
           '</div>' +
           '<p class="note"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="2"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Free, no sign-up. Your answers stay on this device.</p>' +
         '</div>' +
-        '<div class="hero-art" aria-hidden="true">' + A.ill('shield', { cls: 'big' }) + A.ill('key', { cls: 'float f1' }) + A.ill('envelope', { cls: 'float f2' }) + A.ill('speech-lock', { cls: 'float f3' }) + '</div>' +
+        '<div class="hero-art" aria-hidden="true">' + '<img class="big" src="img/hero/shield-ai.webp" width="458" height="560" alt="" decoding="async">' + '<span class="float f1">' + '<img src="img/hero/padlock.webp" width="214" height="240" alt="" decoding="async">' + '</span>' + '<span class="float f2">' + '<img src="img/hero/message-lock.webp" width="240" height="193" alt="" decoding="async">' + '</span>' + '<span class="float f3">' + '<img src="img/hero/chip.webp" width="240" height="238" alt="" decoding="async">' + '</span>' + '<span class="float f4">' + '<img src="img/hero/shield-check.webp" width="191" height="240" alt="" decoding="async">' + '</span>' + '</div>' +
       '</section>' +
       '<nav class="try glass" aria-label="Try these"><p>Try these</p>' +
         '<a href="#check/start">Take the 15-minute check</a><a href="#checker">Test a suspicious message</a><a href="#adviser">See an adviser\'s client view</a></nav>' +
